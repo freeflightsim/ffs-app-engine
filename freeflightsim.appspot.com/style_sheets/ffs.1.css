@@ -1,0 +1,68 @@
+
+
+
+
+/********************************************************/
+/** Main Containers           **/
+/********************************************************/
+
+
+body{
+	DDbackground-color: gray;
+}
+
+#main_container{
+	margin: 10px auto;
+	max-width: 1000px;
+	min-height: 700px;
+	DDbackground-color: #efefef;
+}
+
+
+
+
+/********************************************************/
+/** Site Nav                 **/
+/********************************************************/
+
+#site_nav_box{
+	margin: 20px 0px 20px 0px;
+}
+
+
+#navlist
+{
+margin: 0;
+padding: 0 0 20px 10px;
+border-bottom: 1px solid #000;
+}
+
+#navlist ul, #navlist li
+{
+	margin: 0;
+	padding: 0;
+	display: inline;
+	list-style-type: none;
+}
+
+#navlist a:link, #navlist a:visited
+{
+	float: left;
+	line-height: 14px;
+	font-weight: bold;
+	margin: 0 10px 4px 10px;
+	text-decoration: none;
+	color: #999;
+}
+
+#navlist a.selected
+{
+	border-bottom: 4px solid #1D6BA5;
+	padding-bottom: 2px;
+	background: transparent;
+	color: #000;
+}
+
+#navlist a:hover { 
+	color: #000; 
+}

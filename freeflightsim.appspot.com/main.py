@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
 
 """
-This is the main handler and is responsible of the public html area.
+This is the script that runs for most pages,
+it starts a wsgi application
 """
-
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-import app.Handler
+## Load Configuation
+import conf
 
-application = webapp.WSGIApplication([	('/(.*)/(.*)/', app.Handler.PageHandler),
-										('/(.*)/', app.Handler.PageHandler),
-										('/', app.Handler.PageHandler),
+## Load main handler class
+import app.MainHandler
+
+## Map Url's to MainHandler class eg /foo/bar/, /foo/ or /
+application = webapp.WSGIApplication([	('/(.*)/(.*)/', app.MainHandler.MainHandler),
+										('/(.*)/', app.MainHandler.MainHandler),
+										('/', app.MainHandler.MainHandler),
 										
 									],
 									debug=conf.DEBUG)

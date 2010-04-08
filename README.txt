@@ -1,3 +1,23 @@
+=============================================================
+== App Engine - freeflightsim.appsot.com ==
+=============================================================
+
+== Dev server ==
+Execute 
+./run_server 
+to start the local server, browse at
+http://localhost:8080/
+
+== App Update ==
+Update the online application with
+./upload.sh
+
+### Important ###
+If you need to bump the version number in app.yaml,
+then increment as digits eg "1,2,3,4" etc
+DO NOT USE "2.dev" or any non mumeric characters.
+The manual says you can, but experience shows is causes problems.
+
 
 
 =============================================================

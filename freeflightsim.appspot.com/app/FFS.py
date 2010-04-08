@@ -18,31 +18,6 @@ import conf
 ##############################################################
 class FFS:
 
-	def liveries(self):
-		return app.fetch.liveries()
-
-	### Forums
-	def forums_list(self):
-		return  [ 
-			{'key': 'general', 'id': 2, 'title': 'General Help'},
-			{'key': 'install', 'id': 11,'title': 'Install Help'},
-			{'key': 'events', 'id': 10, 'title':'Events'},
-			{'key': 'aircraft', 'id': 4, 'title':'Aircraft Development'},
-			{'key': 'scenery', 'id': 5, 'title':'Scenery Enancment'},
-			{'key': 'stories', 'id': 3, 'title':'Stories and Humour'},
-			{'key': 'new_features', 'id': 6, 'title':'New Features'}
-		]
-
-	### Irc Channels
-	def irc_channels(self):
-		return [ 
-			{'channel': 'flightgear', 'title': 'Main Channel'},
-			{'channel': 'fg_cantene', 'title': 'Pilots Mess' },
-			{'channel': 'fg_school', 'title': 'Flight Training' },
-			{'channel': 'airliners', 'title': 'flightgear'},
-			{'channel': 'wiki', 'title': 'Wiki Chat' }
-		]
-	
 
 	## Gallery
 	def gallery(self):
@@ -55,6 +30,7 @@ class FFS:
 	def nav(self):
 		"""Return navigation - used in tempalte """
 		return self._nav
+
 
 	def title(self, path):
 		"""Return the title or label from path based lookup"""
@@ -100,18 +76,21 @@ class FFS:
 							{'path':'/about/license/', 'label': 'License'}
 						]
 		})
+
 		self.nav_append( {'path':'/media/', 'label': 'Media', 
 						'subnav': [	
 							{'path':'/media/videos/', 'label': 'Videos', 'title': 'Videos'},
 							{'path':'/media/gallery/', 'label': 'Image Gallery'}
 						]
 		})
+
 		self.nav_append( {'path':'/support/', 'label': 'Support', 
 						'subnav': [	
 							{'path':'/support/docs/', 'label': 'Documentation'},
 							{'path':'/support/faq/', 'label': 'FAQ', 'title': 'Frequently Answered Questions'}
 						]
 		})
+
 		self.nav_append( {'path':'/download/', 'label': 'Buy', 'title': 'Download Central',
 					'subnav': [	
 						{'path':'/download/requirements/', 'label': 'Requirements', 'title': 'Hardware Requirements'}, 	
@@ -121,23 +100,7 @@ class FFS:
 						{'path':'/download/versions/', 'label': 'Versions', 'title': 'Version Summary'},
 					]
 		})
-		#nav.append( {'path':'/features/', 'label': 'Features'} )
-		#self.nav_append( {'path':'/aircraft/', 'label': 'Aircraft'} )
-		#self.nav_append( {'path':'/multiplayer/', 'label': 'Online Multi Player' })
-		"""
-		, 			'subnav': [	
-							{'path':'/multiplayer/servers/', 'label': 'Servers'},
-							{'path':'/multiplayer/pilots/', 'label': 'Pilots'},
-							{'path':'/multiplayer/atc/', 'label': 'ATC'},
-							{'path':'/multiplayer/map/', 'label': 'Online Map'}
-					]
-		})
-		"""
-		#self.nav_append( {'path':'/mpservers/', 'label': 'Aircraft'} )
-		#nav.append( {'path':'/mapservers/', 'label': 'Map Servers'} )
-		#nav.append( {'path':'/developers/', 'label': 'Developers'} )
-
-
+		
 		self.nav_append( {'path':'/developers/', 'label': 'Developers',
 					'subnav': [	
 							{'path':'/developers/src/', 'label': 'Source Code'},
@@ -151,4 +114,4 @@ class FFS:
 					]
 		})
 
-## << class FG_Nav
+

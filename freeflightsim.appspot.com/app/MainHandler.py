@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+The main handler page 
+"""
+
 import os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -19,7 +23,7 @@ class MainHandler(webapp.RequestHandler):
 
 
 		## Application Calls Object
-		Appo = app.FG_App.FG_App()
+		Appo = app.FFS.FFS()
 		template_vars['appo'] = Appo
 		#print "##", fgApp.mp_servers_info()
 
