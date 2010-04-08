@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1;">
+<title>{{ title }} | {{ conf.SITE_TITLE }}</title>
+
+<script type="text/javascript" sssrc="http://fg-cache.appspot.com/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" sssrc="http://fg-cache.appspot.com/js/jquery-lightbox-0.5/js/jquery.lightbox-0.5.js"></script>
+<link rel="stylesheet" type="text/css" sshref="http://fg-cache.appspot.com/js/jquery-lightbox-0.5/css/jquery.lightbox-0.5.css" media="screen">
+
+
+<link rel="stylesheet" type="text/css" sshref="http://fg-cache.appspot.com/style_sheets/reset.css">
+<link rel="stylesheet" type="text/css" sshref="http://fg-master.appspot.com/style_sheets/global.1.css">
+
+
+<script type="text/javascript" src="/js/front.js"></script>
+
+</head> 
+<body> 
+
+
+<div id="main_container">
+
+<!--######################################################-->
+<!--### Left Block ###-->
+<!--######################################################-->
+<div id="left_box">
+
+	<!--## Logo ##-->
+	<div id="ffs_logo"><img src="/images/ffs.png"></div>
+
+	<!--## Navigation  ##-->
+	<div id="navcontainer">
+		<ul>
+			{% for n in app.nav %}
+			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label}}</a>
+			{% if n.subnav %}
+			<ul>
+			{% for sn in n.subnav %}
+			<li><a {% ifequal path sn.path  %}class="selected"{% endifequal %} href="{{ sn.path }}">{{ sn.label }}</a></li>
+			{% endfor %}
+			</ul>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+
+
+</div><!-- left_box -->
+
+
+
+<div id="middle_box">
+
+
+<!--######################################################-->
+<!-- ### Top Banner ###-->
+<!--######################################################-->
+<div id="top_box">
+	<div id="sites_nav">
+		<ul>
+			{% for site in conf.sites_nav %}
+			<li><a href="{{ site.url }}" 
+					{% ifequal site.id conf.APP_ID %}class="selected"{% endifequal %}
+					>{{ site.label }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+
+		
+		
+		<h1>{{ conf.SITE_HEADER }}</h1>
+		<table class="top_bar">
+			<tr>
+			<th><i>The World's Leading Open Source Flight Simulator<i>  </th>
+			<td><a href="/idea/multiplayer/pilots/">Pilots: {{ conf.app_vars.pilots_info.pilots_count|default:"--" }}</a></td>
+			<td><a href="/idea/multiplayer/atc/">ATC: {{ conf.app_vars.pilots_info.atc_count|default:"--" }}</a></td>
+			<td><a sshref="http://fg-online.appspot.com/servers/">Servers: 
+				{{ app.mp_servers_info.total|default:"--" }} Nodes / <span style="color: green">{{ app.mp_servers_info.up|default:"--" }} Up</span> / <span style="color: red">{{ app.mp_servers_info.down|default:"--" }} down</span></a></td>
+			</tr>
+		</table>
+
+
+
+	<table id="toolbar_box">
+	<tr>
+
+		<td><!-- TODO Google Search -->
+			<form action="http://www.google.com/cse" ssid="cse-search-box" class="toolbar_form">
+			<div>
+				<input type="hidden" name="cx" value="014455812952330413319:i-xxrdkrna4" />
+				<input type="hidden" name="ie" value="UTF-8" />
+				<input type="text" name="q" size="21" />
+				<input type="submit" name="sa" value="Search" />
+			</div>
+			</form>
+			<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&lang=en"></script>
+		</td>
+
+		<td style="text-align:right;"><!-- Profile +  Login/Out -->
+			<div class="account">
+			{% if conf.app_vars.nickname %}
+				<a href="/account/">{{ conf.app_vars.nickname }}</a><a href="{{ conf.app_vars.auth_url }}">Logout</a>
+			{% else %}
+				<a href="{{ conf.app_vars.auth_url }}">Login</a>
+			{% endif %}
+			</div>
+		</td>
+	</tr>
+	</table>
+
+</div><!-- top box -->
+
+<!--######################################################-->
+<!-- ### Right Box ###-->
+<!--######################################################-->
+<div id="right_box">
+	{% block right_box %}
+
+	{% endblock right_box %}
+</div><!-- right box -->
+
+
+<div id="content_box">
+	<h1>{{ title }}</h1>
+	{% block content %}
+	{% endblock content %}
+</div><!-- content box -->
+
+</div><!-- middle box -->
+
+
+<div id="footer_box">
+
+<p>
+
+<a href="https://appengine.google.com/dashboard?&app_id=freeflightsim">Dashboard</a> - 
+<a href="http://localhost:8080">Local Site</a> - 
+<a href="http://localhost:8080/_ah/admin/">Local Admin</a> - 
+
+&copy; 2010+ FreeFlightSim - all right reserved etc
+-
+
+</div><!-- end footer-->
+
+</div><!-- end main_container -->
+
+
+</body> 
+</html>
