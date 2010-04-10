@@ -20,29 +20,16 @@
 </head> 
 <body> 
 
-<div id="header_box">
-	<!--<img src="/images/ffs.logo.png" alt="Logo">-->
-	<h1>Free Flight Sim.org</h1>
-	<h2>Open Source Flight Simulation with FlightGear</h2>
-</div>
-
 <div id="main_container">
 
-<!--######################################################-->
-<!--### Left Block ###-->
-<!--######################################################-->
-<!--<div id="header_box">
+	<!--### Header ########################-->
+	<div id="header_box">
+		<!--<img src="/images/ffs.logo.png" alt="Logo">-->
+		<h1>Free Flight Sim.org</h1>
+		<h2>Open Source Flight Simulation with FlightGear</h2>
+	</div>
 
-	<h1>Free Flight Sim .org</h1>
-	<h4>Open Source Flight Simulation with FlightGear</h4>
-
-
-</div>--><!-- left_box -->
-
-
-
-<div id="middle_box">
-	<!--## Navigation  ##-->
+	<!--### Navigation ########################-->
 	<div id="site_nav_box">
 		<ul id="navlist">
 			{% for n in appo.nav %}
@@ -51,97 +38,28 @@
 		</ul>
 	</div>
 
-<!--######################################################-->
-<!-- ### Top Banner ###-->
-<!--######################################################-->
-<div id="top_box">
-	<div id="sites_nav">
-		<ul>
-			{% for site in conf.sites_nav %}
-			<li><a href="{{ site.url }}" 
-					{% ifequal site.id conf.APP_ID %}class="selected"{% endifequal %}
-					>{{ site.label }}</a></li>
-			{% endfor %}
-		</ul>
+	<!--### Header ########################-->
+	<div id="content_box">
+		<!--<img src="/images/ffs.logo.png" alt="Logo">-->
+		<h1>Free Flight Sim.org</h1>
+		<h2>Open Source Flight Simulation with FlightGear</h2>
+		<p>Foo bar</p>
 	</div>
 
-		
-		
-		<h1>{{ conf.SITE_HEADER }}</h1>
-		<table class="top_bar">
-			<tr>
-			<th><i>The World's Leading Open Source Flight Simulator<i>  </th>
-			<td><a href="/idea/multiplayer/pilots/">Pilots: {{ conf.app_vars.pilots_info.pilots_count|default:"--" }}</a></td>
-			<td><a href="/idea/multiplayer/atc/">ATC: {{ conf.app_vars.pilots_info.atc_count|default:"--" }}</a></td>
-			<td><a sshref="http://fg-online.appspot.com/servers/">Servers: 
-				{{ app.mp_servers_info.total|default:"--" }} Nodes / <span style="color: green">{{ app.mp_servers_info.up|default:"--" }} Up</span> / <span style="color: red">{{ app.mp_servers_info.down|default:"--" }} down</span></a></td>
-			</tr>
-		</table>
+	<!--### Navigation ########################-->
+	<div id="footer_box">
+		<p>
+		<a href="https://appengine.google.com/dashboard?&app_id=freeflightsim">Dashboard</a> - 
+		<a href="http://localhost:8080">Local Site</a> - 
+		<a href="http://localhost:8080/_ah/admin/">Local Admin</a> - 
+		&copy; 2010+ FreeFlightSim - all right reserved etc
+	</div><!-- end footer-->
 
 
 
-	<table id="toolbar_box">
-	<tr>
 
-		<td><!-- TODO Google Search -->
-			<form action="http://www.google.com/cse" ssid="cse-search-box" class="toolbar_form">
-			<div>
-				<input type="hidden" name="cx" value="014455812952330413319:i-xxrdkrna4" />
-				<input type="hidden" name="ie" value="UTF-8" />
-				<input type="text" name="q" size="21" />
-				<input type="submit" name="sa" value="Search" />
-			</div>
-			</form>
-			<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&lang=en"></script>
-		</td>
+</div><!-- main cotainer -->
 
-		<td style="text-align:right;"><!-- Profile +  Login/Out -->
-			<div class="account">
-			{% if conf.app_vars.nickname %}
-				<a href="/account/">{{ conf.app_vars.nickname }}</a><a href="{{ conf.app_vars.auth_url }}">Logout</a>
-			{% else %}
-				<a href="{{ conf.app_vars.auth_url }}">Login</a>
-			{% endif %}
-			</div>
-		</td>
-	</tr>
-	</table>
-
-</div><!-- top box -->
-
-<!--######################################################-->
-<!-- ### Right Box ###-->
-<!--######################################################-->
-<div id="right_box">
-	{% block right_box %}
-
-	{% endblock right_box %}
-</div><!-- right box -->
-
-
-<div id="content_box">
-	<h1>{{ title }}</h1>
-	{% block content %}
-	{% endblock content %}
-</div><!-- content box -->
-
-</div><!-- middle box -->
-
-
-<div id="footer_box">
-
-<p>
-
-<a href="https://appengine.google.com/dashboard?&app_id=freeflightsim">Dashboard</a> - 
-<a href="http://localhost:8080">Local Site</a> - 
-<a href="http://localhost:8080/_ah/admin/">Local Admin</a> - 
-
-&copy; 2010+ FreeFlightSim - all right reserved etc
--
-
-</div><!-- end footer-->
-
-</div><!-- end main_container -->
 
 
 </body> 

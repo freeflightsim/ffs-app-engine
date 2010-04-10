@@ -8,7 +8,7 @@
 
 
 body{
-	DDbackground-color: gray;
+	background-color: #222222;
 }
 
 
@@ -16,13 +16,12 @@ body{
 	margin: 10px auto;
 	max-width: 1000px;
 	min-height: 700px;
-	ssbackground-color: red;
+	BBbackground-color: green;
 	font-family:  sans-serif;
-	border: 20px inset #444444;
 }
 
 #header_box{
-	ssbackground-color: #efefef;
+	BBbackground-color: #efefef;
 	hsseight: 100px; 
 }
 
@@ -58,30 +57,43 @@ body{
 /********************************************************/
 
 #site_nav_box {
-	margin: 20px 0px 20px 0px;
+	NNNNNNmargin: 20px 0px 20px 0px;
+	float: right;
+	bbbackground-color: red;
+	width: 200px;
+	DDborder: 2px outset #444444;
+	DDborder-radius: 20px;
+	DD-moz-border-radius: 20px; 
+	DD-webkit-border-radius: 20px;
 }
 
 
 #navlist {
-	padding: 0px 0px 20px 10px;
-	border-top: 1px solid #999999;
-	border-bottom: 1px solid #999999;
-	background-color: black;
+	bbpadding: 0px 0px 20px 10px;
+	bbborder-top: 1px solid #999999;
+	bbborder-bottom: 1px solid #999999;
+	bbbackground-color: green;
 }
 
-#navlist ul, #navlist li {
-	display: inline;
+#navlist li {
+	ssdisplay: inline;
 	list-style-type: none;
 }
 
 #navlist a {
-	float: left;
-	line-height: 14px;
+	fffloat: left;
+	ffline-height: 14px;
+	padding: 10px;
 	font-weight: bold;
-	margin: 0px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
 	text-decoration: none;
 	color: #84E660;
 	border: 3px outset blue;
+	display: block;
+	border: 2px outset #444444;
+	border-radius: 20px;
+	-moz-border-radius: 20px; 
+	-webkit-border-radius: 20px;
 }
 
 #navlist a.selected{
@@ -93,4 +105,26 @@ body{
 
 #navlist a:hover { 
 	color: #000; 
+}
+
+/********************************************************/
+/** Content Box                 **/
+/********************************************************/
+#content_box{
+	margin-right: 200px;
+	background-color: black;
+	min-height: 500px;
+	border: 10px inset #222222;
+	border-radius: 20px;
+	-moz-border-radius: 20px; 
+	-webkit-border-radius: 20px;
+}
+
+
+/********************************************************/
+/** Footer Box                 **/
+/********************************************************/
+#footer_box{
+	clear: both;
+	background-color: yellow;
 }
