@@ -15,12 +15,44 @@ body{
 	margin: 10px auto;
 	max-width: 1000px;
 	min-height: 700px;
-	DDbackground-color: #efefef;
+	ffbackground-color: #dddddd;
+	font-family:  sans-serif;
+}
+
+#header_box{
+	FFbackground-color: #efefef;
+	height: 100px; 
+}
+
+
+#header_box #ffs_logo{
+	DDborder: 1px solid red;
+	float: right;
+	margin-left: 100px;
 }
 
 
 
 
+#header_box h1{
+	font-family: Verdana, sans-serif;
+	font-size: 20pt;
+	margin-bottom: 10px;
+	color: #888888;
+	border-bottom: 1px solid #FFF158;
+	padding-bottom: 5px;
+	width: 75%;
+	FFbackground-color: red;
+}
+#header_box h4{
+	font-family:  sans-serif;
+	color: #888888;
+	font-size: 10pt;
+	font-weight: normal;
+	text-align: right;
+	FFbackground-color: green;
+	width: 75%;
+}
 /********************************************************/
 /** Site Nav                 **/
 /********************************************************/

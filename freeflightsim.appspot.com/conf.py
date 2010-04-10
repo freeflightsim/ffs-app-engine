@@ -17,6 +17,8 @@ ISSUES_FEED = 'http://code.google.com/feeds/issues/p/flightgear-bugs/issues/full
 MP_STATUS_URL = "http://mpmap01.flightgear.org/mpstatus/"
 MP_PILOTS_URL = "http://mpmap02.flightgear.org/fg_server_xml.cgi?mpserver02.flightgear.org:5001"
 
+CDN = 'http://ffs-cache.appspot.com'
+#CDN = ''
 
 ##########################################################
 ## Langs - TODO add links

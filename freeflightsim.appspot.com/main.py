@@ -13,9 +13,13 @@ import conf
 
 ## Load main handler class
 import app.MainHandler
+import app.SlideShow
 
 ## Map Url's to MainHandler class eg /foo/bar/, /foo/ or /
-application = webapp.WSGIApplication([	('/(.*)/(.*)/', app.MainHandler.MainHandler),
+## This is a cascading list with first match
+application = webapp.WSGIApplication([	('/slideshows/(.*)/', app.SlideShow.SlideShowHandler),
+										('/slideshows/', app.SlideShow.SlideShowHandler),
+										('/(.*)/(.*)/', app.MainHandler.MainHandler),
 										('/(.*)/', app.MainHandler.MainHandler),
 										('/', app.MainHandler.MainHandler),
 										

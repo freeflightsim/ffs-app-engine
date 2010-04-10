@@ -3,13 +3,15 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
+import conf
 import app.SlideShow
 
-application = webapp.WSGIApplication([	('/slidehows/', app.SlideShow.SlidePageHandler),
-										('/slidehows/(.*)/', app.SlideShow.SlidePageHandler)
+application = webapp.WSGIApplication([	('/slidehows/(.*)/', app.SlideShow.SlideShowHandler),
+										('/slidehows/', app.SlideShow.SlideShowHandler)
+										
 										
 									],
-									debug=True)
+									debug=conf.DEBUG)
 
 def main():
 	run_wsgi_app(application)

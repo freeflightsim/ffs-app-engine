@@ -21,11 +21,6 @@ handlers:
   static_files: static/robots.txt
   upload: static/robots.txt
 
-- url: /slideshows/
-  script: slideshow.py
-
-
-
 - url: /.*
   script: main.py
 
