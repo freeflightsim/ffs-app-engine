@@ -72,12 +72,12 @@ body{
 	font-weight: bold;
 	margin: 10px 10px 10px 10px;
 	text-decoration: none;
-
-	background-color: #121212;
 	display: block;
 
-	color: #3F447B;
-	border: 2px solid #3F447B;
+	color: #52B4F4;
+	background-color: #121212;
+	border: 2px outset #3F447B;
+
 	border-radius: 10px;
 	-moz-border-radius: 10px; 
 	-webkit-border-radius: 10px;
@@ -85,15 +85,15 @@ body{
 
 #navlist a.selected{
 	BBborder-bottom: 4px solid #1D6BA5;
-	DDpadding-bottom: 2px;
-	background: black;
-	border-color: #BC33B2;
-	color: #BC33B2;
+	DDpadding-bottom: #333333;
+	background-color: #333333;
+	border-color: #999999;
+	color: #eeeeee;
 }
 
 #navlist a:hover { 
-	border-color: yellow;
-	color: yellow;
+	border-color: #52B4F4;
+	color: #999999;
 }
 
 /********************************************************/
