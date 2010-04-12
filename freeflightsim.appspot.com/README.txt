@@ -23,3 +23,4 @@ templates/ - all the html
     pages/ - the individual html pages
     SLIDE_SHOW.html - the slide show container
     slideshows/ - directory containing the html slides
+
