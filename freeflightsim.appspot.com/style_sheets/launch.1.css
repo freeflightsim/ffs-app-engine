@@ -8,20 +8,17 @@
 
 
 body{
-	background-color: #efefef;
+	background-color: #dddddd;
 }
 
 
 #main_container{
-	margin: 20px 100px 50px 100px;
-	SSSmax-width: 1000px;
+	margin: 20px 60px 50px 60px;
 	min-height: 700px;
-	BBbackground-color: green;
 	font-family:  sans-serif;
 }
 
 #main_container #header_box{
-	font-family: monospace;
 	color: #dddddd;
 	margin-bottom: 20px;
 	padding: 15px;
@@ -36,38 +33,15 @@ body{
 #main_container #header_box h1{
 	font-family: monospace;
 	font-size: 20pt;
-	MMmargin: 10px 0px 10px 20px;
-	sscolor: #dddddd;
-	ssborder: 1px solid #444444;
-	sspadding: 10px 0px 10px 20px;
-	ssbackground-color: #376B91;
 }
 #main_container #header_box h2{
-	ssfont-family: monospace;
-	ssfont-size: 10pt;
-	MMmargin: 10px 0px 10px 20px;
-	sscolor: #dddddd;
-	ssmargin: 10px 30px 0px 0px;
-	ssborder: 1px solid #444444;
-	sspadding: 10px 0px 10px 20px;
-	DDbackground-color: red;
 	float: right;
+	font-family: monospace;
+	font-size: 10pt;
 }
 
 
 
-#HHheader_box #ffs_logo{
-	DDborder: 1px solid red;
-	ssfloat: right;
-	margin-left: 100px;
-}
-
-
-#HHheader_box h1 small{
-	color: #888888;
-	font-size: 11pt;
-	font-weight: normal;
-}
 /********************************************************/
 /** Site Nav                 **/
 /********************************************************/
@@ -86,8 +60,6 @@ body{
 }
 
 #navlist a {
-	fffloat: left;
-	ffline-height: 14px;
 	padding: 10px;
 	font-weight: bold;
 	margin: 10px 10px 10px 10px;
@@ -104,9 +76,7 @@ body{
 }
 
 #navlist a.selected{
-	BBborder-bottom: 4px solid #1D6BA5;
-	DDpadding-bottom: #333333;
-	background-color: #333333;
+	background-color: #376B91;
 	border-color: #999999;
 	color: #eeeeee;
 }
@@ -120,21 +90,46 @@ body{
 /** Content Box                 **/
 /********************************************************/
 #content_box{
-	margin-right: 220px;
-	bbbbbackground-color: black;
+	margin-top: 30px;
+	margin-right: 250px;
 	min-height: 500px;
-	border: 10px inset #222222;
-	border-radius: 20px;
-	-moz-border-radius: 20px; 
-	-webkit-border-radius: 20px;
+	border: 4px inset #cccccc;
+	border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+	padding: 20px;
+	background-color: #efefef;
 }
 
+#content_box h1{
+	font-family: sans-serif;
+	font-size: 20pt;
+	padding: 5px 10px;
+	margin-bottom: 20px;
+	border-bottom: 1px dashed #eeeeee;
+
+}
+#content_box p{
+	margin-left: 40px;
+	line-height: 150%;
+	font-size: 12pt;
+	margin-bottom: 10px;
+}
+#content_box ul{
+	margin-left: 70px;
+	line-height: 140%;
+	font-size: 12pt;
+}
+#content_box li{
+	list-style-type: circle;
+}
 
 /********************************************************/
 /** Footer Box                 **/
 /********************************************************/
 #footer_box{
 	clear: both;
-	background-color: yellow;
-	margin-top: 20px solid #666666;
+	BBbackground-color: yellow;
+	margin-top: 20px;
+	font-size: 8px;
 }
