@@ -16,7 +16,7 @@ import conf
 ##############################################################
 ## App Calls Class
 ##############################################################
-class FFS:
+class FFSLaunch:
 
 
 	## Gallery
@@ -68,28 +68,28 @@ class FFS:
 						]
 		})
 
-		self.nav_append( {'path':'/about/', 'label': 'About', 'title': 'About Free Flight Sim.org',
+		self.nav_append( {'path':'/reception/', 'label': 'Reception', 'title': 'About Free Flight Sim.org',
 						'subnav': [	
 							{'path':'/about/features/', 'label': 'Features' },
 							{'path':'/about/license/', 'label': 'License'}
 						]
 		})
 
-		self.nav_append( {'path':'/media/', 'label': 'Media', 
+		self.nav_append( {'path':'/atc/', 'label': 'ATC', 
 						'subnav': [	
 							{'path':'/media/videos/', 'label': 'Videos', 'title': 'Videos'},
 							{'path':'/media/gallery/', 'label': 'Image Gallery'}
 						]
 		})
 
-		self.nav_append( {'path':'/support/', 'label': 'Support', 
+		self.nav_append( {'path':'/fgcom/', 'label': 'FgCom', 
 						'subnav': [	
 							{'path':'/support/docs/', 'label': 'Documentation'},
 							{'path':'/support/faq/', 'label': 'FAQ', 'title': 'Frequently Answered Questions'}
 						]
 		})
 
-		self.nav_append( {'path':'/download/', 'label': 'Buy', 'title': 'Download Central',
+		self.nav_append( {'path':'/school/', 'label': 'Flight School', 'title': 'Download Central',
 					'subnav': [	
 						{'path':'/download/requirements/', 'label': 'Requirements', 'title': 'Hardware Requirements'}, 	
 						{'path':'/download/flightgear/', 'label': 'FlightGear', 'title': 'Download FlightGear'}, 	
@@ -99,13 +99,13 @@ class FFS:
 					]
 		})
 		
-		self.nav_append( {'path':'/developers/', 'label': 'Developers',
+		self.nav_append( {'path':'/clubs/', 'label': 'Flight Clubs',
 					'subnav': [	
 							{'path':'/developers/src/', 'label': 'Source Code'},
 							{'path':'/developers/credits/', 'label': 'Credits'}
 					]
 		})
-		self.nav_append( {'path':'/links/', 'label': 'Links',
+		self.nav_append( {'path':'/airlines/', 'label': 'Virtual Airlines',
 					'subnav': [	
 							{'path':'/links/sites/', 'label': 'Related Sites'},
 							{'path':'/links/projects/', 'label': 'Projects'}

@@ -22,5 +22,6 @@ handlers:
   upload: static/robots.txt
 
 - url: /.*
-  script: main.py
+  #later main.py
+  script: launch.py
 
