@@ -13,6 +13,9 @@
 
 This respository contains the latest gae websites, and includes the dev sdk.
 
+Project at - http://code.google.com/p/freeflightsim/
+Code at - http://github.com/FreeFlightSim
+
 
 =============================================================================
 == Development Server
