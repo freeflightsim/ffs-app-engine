@@ -24,22 +24,26 @@
 
 	<!--### Header ########################-->
 	<div id="header_box">
-		<h2>Open Source Flight Simulation with FlightGear</h2>
+		<h2>Open Source Flight Stimulation with FlightGear</h2>
 		<h1>Free Flight Sim.org</h1>
 		
 	</div>
 
-<h1 class="ffs_cal_title">FlightGear - events and calendar</h1>
+
+
 
 	<!--### Navigation ########################-->
 	<div id="site_nav_box">
+
+		<div id="fg_logo"><img src="/images/fg2.png" alt=""></div>
+
 		<ul id="navlist">
 			{% for n in appo.nav %}
 			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
 			{% endfor %}
 		</ul>
 
-		<fieldset>
+		<!---<fieldset>
 			<legend>Add an event</legend>
 			<p>This calendar is work in progress, r&amp;d,  trying to find a 
 			solution that works for everyone. Currently the toolkit and service were using
@@ -48,13 +52,17 @@ is Google Calendar as this has all the widgets etc.
 			</p>
 
 		</fieldset>
-
+		-->
 	</div>
 	
-
+	<h1 id="ffs_cal_title">FlightGear - events and calendar</h1>
 
 	<!--### Main Content ########################-->
 	<div id="content_box">
+
+	
+	
+
 		{% block content %}
 		content here
 		{% endblock content %}

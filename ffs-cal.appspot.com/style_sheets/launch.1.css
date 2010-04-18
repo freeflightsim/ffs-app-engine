@@ -20,37 +20,45 @@ body{
 }
 
 #main_container #header_box{
-	color: #dddddd;
-	margin-bottom: 20px;
+
+	smargin-bottom: 20px;
 	padding: 10px;
-	background-color: #376B91;
-	border: 1px solid #999999;
-	border-radius: 5px;
-	-moz-border-radius: 5px; 
-	-webkit-border-radius: 5px;
+	ssbackground-color: #376B91;
+	sborder: 1px solid #999999;
+	sborder-radius: 5px;
+	s-moz-border-radius: 5px; 
+	s-webkit-border-radius: 5px;
 
 }
 
 #main_container #header_box h1{
 	font-family: monospace;
-	font-size: 12pt;
+	font-size: 10pt;
+	color: #666666;
 }
 #main_container #header_box h2{
 	float: right;
 	font-family: monospace;
 	font-size: 8pt;
 	font-weight: normal;
+	color: #444444;
 }
 
-#main_container .ffs_cal_title{
+#ffs_cal_title{
 	ssbackground-color: red;
-	margin-left: 200px;
-	padding-right: 50px;
-	text-align: right;
-	margin-right: 200px;
-	border-bottom: 1px dashed #cccccc;
-	color: #666666;
-	font-size: 14pt;
+	smargin-left: 200px;
+	spadding-right: 50px;
+	stext-align: right;
+	smargin-right: 200px;
+	sborder-bottom: 1px dashed #cccccc;
+	color: #eeeeee;
+	font-size: 15pt;
+	padding: 10px;
+	background-color: #376B91;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
 }
 
 
@@ -65,6 +73,20 @@ body{
 }
 
 
+#fg_logo{
+	ssborder: 1px solid red;
+	text-align: center;
+	margin: 10px 0px 10px 0px;
+	ssfloat: right;
+}
+#fg_logo img{
+	background-color: white;
+	padding: 10px;
+	border: 2px outset #3F447B;
+	border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+}
 #navlist {
 }
 
@@ -89,12 +111,12 @@ body{
 }
 
 #navlist a.selected {
-	background-color: #376B91;
+	background-color: #7698BA;
 	border-color: #999999;
 	color: #eeeeee;
 }
 #navlist a.selected:hover {
-	background-color: #376B91;
+	background-color: #7698BA;
 	border-color: black;
 	color: #eeeeee;
 }
