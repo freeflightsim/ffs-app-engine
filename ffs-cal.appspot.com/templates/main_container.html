@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1;">
+<title>{{ title }} | {{ conf.SITE_TITLE }}</title>
+
+<script type="text/javascript" sssrc="http://fg-cache.appspot.com/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" sssrc="http://fg-cache.appspot.com/js/jquery-lightbox-0.5/js/jquery.lightbox-0.5.js"></script>
+<link rel="stylesheet" type="text/css" sshref="http://fg-cache.appspot.com/js/jquery-lightbox-0.5/css/jquery.lightbox-0.5.css" media="screen">
+
+
+<link rel="stylesheet" type="text/css" href="/style_sheets/reset.css">
+<link rel="stylesheet" type="text/css" href="/style_sheets/launch.1.css">
+
+
+<!--<script type="text/javascript" src="/js/front.js"></script>-->
+
+</head> 
+<body> 
+
+<div id="main_container">
+
+	<!--### Header ########################-->
+	<div id="header_box">
+		<h2>Open Source Flight Simulation with FlightGear</h2>
+		<h1>Free Flight Sim.org</h1>
+		
+	</div>
+
+	<!--### Navigation ########################-->
+	<div id="site_nav_box">
+		<ul id="navlist">
+			{% for n in appo.nav %}
+			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
+			{% endfor %}
+		</ul>
+	</div>
+
+	<!--### Main Content ########################-->
+	<div id="content_box">
+		{% block content %}
+		content here
+		{% endblock content %}
+	</div>
+
+	<!--### Navigation ########################-->
+	<div id="footer_box">
+		<p>
+		<a href="https://appengine.google.com/dashboard?&app_id=freeflightsim">Dashboard</a> - 
+		<a href="http://localhost:8080">Local Site</a> - 
+		<a href="http://localhost:8080/_ah/admin/">Local Admin</a> - 
+		&copy; 2010+ FreeFlightSim - all right reserved etc
+	</div><!-- end footer-->
+
+
+
+
+</div><!-- main cotainer -->
+
+
+
+</body> 
+</html>
