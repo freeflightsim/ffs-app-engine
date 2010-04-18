@@ -16,29 +16,41 @@ body{
 	margin: 10px 10px 10px 10px;
 	min-height: 700px;
 	font-family:  sans-serif;
-	background-color: #efefef;
+	ssbackground-color: #efefef;
 }
 
 #main_container #header_box{
 	color: #dddddd;
 	margin-bottom: 20px;
-	padding: 15px;
+	padding: 10px;
 	background-color: #376B91;
-	border: 1px solid #aaaaaa;
-	border-radius: 10px;
-	-moz-border-radius: 10px; 
-	-webkit-border-radius: 10px;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
 
 }
 
 #main_container #header_box h1{
 	font-family: monospace;
-	font-size: 20pt;
+	font-size: 12pt;
 }
 #main_container #header_box h2{
 	float: right;
 	font-family: monospace;
-	font-size: 10pt;
+	font-size: 8pt;
+	font-weight: normal;
+}
+
+#main_container .ffs_cal_title{
+	ssbackground-color: red;
+	margin-left: 200px;
+	padding-right: 50px;
+	text-align: right;
+	margin-right: 200px;
+	border-bottom: 1px dashed #cccccc;
+	color: #666666;
+	font-size: 14pt;
 }
 
 
@@ -67,24 +79,29 @@ body{
 	text-decoration: none;
 	display: block;
 
-	color: #52B4F4;
-	background-color: #121212;
-	border: 2px outset #3F447B;
+	color: #444444;
+	background-color: #dddddd;
+	border: 2px outset #999999;
 
 	border-radius: 10px;
 	-moz-border-radius: 10px; 
 	-webkit-border-radius: 10px;
 }
 
-#navlist a.selected{
+#navlist a.selected {
 	background-color: #376B91;
 	border-color: #999999;
 	color: #eeeeee;
 }
-
+#navlist a.selected:hover {
+	background-color: #376B91;
+	border-color: black;
+	color: #eeeeee;
+}
 #navlist a:hover { 
-	border-color: #52B4F4;
-	color: #999999;
+	border-color: #222222;
+	color: #222222;
+	background-color: #efefef;
 }
 
 /********************************************************/
@@ -93,6 +110,7 @@ body{
 #content_box{
 	margin-top: 30px;
 	margin-right: 250px;
+	margin-left: 10px;
 	min-height: 500px;
 	ssborder: 4px inset #cccccc;
 	sborder-radius: 10px;
@@ -100,7 +118,7 @@ body{
 	ss-webkit-border-radius: 10px;
 	sspadding: 20px;
 	ssbackground-color: #efefef;
-	background-color: #dddddd;
+	ssbackground-color: #dddddd;
 }
 
 #content_box h1{
@@ -109,7 +127,16 @@ body{
 	padding: 5px 10px;
 	margin-bottom: 20px;
 	border-bottom: 1px dashed #eeeeee;
-
+}
+#content_box h2{
+	font-family: sans-serif;
+	font-size: 18pt;
+	ssbackground-color: #efefef;
+	padding: 5px 0px;
+	smargin-bottom: 20px;
+	margin-left: 40px;
+	border-bottom: 1px solid #dddddd;
+	ssborder-top: 1px solid #dddddd;
 }
 #content_box p{
 	margin-left: 40px;
@@ -126,6 +153,69 @@ body{
 	list-style-type: circle;
 }
 
+
+table{
+	font-size: 10pt;
+	ssborder: 2px solid #376B91;
+	margin: 40px 0px 0px 40px;
+}
+table caption{
+	text-align: left;
+	font-size: 10pt;
+	ssmargin-bottom: 10px;
+	background-color: #eeeeee;
+	padding: 10px;
+	border: 2px outset #dddddd;
+}
+table tr{
+	ssbackground-color: #eeeeee;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	padding: 5px;
+	
+}
+table tr:hover{
+	background-color: #efefef;
+	ssborder: 1px solid black;
+}
+table th{
+	font-weight: normal;
+	text-align: left;
+	sborder-bottom: 1px solid #dddddd;
+	sborder-top: 1px solid #dddddd;
+	padding: 10px;
+}
+table td{
+	font-weight: normal;
+	text-align: left;
+	yyborder: 1px solid #dddddd;
+	sspadding: 10px;
+	ssborder: 2px outset #376B91;
+	text-align: center;
+	
+}
+table td a{
+	background-color: #dddddd;
+	font-size: 10pt;
+	ddfont-weight: bold;
+	text-decoration: none;
+	color: #333333;
+	display: block;
+	padding: 5px;
+	margin: 5px;
+	border: 2px outset #999999;
+}
+table td a:hover{
+	background-color: white;
+	ssfont-size: 10pt;
+	ssfont-weight: bold;
+	sstext-decoration: none;
+	color: black;
+	ssdisplay: block;
+	sspadding: 5px;
+	ssmargin: 5px;
+	border: 2px outset black;
+}
 /********************************************************/
 /** Footer Box                 **/
 /********************************************************/

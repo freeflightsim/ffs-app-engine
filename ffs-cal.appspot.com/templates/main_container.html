@@ -29,6 +29,8 @@
 		
 	</div>
 
+<h1 class="ffs_cal_title">FlightGear - events and calendar</h1>
+
 	<!--### Navigation ########################-->
 	<div id="site_nav_box">
 		<ul id="navlist">
@@ -36,7 +38,20 @@
 			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
 			{% endfor %}
 		</ul>
+
+		<fieldset>
+			<legend>Add an event</legend>
+			<p>This calendar is work in progress, r&amp;d,  trying to find a 
+			solution that works for everyone. Currently the toolkit and service were using
+is Google Calendar as this has all the widgets etc.
+			
+			</p>
+
+		</fieldset>
+
 	</div>
+	
+
 
 	<!--### Main Content ########################-->
 	<div id="content_box">

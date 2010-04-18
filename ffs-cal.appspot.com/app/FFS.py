@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import random
+
 
 from google.appengine.ext import db
 from google.appengine.api import memcache
@@ -9,22 +9,10 @@ from google.appengine.api import memcache
 from django.utils import simplejson as json
 from google.appengine.api import urlfetch
 
-
 import conf
-#import app.fetch
 
-##############################################################
-## App Calls Class
-##############################################################
 class FFS:
 
-
-	## Gallery
-	def gallery(self):
-		return app.fetch.gallery()
-
-	def random_image(self):
-		return app.fetch.gallery_random()
 
 	def nav(self):
 		"""Return navigation - used in tempalte """
@@ -49,9 +37,6 @@ class FFS:
 				self._paths[subpage['path']] = subpage
 
 
-	def mp_servers_info(self):
-		return app.fetch.mp_servers_info()
-
 
 	def __init__(self):
 		"""Initialise Navigation and add navigations items"""
@@ -61,27 +46,12 @@ class FFS:
 		self._nav = []
 		self._paths = {}
 
-		self.nav_append( {'path':'/index/', 'label': 'Index', 'title': 'Welcome',
-						'subnav': [	
-							{'path':'/index/announce/', 'label': 'Announcements', 'title': 'News and announcments'},
-							{'path':'/index/calendar/', 'label': 'Calendar', 'title': 'Calendar'},
-						]
-		})
+		self.nav_append( {'path':'/index/', 'label': 'Index', 'title': 'Welcome'})
 
-		self.nav_append( {'path':'/about/', 'label': 'About', 'title': 'About Free Flight Sim.org',
-						'subnav': [	
-							{'path':'/about/features/', 'label': 'Features' },
-							{'path':'/about/license/', 'label': 'License'}
-						]
-		})
+		self.nav_append( {'path':'/subscribe/', 'label': 'Add Event', 'title': 'About Free Flight Sim.org'})
 
-		self.nav_append( {'path':'/media/', 'label': 'Media', 
-						'subnav': [	
-							{'path':'/media/videos/', 'label': 'Videos', 'title': 'Videos'},
-							{'path':'/media/gallery/', 'label': 'Image Gallery'}
-						]
-		})
-
+		self.nav_append( {'path':'/about/', 'label': 'About'})
+		"""
 		self.nav_append( {'path':'/support/', 'label': 'Support', 
 						'subnav': [	
 							{'path':'/support/docs/', 'label': 'Documentation'},
@@ -111,5 +81,5 @@ class FFS:
 							{'path':'/links/projects/', 'label': 'Projects'}
 					]
 		})
-
+		"""
 
