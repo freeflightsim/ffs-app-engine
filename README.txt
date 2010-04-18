@@ -20,6 +20,12 @@ Code at - http://github.com/FreeFlightSim
 ===============================================================================
 == Development  ==
 ===============================================================================
+The GAE currently used python 2.5. There should be minor problem with running
+on 2.5+, notable exception is 
+> import simplejson as json # python 2.5
+> import json # python 2.6+ json is built 
+> from django.utils import simplejson as json << Gae Workaround
+
 "_site_/" below is one of the domain subdirectories eg freeflightsim.appsot.com
 To run a local development server:-
 
