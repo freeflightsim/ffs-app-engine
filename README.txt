@@ -17,9 +17,10 @@ Project at - http://code.google.com/p/freeflightsim/
 Code at - http://github.com/FreeFlightSim
 
 
-=============================================================================
-== Development Server
-=============================================================================
+===============================================================================
+== Development  ==
+===============================================================================
+"_site_/" below is one of the domain subdirectories eg freeflightsim.appsot.com
 To run a local development server:-
 
 # goto some directory
@@ -28,26 +29,29 @@ cd ~
 # take a clone from github, this will create a ffs-app-engine sub dir
 git clone git@github.com:FreeFlightSim/ffs-app-engine.git
 
-# then make the shell scripts executable
-cd ffs-app-engine
-chmod +x *.sh
+# run a site on the dev server 
+python ./gae/dev_appserver.py _site_/
 
-# run the dev server
-./run_server 
-
-# then browse to
+# then browse at
 http://localhost:8080/
 
 ## Update the online app
-./upload.sh
-# << then enter login details
+python ./gae/appcfg.py _site_/
+>>  enter login details
 
 
-
-===# Important #===
+==============================================================
+=== Important ===
+==============================================================
 If you need to bump the version number in app.yaml,
 then increment as digits eg "1,2,3,4" etc
 DO NOT USE "2.dev" or any non mumeric characters.
 The manual says you can, but experience shows is causes problems.
+
+ALSO
+If you bump the version, you will need to change the "default"
+application to newest in the control panel.
+
+
 
 
