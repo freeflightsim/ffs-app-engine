@@ -6,7 +6,10 @@ Calendar Application
 
 Main code is dJango templating
 
+
+Copy conf.skel.py to conf.py for production
 conf.py - main configuration
+
 main.py - the main script that runs
 
 

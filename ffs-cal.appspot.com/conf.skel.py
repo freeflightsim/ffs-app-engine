@@ -3,7 +3,7 @@
 DEBUG = True
 
 
-APP_ID = 'freeflightsim'
+APP_ID = 'ffs-cal'
 
 tm = "<span class='tm'>FreeFlightSim</span>" #&#0174;
 
@@ -29,7 +29,7 @@ langs = [ 	{'code': 'En', 'label': 'English'},
 			{'code': 'De', 'label': 'German'}
 ]
 
-USER = 'fg@freeflightsim.org'
-SECRET = 'Airbus747'
+EMAIL = 'fg@freeflightsim.org'
+SECRET = 'secret'
 
-CAL_URL = 'http://www.google.com/calendar/render?cid=fg@freeflightsim.org'
+CAL_URL = 'http://www.google.com/calendar/render?cid=%s' % EMAIL

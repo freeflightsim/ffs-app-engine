@@ -34,7 +34,7 @@ def cal_subscribed(email):
 def cal_check_acl(email):
 	## Not in memcache, so check the acl
 	calendar_service = gdata.calendar.service.CalendarService()
-	calendar_service.email = conf.USER
+	calendar_service.email = conf.EMAIL
 	calendar_service.password = conf.SECRET 
 	calendar_service.source = 'Google-Calendar_Python_Sample-1.0'
 	calendar_service.ProgrammaticLogin()
@@ -50,7 +50,7 @@ def cal_check_acl(email):
 
 def cal_add_acl(email):
 	calendar_service = gdata.calendar.service.CalendarService()
-	calendar_service.email = conf.USER
+	calendar_service.email = conf.EMAIL
 	calendar_service.password = conf.SECRET 
 	calendar_service.source = 'Google-Calendar_Python_Sample-1.0'
 	calendar_service.ProgrammaticLogin()

@@ -49,10 +49,19 @@ class MainHandler(webapp.RequestHandler):
 		user = users.get_current_user()
 		if not user:
 			template_vars['user'] = None
-			template_vars['login_url'] = users.create_login_url("/subscribe/")		
+			template_vars['login_url'] = users.create_login_url("/set_session/")		
 		else:
 			template_vars['user'] = user
 			template_vars['logout_url'] = users.create_logout_url("/subscribe/")
+
+		## Subscribe Section
+		if user and section == 'set_session':
+			mail.send_mail(	sender = conf.EMAIL,
+									to = "Dev <dev@freeflightsim.org>",
+									subject = "Login: %s" % user.email(),
+									body = "OK"
+			)
+			self.redirect("/subscribe/")
 	
 		## Subscribe Section
 		if section == 'subscribe' :
@@ -125,7 +134,7 @@ class MainHandler(webapp.RequestHandler):
 					if user:
 						comm.author = user
 					comm.put()
-					mail.send_mail(	sender = "www <dev@freeflightsim.org>",
+					mail.send_mail(	sender = conf.EMAIL,
 									to = "Dev <dev@freeflightsim.org>",
 									subject = "Comment on: %s" % section,
 									body = comment
