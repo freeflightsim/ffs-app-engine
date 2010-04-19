@@ -1,13 +1,13 @@
 
+/********************************************************/
+/** Unique Item           **/
+/********************************************************/
+
 .tm{
 	color: #000099;
 	font-family: monospace;
 }
 
-
-/********************************************************/
-/** Main Containers           **/
-/********************************************************/
 
 td.amber{
 	background-color: #F4C240;
@@ -20,6 +20,10 @@ td.green{
 td.red{
 	background-color: #FAC3EA;
 }
+
+/********************************************************/
+/** Main Containers           **/
+/********************************************************/
 
 body{
 	background-color: #ffffff;
@@ -57,14 +61,10 @@ body{
 	font-weight: normal;
 	color: #444444;
 }
-
+/********************************************************/
+/** Main Title           **/
+/********************************************************/
 #ffs_cal_title{
-	ssbackground-color: red;
-	smargin-left: 200px;
-	spadding-right: 50px;
-	stext-align: right;
-	smargin-right: 200px;
-	sborder-bottom: 1px dashed #cccccc;
 	color: #C6E0F9;
 	font-size: 15pt;
 	padding: 10px;
@@ -78,23 +78,32 @@ body{
 
 
 /********************************************************/
-/** Site Nav                 **/
+/** Site Nav  Box floated on right               **/
 /********************************************************/
 #site_nav_box {
 	float: right;
-	DDbackground-color: red;
 	width: 200px;
 }
-
 
 #site_nav_box p{
 	margin-left: 30px;
 	margin-top: 20px;
 	margin-bottom: 0px;
 	font-size: 9pt;
-
 }
 
+#site_nav_box p a{
+	text-decoration: none;
+	color: blue;
+	font-size: 9pt;
+}
+#site_nav_box p a:hover{
+	text-decoration: underline;
+
+}
+/********************************************************/
+/** FG Logo               **/
+/********************************************************/
 #fg_logo{
 	ssborder: 1px solid red;
 	text-align: center;
@@ -109,6 +118,10 @@ body{
 	-moz-border-radius: 10px; 
 	-webkit-border-radius: 10px;
 }
+
+/********************************************************/
+/** Site Havigation        **/
+/********************************************************/
 #navlist {
 }
 
@@ -120,12 +133,13 @@ body{
 #navlist a {
 	padding: 10px;
 	font-weight: bold;
+	font-size: 10pt;
 	margin: 10px 10px 10px 10px;
 	text-decoration: none;
 	display: block;
-
-	color: #444444;
-	background-color: #dddddd;
+	
+	color: #222222;
+	background-color: #D8E7FF;
 	border: 2px outset #999999;
 
 	border-radius: 10px;
@@ -134,19 +148,19 @@ body{
 }
 
 #navlist a.selected {
-	background-color: #7698BA;
+	background-color: #37598D;
 	border-color: #999999;
-	color: #eeeeee;
+	color: white;
 }
 #navlist a.selected:hover {
-	background-color: #7698BA;
+	background-color: #37598D;
 	border-color: black;
 	color: #eeeeee;
 }
 #navlist a:hover { 
 	border-color: #222222;
-	color: #222222;
-	background-color: #efefef;
+	color: black;
+	background-color: #94B9E1;
 }
 
 /********************************************************/
@@ -181,6 +195,7 @@ body{
 	margin-bottom: 20px;
 	padding: 5px 10px;
 	margin-left: 40px;
+	border: 1px solid #dddddd;
 	background-color: #efefef;
 }
 #content_box form{
@@ -190,26 +205,27 @@ body{
 	padding: 5px 10px;
 	margin-left: 40px;
 	margin-top: 40px;
-	ssbackground-color: #efefef;
 }
 #content_box p{
 	margin-left: 40px;
 	line-height: 140%;
-	font-size: 11pt;
+	font-size: 10pt;
 	margin-bottom: 20px;
 	margin-right: 50px;
 }
 #content_box ul{
 	margin-left: 70px;
 	line-height: 140%;
-	font-size: 11pt;
+	font-size: 10pt;
 }
 #content_box li{
 	list-style-type: circle;
 	margin-bottom: 10px;
 }
 
-
+/********************************************************/
+/** Table               **/
+/********************************************************/
 table{
 	font-size: 10pt;
 	border: 1px dashed #376B91;
@@ -219,7 +235,6 @@ table{
 table caption{
 	text-align: left;
 	font-size: 10pt;
-	ssmargin-bottom: 10px;
 	background-color: #eeeeee;
 	padding: 10px;
 	border: 2px outset #dddddd;
@@ -233,57 +248,28 @@ table tr{
 }
 table tr:hover{
 	background-color: #efefef;
-	ssborder: 1px solid black;
 }
 table th{
 	font-weight: normal;
 	text-align: left;
-	sborder-bottom: 1px solid #dddddd;
-	sborder-top: 1px solid #dddddd;
 	padding: 10px;
 }
 table td{
 	font-weight: normal;
 	text-align: left;
-	yyborder: 1px solid #dddddd;
-	sspadding: 10px;
-	ssborder: 2px outset #376B91;
 	text-align: center;
 	
 }
-table td a{
-	background-color: #dddddd;
-	font-size: 10pt;
-	ddfont-weight: bold;
-	text-decoration: none;
-	color: #333333;
-	display: block;
-	padding: 5px;
-	margin: 5px;
-	border: 2px outset #999999;
-}
-table td a:hover{
-	background-color: white;
-	ssfont-size: 10pt;
-	ssfont-weight: bold;
-	sstext-decoration: none;
-	color: black;
-	ssdisplay: block;
-	sspadding: 5px;
-	ssmargin: 5px;
-	border: 2px outset black;
-}
+
 
 /********************************************************/
 /** Comment Box                 **/
 /********************************************************/
 #comment_box{
-	ssbackground-color: yellow;
 	margin-top: 20px;
 	font-size: 12pt;
 	margin: 30px 0px 20px 50px;
-	
-	bbborder-top: 4px dashed #dddddd;
+	clear: both;
 }
 
 #comment_box h5{
@@ -295,7 +281,7 @@ table td a:hover{
 }
 #comment_box h6{
 	font-size: 8pt;
-	ddbackground-color: #efefef;
+	font-weight: normal;
 	padding: 5px 0px 5px 10px;
 	border-left: 5px solid #bbbbbb;
 	border-top: 1px solid #bbbbbb;
@@ -306,12 +292,13 @@ table td a:hover{
 #comment_box p{
 	font-size: 9pt;
 }
+
 /********************************************************/
 /** Footer Box                 **/
 /********************************************************/
 #footer_box{
 	clear: both;
-	BBbackground-color: yellow;
 	margin-top: 20px;
 	font-size: 8px;
+	margin-left: 50px;
 }

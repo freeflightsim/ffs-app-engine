@@ -4,20 +4,21 @@
 
 {% block content %}
 
-
+<!--## Table ##-->
 <table style="float: right;">
-
 {% for st in steps %}
 <tr>
 	<td class="{{ st.cls }}" style="width: 30px;">{{ st.step }} </td>
-	<th>{{ st.label }}- {{ st.cls}}</th>
+	<th>{{ st.label }}</th>
 </tr>
 {% endfor %}
 </table>
 
 <h2>How to add an event - step {{step }} of 3</h2>
 
+<!--## Step #1 ##-->
 {% ifequal step 1 %}
+<p>Virtual airlines, events, missions, et all welcome.<p>
 <h3>Login</h3>
 <ul>
 <li>Click on the button below to login with your <b>Google account</b>.</li>
@@ -29,42 +30,44 @@
 </form>
 {% endifequal %}
 
+<!--## Step #2 ##-->
 {% ifequal step 2 %}
 <h3>Subscribe</h3>
 
 <ul>
 
-<li>Click on the button below to subscribe</li>
-<li>The server will then add you as an <b>editor</b> to the calendar</li>
-<li>Please act responsibly and do not abuse</li>
-<li>We reserve the right to ban you</li>
+<li>Click on the button below to subscribe to the public <b>fg@freeflightsim.org</b> calendar.</li>
+<li>The server will add you as an <b>editor</b> to the calendar, which means you can create, ammend delete events.</li>
+<li>Please act responsibly and do not abuse. We reserve the right to ban you.</li>
 </ul>
 <form action="/subscribe/" method="post">
 	<input type="hidden" name="action" value="add2cal">
-	<input type="submit" value="Subscribe {{ user.email }}">
+	<input type="submit" value="Subscribe: {{ user.email }}">
 </form>
 
-<p><b>{% if user %}{{ user.nickname }}{% else %}<a href="/subscribe/login/">Login</a>{% endif %}</b></p>
-<td>{% if user %}<a href="/subscribe/link/">Goto Calendar</a>{% else %}---{% endif %}</td>
-<td width="100">{% if user %}<a href="/subscribe/subscribe/">Subscribe</a>{% else %}---{% endif %}</td>
+
 {% endifequal %}
 
+<!--## Step #3 ##-->
 {% ifequal step 3 %}
 <h3>Create Entry</h3>
-<p>You now have access to the calendar. Follow the link below to edit the calendar.</p>
-<ul>
-<li><a href="http://www.google.com/calendar/hosted/freeflightsim.org/render?cid=fg@freeflightsim.org">
-<b>Visit Calendar</b></a></li>
-<li>If this is your first visit, then you will be asked to activate your "calendar space" the first time.
-The FlightGear calendar will appear in addition to yours.</li>
 
+<img src="/images/cal.link.png" alt="" style="border: 3px dotted #999999; float: right; margin: 0px 20px 0px 40px;">
+<ul>
+<li>You now <b>have access</b> to the <b><a href="{{ conf.CAL_URL }}">FlightGear Calendar</a></b></li>
+<li>A quick shortcut to edit is the <b>Button bottom right</b> as pictured.</li>
+<li>If its your first visit to Google Calendar, then you will be asked to activate your "calendar space" the first time.
+</li>
+<li>The <b>FlightGear</b> calendar will appear <b>in addition</b> to others.</li>
 </ul>
 
 <img src="/images/cal.entry.png" alt="" style="border: 3px dotted #999999; float: right; margin: 0px 10px 0px 30px;">
 <ul>
 <li>Pictured is an example entry, highlighting the <b>Important</b> fields.</li>
-<li>Entries <b>must be public</b> to appear publicly on this calendar.</li>
+<li>Entries <b>must be public</b> to be visible to all.</li>
+<li>Don't accidentally create an event in the <b>wrong calendar</b>.</li>
 </ul>
+
 {% endifequal %}
 
 

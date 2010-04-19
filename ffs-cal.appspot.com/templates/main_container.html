@@ -4,7 +4,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1;">
-<title>{{ title }} | {{ conf.SITE_TITLE }}</title>
+<title>{{ page_title }} =|= {{ conf.SITE_TITLE }}</title>
 
 <script type="text/javascript" sssrc="http://fg-cache.appspot.com/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" sssrc="http://fg-cache.appspot.com/js/jquery-lightbox-0.5/js/jquery.lightbox-0.5.js"></script>
@@ -49,24 +49,13 @@
 
 		<a href="http://www.google.com/calendar/hosted/freeflightsim.org/embed?src=fg%40freeflightsim.org&ctz=Europe/London"><img src="http://www.google.com/calendar/hosted/freeflightsim.org/images/html.gif" alt="html"></a>
 		</p>
-		<p><a href="http://www.google.com/calendar/hosted/freeflightsim.org/embedhelper?src=fg@freeflightsim.org&ctz=Europe/London">Embed Widget</a></p>
+		<p><a href="http://www.google.com/calendar/hosted/freeflightsim.org/embedhelper?src=fg@freeflightsim.org&ctz=Europe/London">Embeddable Widget</a></p>
+
+		<p><a href="http://flightgear.org/forums/viewforum.php?f=10">FlightGear Forum</a></p>
+
 		{% if user %}<p><a href="{{ logout_url }}">Logout</a></p>{% endif %}
 
-		<!---<fieldset>
-			<legend>Add an event</legend>
-			<p>This calendar is work in progress, r&amp;d,  trying to find a 
-			solution that works for everyone. Currently the toolkit and service were using
-is Google Calendar as this has all the widgets etc.
-			
-			</p>
 
-		</fieldset>
-		-->
-		<div class="comments">
-			<pre>Some randome comment hrere
-			</pre>
-
-		</div>
 
 	</div>
 	
@@ -83,7 +72,7 @@ is Google Calendar as this has all the widgets etc.
 			<div id="comment_box">
 				<h5>Bugs, Comments and Suggestions</h5>
 				{% for c in comments %}
-					<h6>by {{ c.author.nickname }} at {{ c.dated }}</h6>
+					<h6><i>{{ c.author.nickname }}</i> at {{ c.dated }}</h6>
 					<p>sss{{ c.comment }}</p>
 				{% endfor %}
 				<form action="/comment/" method="post">

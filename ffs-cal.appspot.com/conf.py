@@ -7,7 +7,7 @@ APP_ID = 'freeflightsim'
 
 tm = "<span class='tm'>FreeFlightSim</span>" #&#0174;
 
-SITE_TITLE = "Free Flight Simulation"
+SITE_TITLE = "FlightGear calendar at FreeFlightSim.org"
 SITE_HEADER = "Free Flight Simulation"
 
 GOOGLE_PROJECT = "freeflightsim"
@@ -31,3 +31,5 @@ langs = [ 	{'code': 'En', 'label': 'English'},
 
 USER = 'fg@freeflightsim.org'
 SECRET = 'Airbus747'
+
+CAL_URL = 'http://www.google.com/calendar/render?cid=fg@freeflightsim.org'

@@ -24,41 +24,6 @@ import atom.core
 import conf
 
 
-#######################################################
-## Videos
-#######################################################
-def videos( filter_str="", max_results=10):
-	videos = memcache.get(filter_str, namespace="videos")
-	if videos:
-		return videos
-	videos =  fetch_videos(filter_str, max_results)
-	if not memcache.set("videos", videos, 300, namespace="videos"):
-		print "error"
-	return videos
-
-def fetch_videos(filter_str, max_results):
-	query_str = filter_str
-	client = gdata.youtube.service.YouTubeService()
-	query = gdata.youtube.service.YouTubeVideoQuery()
-	query.vq = query_str
-	query.max_results = max_results
-	#query.order_by = "rating"
-	feed = client.YouTubeQuery(query)	
-	#print feed
-	videos = []
-	for entry in feed.entry:
-		v = process_vid_entry(entry)
-		videos.append(v)
-	return videos
-
-def process_vid_entry( entry):
-	dic = {}
-	dic['id'] = entry.id.text.split("/")[-1]
-	dic['title'] = entry.title.text
-	dic['thumbnail'] = entry.media.thumbnail[0].url
-	return dic
-
-
 def cal_subscribed(email):
 	token = memcache.get(email, namespace="session")
 	if token == None:
