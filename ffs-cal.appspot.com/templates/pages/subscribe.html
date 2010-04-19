@@ -3,7 +3,50 @@
 
 
 {% block content %}
+
+
+<table style="float: right;">
+<!-- <caption>Steps required to create an entry</caption>-->
+
+
+<tr {% if user %}style="color: green"{% endif %}>
+	<td class="{% ifequal step  1 %}amber{% else %}green{% endifequal %}" style="width: 30px;">1{% ifequal step  1 %}{% endifequal %}</td>
+	<th >{% if user %}Sign In{% else %}Sign In{% endif %}</th>
+	
+	</td>
+</tr>
+<tr>
+	<td>2</td>
+	<th>Subscribe to Calendar</th>
+	
+</tr>
+<tr>
+	<td>3</td>
+	<th>Create entry</th>
+	
+</tr>
+<tr>
+	<td>4</td>
+	<th>Alerts</th>
+	
+</tr>
+</table>
+
 <h2>How to add an event</h2>
+
+
+{% ifequal step 1 %}
+
+<h3>Login</h3>
+<ul>
+<li>Click on the link below login with your google account</li>
+<li>If you dont' have a google account, then click the link and create one. You will use the same email, its just you need to setup a token with google.</li>
+<li><b><a href="/subscribe/login/">Login</a></b></li>
+</ul>
+<p><b>{% if user %}{{ user.nickname }}{% else %}<a href="/subscribe/login/">Login</a>{% endif %}</b></p>
+<td>{% if user %}<a href="/subscribe/link/">Goto Calendar</a>{% else %}---{% endif %}</td>
+<td width="100">{% if user %}<a href="/subscribe/subscribe/">Subscribe</a>{% else %}---{% endif %}</td>
+{% endifequal %}
 
 {% if page %}
 
@@ -29,28 +72,7 @@
 
 
 
-<table>
-<caption>Steps required to create an entry</caption>
 
-
-<tr {% if user %}style="color: green"{% endif %}>
-	<th >{% if user %}OK: Logged in{% else %}Login with google recognised account{% endif %}</th>
-	<td>{% if user %}{{ user.nickname }}{% else %}<a href="/subscribe/login/">Login</a>{% endif %}
-	</td>
-</tr>
-<tr>
-	<th>Subscribe to the Calendar</th>
-	<td width="100">{% if user %}<a href="/subscribe/subscribe/">Subscribe</a>{% else %}---{% endif %}</td>
-</tr>
-<tr>
-	<th>Add the calendar to your google calendars. If their not activated, then a simple click will do so.</th>
-	<td>{% if user %}<a href="/subscribe/link/">Link</a>{% else %}---{% endif %}</td>
-</tr>
-<tr>
-	<th>Create an entry in the <b>FlightGear</b> calendar, mark as public so everyone can see</th>
-	<td>#</td>
-</tr>
-</table>
 
 {% endif %}
 

@@ -1,11 +1,17 @@
 
-
+.tm{
+	color: #000099;
+	font-family: monospace;
+}
 
 
 /********************************************************/
 /** Main Containers           **/
 /********************************************************/
 
+td.amber{
+	background-color: #F4C240;
+}
 
 body{
 	background-color: #ffffff;
@@ -73,6 +79,14 @@ body{
 }
 
 
+#site_nav_box p{
+	margin-left: 30px;
+	margin-top: 20px;
+	margin-bottom: 0px;
+	font-size: 9pt;
+
+}
+
 #fg_logo{
 	ssborder: 1px solid red;
 	text-align: center;
@@ -134,13 +148,6 @@ body{
 	margin-right: 250px;
 	margin-left: 10px;
 	min-height: 500px;
-	ssborder: 4px inset #cccccc;
-	sborder-radius: 10px;
-	ss-moz-border-radius: 10px; 
-	ss-webkit-border-radius: 10px;
-	sspadding: 20px;
-	ssbackground-color: #efefef;
-	ssbackground-color: #dddddd;
 }
 
 #content_box ssh1{
@@ -178,9 +185,9 @@ body{
 }
 #content_box p{
 	margin-left: 40px;
-	line-height: 150%;
+	line-height: 140%;
 	font-size: 11pt;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 #content_box ul{
 	margin-left: 70px;
@@ -194,8 +201,9 @@ body{
 
 table{
 	font-size: 10pt;
-	ssborder: 2px solid #376B91;
+	border: 1px dashed #376B91;
 	margin: 40px 0px 0px 40px;
+	background-color: #eeeeee;
 }
 table caption{
 	text-align: left;

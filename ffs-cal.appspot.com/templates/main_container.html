@@ -42,7 +42,15 @@
 			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
 			{% endfor %}
 		</ul>
-		{% if user %}<a href="{{ logout_url }}">Logout</a>{% endif %}
+		<p>
+		<a href="http://www.google.com/calendar/feeds/fg@freeflightsim.org/public/basic"><img src="http://www.google.com/calendar/hosted/freeflightsim.org/images/xml.gif" alt="xml"></a>
+
+		<a href="http://www.google.com/calendar/ical/fg@freeflightsim.org/public/basic.ics"><img src="http://www.google.com/calendar/hosted/freeflightsim.org/images/ical.gif" alt="ical"></a>
+
+		<a href="http://www.google.com/calendar/hosted/freeflightsim.org/embed?src=fg%40freeflightsim.org&ctz=Europe/London"><img src="http://www.google.com/calendar/hosted/freeflightsim.org/images/html.gif" alt="html"></a>
+		</p>
+		<p><a href="http://www.google.com/calendar/hosted/freeflightsim.org/embedhelper?src=fg@freeflightsim.org&ctz=Europe/London">Embed Widget</a></p>
+		{% if user %}<p><a href="{{ logout_url }}">Logout</a></p>{% endif %}
 
 		<!---<fieldset>
 			<legend>Add an event</legend>
@@ -56,7 +64,7 @@ is Google Calendar as this has all the widgets etc.
 		-->
 	</div>
 	
-	<h1 id="ffs_cal_title">FlightGear - events and calendar</h1>
+	<h1 id="ffs_cal_title">FlightGear Calendar ID: fg@freeflightsim.org</h1>
 
 	<!--### Main Content ########################-->
 	<div id="content_box">
@@ -74,8 +82,9 @@ is Google Calendar as this has all the widgets etc.
 		<a href="http://localhost:8080/_ah/admin/">Local Admin</a> - 
 		&copy; 2010+ FreeFlightSim - all right reserved etc
 	</div><!-- end footer-->
-
-
+     
+	
+   
 
 
 </div><!-- main cotainer -->

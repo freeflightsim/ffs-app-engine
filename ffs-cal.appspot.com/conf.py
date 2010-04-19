@@ -5,7 +5,7 @@ DEBUG = True
 
 APP_ID = 'freeflightsim'
 
-tm = "<span class='tm'>FreeFlightSim&#0174;</span>"
+tm = "<span class='tm'>FreeFlightSim</span>" #&#0174;
 
 SITE_TITLE = "Free Flight Simulator"
 SITE_HEADER = "Free Flight Simulator"
