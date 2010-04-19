@@ -13,6 +13,7 @@ import gdata.calendar.service
 
 import conf
 import app.FFS
+import fetch
 
 class MainHandler(webapp.RequestHandler):
 
@@ -32,66 +33,78 @@ class MainHandler(webapp.RequestHandler):
 		Appo = app.FFS.FFS()
 		template_vars['appo'] = Appo
 
-
-		if section == 'subscribe' :
-				
-			if self.request.get("step"):
-				step = int(self.request.get("step"))
-			else:
-				step = 1
-			template_vars['step'] = step
-
-			user = users.get_current_user()
+		user = users.get_current_user()
+		if not user:
+			template_vars['user'] = None
+			template_vars['login_url'] = users.create_login_url("/subscribe/")		
+		else:
 			template_vars['user'] = user
-			if user:
-				template_vars['logout_url'] = users.create_logout_url("/")
+			template_vars['logout_url'] = users.create_logout_url("/")
+	
+		if section == 'subscribe' :
+			if not user:
+				step = 1
+			else:
+				cal = fetch.cal_subscribed(user.email())
+				if cal == 0:
+					step = 2 
+				else:
+					step = 3
+			#if self.request.get("step"):
+			#	step = int(self.request.get("step"))
+			#else:
+			##step = 2
+			#template_vars['step'] = step
+			#step = 1
+			#cal = fetch.cal_subscribed(user.email())	
+			#if cal == 0:
+			#	step = 2 
+			#else:
+			#	step = 3
 
- 
-			"""
-			calendar_service = gdata.calendar.service.CalendarService()
-			calendar_service.email = 'fg@freeflightsim.org'
-			calendar_service.password = 'Airbus747'
-			calendar_service.source = 'Google-Calendar_Python_Sample-1.0'
-			calendar_service.ProgrammaticLogin()
-			"""
-			#feed = calendar_service.GetAllCalendarsFeed()
-			#print feed.title.text
-			#for i, a_calendar in enumerate(feed.entry):
-			#	print '\t%s. %s' % (i, a_calendar.title.text,)
+			#else:
+			## were logged in
+			steps = []
+			steps.append({'step': 1, 'label': 'Sign In', 'cls': 'amber' if step == 1 else 'green'})
 
-			#feed = calendar_service.GetCalendarAclFeed()
-			#print feed.title.text
-			#for i, a_rule in enumerate(feed.entry):
-			#	print '\t%s. %s' % (i, a_rule.title.text,)
-			#	print '\t\t Role: %s' % (a_rule.role.value,)
-			#	print '\t\t Scope %s - %s' % (a_rule.scope.type, a_rule.scope.value)
+			if step == 2:
+				cls = 'amber'
+			elif step > 2:
+				cls = 'green'
+			else:
+				cls = 'red'
+			steps.append({'step': 2, 'label': 'Subscribe', 'cls': cls})
 
-			"""
-			rule = gdata.calendar.CalendarAclEntry()
-			rule.scope = gdata.calendar.Scope(value='ac001@daffodil.uk.com')
-			rule.scope.type = 'user'
-			roleValue = 'http://schemas.google.com/gCal/2005#%s' % ('freebusy')
-			rule.role = gdata.calendar.Role(value=roleValue)
-			aclUrl = '/calendar/feeds/fg@freeflightsim.org/acl/full'
-			returned_rule = calendar_service.InsertAclEntry(rule, aclUrl)
-			"""
-			#print "###", returned_rule
-			##print "############"
+			if step == 3:
+				cls = 'amber'
+			elif step > 3:
+				cls = 'green'
+			else:
+				cls = 'red'
+			steps.append({'step': 3, 'label': 'Create Event', 'cls': cls})
 
-			if page == 'login':
+			template_vars['steps'] = steps
+			#step = 2
+			#template_vars['logout_url'] = users.create_logout_url("/subscribe/")
+
+
+			#if page == 'login':
 				
-				if user:
+				#if user:
 					##self.response.headers['Content-Type'] = 'text/plain'
 					##self.response.out.write('Hello, ' + user.nickname())
 					
-					template_vars['logout_url'] = users.create_logout_url("/")
+					
 				##self.redirect(users.create_login_url(self.request.uri))
-				else:
-					self.redirect(users.create_login_url("/subscribe/"))
-
+				#else:
+					#self.redirect(users.create_login_url("/subscribe/"))
+			template_vars['step'] = step
 			#main_template = '%s.html' % (section)
 			##path = '/%s/' % (section)
 		#else:
+
+		
+
 		main_template = '%s.html' % (section)
 		path = '/%s/' % (section)
 		template_vars['path'] = path
@@ -106,21 +119,8 @@ class MainHandler(webapp.RequestHandler):
 		action = self.request.get('action')
 		if action:
 			if action == 'add2cal':
-				calendar_service = gdata.calendar.service.CalendarService()
-				calendar_service.email = 'fg@freeflightsim.org'
-				calendar_service.password = 'Airbus747'
-				calendar_service.source = 'Google-Calendar_Python_Sample-1.0'
-				calendar_service.ProgrammaticLogin()
-
-				rule = gdata.calendar.CalendarAclEntry()
-				rule.scope = gdata.calendar.Scope(value='ac001ss4@daffodil.uk.com')
-				rule.scope.type = 'user'
-				roleValue = 'http://schemas.google.com/gCal/2005#%s' % ('freebusy')
-				rule.role = gdata.calendar.Role(value=roleValue)
-				aclUrl = '/calendar/feeds/fg@freeflightsim.org/acl/full'
-				try:
-					returned_rule = calendar_service.InsertAclEntry(rule, aclUrl)
-					print returned_rule
-				except :
-						print "#########"
+				user = user = users.get_current_user()
+				if user:
+					app.fetch.cal_add_acl(user.email())
+		self.redirect("/subscribe/")
 				

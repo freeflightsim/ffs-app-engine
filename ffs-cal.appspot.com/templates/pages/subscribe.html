@@ -6,50 +6,30 @@
 
 
 <table style="float: right;">
-<!-- <caption>Steps required to create an entry</caption>-->
 
-
-<tr {% if user %}style="color: green"{% endif %}>
-	<td class="{% ifequal step  1 %}amber{% else %}green{% endifequal %}" style="width: 30px;">1{% ifequal step  1 %}{% endifequal %}</td>
-	<th >{% if user %}Sign In{% else %}Sign In{% endif %}</th>
-	
-	</td>
-</tr>
+{% for st in steps %}
 <tr>
-	<td>2</td>
-	<th>Subscribe to Calendar</th>
-	
+	<td class="{{ st.cls }}" style="width: 30px;">{{ st.step }} </td>
+	<th>{{ st.label }}- {{ st.cls}}</th>
 </tr>
-<tr>
-	<td>3</td>
-	<th>Create entry</th>
-	
-</tr>
-<tr>
-	<td>4</td>
-	<th>Alerts</th>
-	
-</tr>
+{% endfor %}
 </table>
 
-<h2>How to add an event</h2>
-
+<h2>How to add an event - step {{step }} of 3</h2>
 
 {% ifequal step 1 %}
-
 <h3>Login</h3>
 <ul>
-<li>Click on the link below login with your google account</li>
-<li>If you dont' have a google account, then click the link and create one. You will use the same email, its just you need to setup a token with google.</li>
-<li><b><a href="/subscribe/login/">Login</a></b></li>
+<li>Click on the button below to login with your <b>Google account</b>.</li>
+<li>If you dont' have a google account, then <b>click the button and create one</b> using your existing email address.</li>
+
 </ul>
-<p><b>{% if user %}{{ user.nickname }}{% else %}<a href="/subscribe/login/">Login</a>{% endif %}</b></p>
-<td>{% if user %}<a href="/subscribe/link/">Goto Calendar</a>{% else %}---{% endif %}</td>
-<td width="100">{% if user %}<a href="/subscribe/subscribe/">Subscribe</a>{% else %}---{% endif %}</td>
+<form action="{{ login_url}}" method="post">
+	<input type="submit" value="Login">
+</form>
 {% endifequal %}
 
-{% if page %}
-
+{% ifequal step 2 %}
 <h3>Subscribe</h3>
 
 <ul>
@@ -59,22 +39,33 @@
 <li>Please act responsibly and do not abuse</li>
 <li>We reserve the right to ban you</li>
 </ul>
-
-
 <form action="/subscribe/" method="post">
 	<input type="hidden" name="action" value="add2cal">
 	<input type="submit" value="Subscribe {{ user.email }}">
 </form>
 
-<p>dasdas</p>
-{% else %}
+<p><b>{% if user %}{{ user.nickname }}{% else %}<a href="/subscribe/login/">Login</a>{% endif %}</b></p>
+<td>{% if user %}<a href="/subscribe/link/">Goto Calendar</a>{% else %}---{% endif %}</td>
+<td width="100">{% if user %}<a href="/subscribe/subscribe/">Subscribe</a>{% else %}---{% endif %}</td>
+{% endifequal %}
 
+{% ifequal step 3 %}
+<h3>Create Entry</h3>
+<p>You now have access to the calendar. Follow the link below to edit the calendar.</p>
+<ul>
+<li><a href="http://www.google.com/calendar/hosted/freeflightsim.org/render?cid=fg@freeflightsim.org">
+<b>Visit Calendar</b></a></li>
+<li>If this is your first visit, then you will be asked to activate your "calendar space" the first time.
+The FlightGear calendar will appear in addition to yours.</li>
 
+</ul>
 
-
-
-
-{% endif %}
+<img src="/images/cal.entry.png" alt="" style="border: 3px dotted #999999; float: right; margin: 0px 10px 0px 30px;">
+<ul>
+<li>Pictured is an example entry, highlighting the <b>Important</b> fields.</li>
+<li>Entries <b>must be public</b> to appear publicly on this calendar.</li>
+</ul>
+{% endifequal %}
 
 
 {% endblock content %}

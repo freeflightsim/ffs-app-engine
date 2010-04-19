@@ -13,6 +13,14 @@ td.amber{
 	background-color: #F4C240;
 }
 
+td.green{
+	background-color: #699D70;
+}
+
+td.red{
+	background-color: #FAC3EA;
+}
+
 body{
 	background-color: #ffffff;
 }
@@ -106,6 +114,7 @@ body{
 
 #navlist li {
 	list-style-type: none;
+
 }
 
 #navlist a {
@@ -196,6 +205,7 @@ body{
 }
 #content_box li{
 	list-style-type: circle;
+	margin-bottom: 10px;
 }
 
 

@@ -14,6 +14,8 @@ import conf
 class FFS:
 
 
+	
+
 	def nav(self):
 		"""Return navigation - used in tempalte """
 		return self._nav
@@ -42,7 +44,7 @@ class FFS:
 		"""Initialise Navigation and add navigations items"""
 		### TODO authenticated sections
 		self._mp_servers_info = None
-
+		self.conn = None
 		self._nav = []
 		self._paths = {}
 
