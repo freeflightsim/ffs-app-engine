@@ -14,7 +14,7 @@ import conf
 class FFS:
 
 
-	
+
 
 	def nav(self):
 		"""Return navigation - used in tempalte """
@@ -48,11 +48,11 @@ class FFS:
 		self._nav = []
 		self._paths = {}
 
-		self.nav_append( {'path':'/index/', 'label': 'Index', 'title': 'Welcome'})
-
+		self.nav_append( {'path':'/index/', 'label': 'Calendar', 'title': 'Welcome'})
+		self.nav_append( {'path':'/about/', 'label': 'About'})
 		self.nav_append( {'path':'/subscribe/', 'label': 'Add Event', 'title': 'About Free Flight Sim.org'})
 
-		self.nav_append( {'path':'/about/', 'label': 'About'})
+		
 		"""
 		self.nav_append( {'path':'/support/', 'label': 'Support', 
 						'subnav': [	

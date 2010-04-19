@@ -62,6 +62,12 @@ is Google Calendar as this has all the widgets etc.
 
 		</fieldset>
 		-->
+		<div class="comments">
+			<pre>Some randome comment hrere
+			</pre>
+
+		</div>
+
 	</div>
 	
 	<h1 id="ffs_cal_title">FlightGear Calendar ID: fg@freeflightsim.org</h1>
@@ -72,7 +78,27 @@ is Google Calendar as this has all the widgets etc.
 		{% block content %}
 		content here
 		{% endblock content %}
+
+			<!--### Comment Box ########################-->
+			<div id="comment_box">
+				<h5>Bugs, Comments and Suggestions</h5>
+				{% for c in comments %}
+					<h6>by {{ c.author.nickname }} at {{ c.dated }}</h6>
+					<p>sss{{ c.comment }}</p>
+				{% endfor %}
+				<form action="/comment/" method="post">
+					<input type="hidden" value="add_comment" name="action">
+					<input type="hidden" value="{{ section }}" name="section">
+					<textarea style="width: 100%; " rows="5" name="comment"></textarea>
+					<input type="submit" value="Add Comment">
+				</form>
+			</div><!-- end footer-->
+
 	</div>
+
+
+
+
 
 	<!--### Navigation ########################-->
 	<div id="footer_box">

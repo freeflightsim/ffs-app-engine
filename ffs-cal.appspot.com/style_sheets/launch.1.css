@@ -197,6 +197,7 @@ body{
 	line-height: 140%;
 	font-size: 11pt;
 	margin-bottom: 20px;
+	margin-right: 50px;
 }
 #content_box ul{
 	margin-left: 70px;
@@ -271,6 +272,39 @@ table td a:hover{
 	sspadding: 5px;
 	ssmargin: 5px;
 	border: 2px outset black;
+}
+
+/********************************************************/
+/** Comment Box                 **/
+/********************************************************/
+#comment_box{
+	ssbackground-color: yellow;
+	margin-top: 20px;
+	font-size: 12pt;
+	margin: 30px 0px 20px 50px;
+	
+	bbborder-top: 4px dashed #dddddd;
+}
+
+#comment_box h5{
+	font-size: 12pt;
+	background-color: #efefef;
+	padding: 5px;
+	border-top: 1px solid #bbbbbb;
+	margin-bottom: 20px;
+}
+#comment_box h6{
+	font-size: 8pt;
+	ddbackground-color: #efefef;
+	padding: 5px 0px 5px 10px;
+	border-left: 5px solid #bbbbbb;
+	border-top: 1px solid #bbbbbb;
+	border-right: 5px solid #bbbbbb;
+	margin-left: 20px;
+}
+
+#comment_box p{
+	font-size: 9pt;
 }
 /********************************************************/
 /** Footer Box                 **/

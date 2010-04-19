@@ -7,13 +7,14 @@ The main handler page
 import os
 from google.appengine.ext import webapp
 from google.appengine.api import users
+from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
-import gdata.calendar.service
 
 import conf
 import app.FFS
 import fetch
+from app.models import Comment
 
 class MainHandler(webapp.RequestHandler):
 
@@ -28,6 +29,14 @@ class MainHandler(webapp.RequestHandler):
 			section = "index"
 		template_vars['section'] = section
 		template_vars['page'] = page
+
+		#comments(self, section):
+		q = db.GqlQuery("SELECT * FROM Comment " +
+						"WHERE section = :1  " +
+						"ORDER BY dated DESC",
+						section)
+		results =  q.fetch(50)
+		template_vars['comments'] = results
 
 		## Application Object
 		Appo = app.FFS.FFS()
@@ -115,12 +124,35 @@ class MainHandler(webapp.RequestHandler):
 		template_path = os.path.join(os.path.dirname(__file__), '../templates/pages/%s' % main_template)
 		self.response.out.write(template.render(template_path, template_vars))
 
+
+	###################################################################################################
 	def post(self, section=None, page=None):
+
 		action = self.request.get('action')
+		#print "actiont", action
 		if action:
+			## Add User To calendar
 			if action == 'add2cal':
-				user = user = users.get_current_user()
+				user = users.get_current_user()
 				if user:
 					app.fetch.cal_add_acl(user.email())
-		self.redirect("/subscribe/")
+				self.redirect("/subscribe/")
+				return
+
+			## Add Comment
+			elif action == 'add_comment':
+				comment = self.request.get("comment").strip()
+				#print "acc comment", comment
+				if comment != "":
+					
+					user = users.get_current_user()
+					section = self.request.get("section")
+					comm = app.models.Comment(comment=comment, section=section)
+					if user:
+						comm.author = user
+					comm.put()
+					#print "acc comment", self.request.get("section"), "/%s/" % section
+				self.redirect("/%s/" % section)
+				return
+		self.redirect("/")
 				
