@@ -3,34 +3,56 @@
 
 
 {% block content %}
-
-
-
 <h2>How to add an event</h2>
+
+{% if page %}
+
+<h3>Subscribe</h3>
+
+<ul>
+
+<li>Click on the button below to subscribe</li>
+<li>The server will then add you as an <b>editor</b> to the calendar</li>
+<li>Please act responsibly and do not abuse</li>
+<li>We reserve the right to ban you</li>
+</ul>
+
+
+<form action="/subscribe/" method="post">
+	<input type="hidden" name="action" value="add2cal">
+	<input type="submit" value="Subscribe {{ user.email }}">
+</form>
+
+<p>dasdas</p>
+{% else %}
+
+
 
 
 <table>
 <caption>Steps required to create an entry</caption>
 
 
-<tr>
-	<th>Login with a google recognised account</th>
-	<td><a href="/login/">Login</a></td>
+<tr {% if user %}style="color: green"{% endif %}>
+	<th >{% if user %}OK: Logged in{% else %}Login with google recognised account{% endif %}</th>
+	<td>{% if user %}{{ user.nickname }}{% else %}<a href="/subscribe/login/">Login</a>{% endif %}
+	</td>
 </tr>
 <tr>
 	<th>Subscribe to the Calendar</th>
-	<td><a href="/subscribe/">Subscribe</a></td>
+	<td width="100">{% if user %}<a href="/subscribe/subscribe/">Subscribe</a>{% else %}---{% endif %}</td>
 </tr>
 <tr>
 	<th>Add the calendar to your google calendars. If their not activated, then a simple click will do so.</th>
-	<td><a href="/link/">Link</a></td>
+	<td>{% if user %}<a href="/subscribe/link/">Link</a>{% else %}---{% endif %}</td>
 </tr>
 <tr>
-	<th>Create an entry in the FlightGear calendar, mark as public so everyone can see</th>
+	<th>Create an entry in the <b>FlightGear</b> calendar, mark as public so everyone can see</th>
 	<td>#</td>
 </tr>
 </table>
 
+{% endif %}
 
 
 {% endblock content %}

@@ -42,6 +42,7 @@
 			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
 			{% endfor %}
 		</ul>
+		{% if user %}<a href="{{ logout_url }}">Logout</a>{% endif %}
 
 		<!---<fieldset>
 			<legend>Add an event</legend>
@@ -59,9 +60,6 @@ is Google Calendar as this has all the widgets etc.
 
 	<!--### Main Content ########################-->
 	<div id="content_box">
-
-	
-	
 
 		{% block content %}
 		content here

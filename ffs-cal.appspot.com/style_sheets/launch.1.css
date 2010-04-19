@@ -51,11 +51,11 @@ body{
 	stext-align: right;
 	smargin-right: 200px;
 	sborder-bottom: 1px dashed #cccccc;
-	color: #eeeeee;
+	color: #C6E0F9;
 	font-size: 15pt;
 	padding: 10px;
 	background-color: #376B91;
-	border: 1px solid #999999;
+	border: 2px outset #517699;
 	border-radius: 5px;
 	-moz-border-radius: 5px; 
 	-webkit-border-radius: 5px;
@@ -82,7 +82,7 @@ body{
 #fg_logo img{
 	background-color: white;
 	padding: 10px;
-	border: 2px outset #3F447B;
+	border: 1px outset #dddddd;
 	border-radius: 10px;
 	-moz-border-radius: 10px; 
 	-webkit-border-radius: 10px;
@@ -143,7 +143,7 @@ body{
 	ssbackground-color: #dddddd;
 }
 
-#content_box h1{
+#content_box ssh1{
 	font-family: sans-serif;
 	font-size: 20pt;
 	padding: 5px 10px;
@@ -153,23 +153,39 @@ body{
 #content_box h2{
 	font-family: sans-serif;
 	font-size: 18pt;
-	ssbackground-color: #efefef;
+	margin-bottom: 20px;
 	padding: 5px 0px;
-	smargin-bottom: 20px;
 	margin-left: 40px;
 	border-bottom: 1px solid #dddddd;
-	ssborder-top: 1px solid #dddddd;
+}
+
+#content_box h3{
+	font-family: sans-serif;
+	font-size: 14pt;
+	margin-bottom: 20px;
+	padding: 5px 10px;
+	margin-left: 40px;
+	background-color: #efefef;
+}
+#content_box form{
+	font-family: sans-serif;
+	font-size: 14pt;
+	margin-bottom: 20px;
+	padding: 5px 10px;
+	margin-left: 40px;
+	margin-top: 40px;
+	ssbackground-color: #efefef;
 }
 #content_box p{
 	margin-left: 40px;
 	line-height: 150%;
-	font-size: 12pt;
+	font-size: 11pt;
 	margin-bottom: 10px;
 }
 #content_box ul{
 	margin-left: 70px;
 	line-height: 140%;
-	font-size: 12pt;
+	font-size: 11pt;
 }
 #content_box li{
 	list-style-type: circle;

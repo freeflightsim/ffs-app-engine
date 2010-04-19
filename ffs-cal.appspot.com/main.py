@@ -15,7 +15,8 @@ import conf
 import app.MainHandler
 
 
-application = webapp.WSGIApplication([	('/(.*)/', app.MainHandler.MainHandler),
+application = webapp.WSGIApplication([	('/(.*)/(.*)/', app.MainHandler.MainHandler),
+										('/(.*)/', app.MainHandler.MainHandler),
 										('/', app.MainHandler.MainHandler),
 										
 									],
