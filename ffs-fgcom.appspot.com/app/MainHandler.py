@@ -11,7 +11,7 @@ from google.appengine.ext.webapp import template
 
 import conf
 import app.FFS
-import fetch
+##import fetch
 from app.models import Comment
 
 class MainHandler(webapp.RequestHandler):

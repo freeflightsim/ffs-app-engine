@@ -11,7 +11,7 @@ from google.appengine.ext.webapp import template
 
 import conf
 import app.FFS
-import fetch
+##import fetch
 from app.models import Comment
 
 class MainHandler(webapp.RequestHandler):
@@ -31,7 +31,7 @@ class MainHandler(webapp.RequestHandler):
 		template_vars['section'] = section
 		template_vars['page'] = page
 		
-
+		
 		## Get Comments
 		q = db.GqlQuery("SELECT * FROM Comment " +
 						"WHERE section = :1  " +
@@ -44,7 +44,7 @@ class MainHandler(webapp.RequestHandler):
 		Appo = app.FFS.FFS()
 		template_vars['appo'] = Appo
 		template_vars['page_title'] = Appo.title("/%s/" % section)
-
+		
 		## Setup User + Aauth
 		user = users.get_current_user()
 		if not user:

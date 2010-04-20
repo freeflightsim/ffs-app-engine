@@ -10,6 +10,23 @@
 <link rel="stylesheet" type="text/css" href="{{ conf.CDN }}/style_sheets/reset.css">
 <link rel="stylesheet" type="text/css" href="/style_sheets/launch.1.css">
 
+<!-- Simple OpenID Selector -->
+<link rel="stylesheet" href="style_sheets/openid.css" />
+<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="js/openid-jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	openid.init('openid_identifier');
+});
+</script>
+<!-- /Simple OpenID Selector -->
+
+<style type="text/css">
+	/* Basic page formatting. */
+	body {
+		font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+</style>
 </head> 
 <body> 
 
@@ -26,23 +43,9 @@
 	<!--### Navigation ########################-->
 	<div id="site_nav_box">
 
-		<div id="fg_logo"><img src="{{ conf.CDN}}/images/fg2.png" alt="FlightGear"></div>
+		
 
-		<ul id="navlist">
-			{% for n in appo.nav %}
-			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
-			{% endfor %}
-		</ul>
-		<p>
-		<a href="http://www.google.com/calendar/feeds/fg@freeflightsim.org/public/basic"><img src="http://www.google.com/calendar/hosted/freeflightsim.org/images/xml.gif" alt="xml"></a>
 
-		<a href="http://www.google.com/calendar/ical/fg@freeflightsim.org/public/basic.ics"><img src="http://www.google.com/calendar/hosted/freeflightsim.org/images/ical.gif" alt="ical"></a>
-
-		<a href="http://www.google.com/calendar/hosted/freeflightsim.org/embed?src=fg%40freeflightsim.org&ctz=Europe/London"><img src="http://www.google.com/calendar/hosted/freeflightsim.org/images/html.gif" alt="html"></a>
-		</p>
-		<p><a href="http://www.google.com/calendar/hosted/freeflightsim.org/embedhelper?src=fg@freeflightsim.org&ctz=Europe/London">Embeddable Widget</a></p>
-
-		<p><a href="http://flightgear.org/forums/viewforum.php?f=10">FlightGear Forum</a></p>
 
 		{% if user %}<p><a href="{{ logout_url }}">Logout</a></p>{% endif %}
 
@@ -50,7 +53,7 @@
 
 	</div>
 	
-	<h1 id="ffs_cal_title">FlightGear Calendar</h1>
+	<h1 id="ffs_cal_title">{{ conf.SITE_HEADER }}</h1>
 
 	<!--### Main Content ########################-->
 	<div id="content_box">
