@@ -1,0 +1,36 @@
+{% extends "../main_container.html" %}
+
+
+{% block content %}
+
+<h2>About this site</h2>
+
+<p>This FlightGear Calendar is located at<br>
+	<a href="{{ conf.CAL_URL }}">http://www.google.com/calendar/render?cid=<b>fg@freeflightsim.org</b></a></p>
+
+<p><b>fg@freeflightsim.org</b> is an user account with a <b>public calendar</b> on the domain <b>FreeFlightSim.org</b>. This site works by remotely adding users in <b>edit mode</b> to the calendar, enabling maintainance of entries.</p>
+
+<p>Its R &amp; D and work in progress, trying to find a solution that works for everyone, is easily managable and updateable. Currently the toolkit and service being used is Google Calendar as this has all the widgets, authentication, feeds etc.</p>
+
+<p>The disadvantage is that a google account is required. This does not mean that you need a new email address etc, but instead can use your existing address to create a "token" with google.
+</p>
+<p>The advantage is that it makes access to google services including access easy. For the developers its much easier to 
+code and more secure.
+</p>
+<p>Any thought's suggestions, mad ideas and bugs, then please leave a comment below.</p>
+
+
+<h3>Ideas and Help Wanted</h3>
+<ul>
+<li>Integrating Virtual Airlines somehow.</li>
+<li>Other languages. If your interested then contact the developers at <a href="mailto:dev@freeflightsim.org">dev@freeflightsim.org</a>.</li>
+</ul>
+
+<h3>Links</h3>
+<ul>
+<li>Bugs and Feature Requests: <a href="http://code.google.com/p/freeflightsim/issues/list">http://code.google.com/p/freeflightsim/issues/list</a></li>
+<li>Wiki: <a href="http://code.google.com/p/freeflightsim/">http://code.google.com/p/freeflightsim/</a></li>
+<li>Source: <a href="http://github.com/FreeFlightSim/ffs-app-engine">http://github.com/FreeFlightSim/ffs-app-engine</a></li>
+</ul>
+
+{% endblock content %}

@@ -4,10 +4,11 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 import conf
+import app.AuthHandler
 import app.MainHandler
 
-
-application = webapp.WSGIApplication([	('/(.*)/(.*)/', app.MainHandler.MainHandler),
+application = webapp.WSGIApplication([	('/letmein/(.*)', app.AuthHandler.AuthHandler),
+										('/(.*)/(.*)/', app.MainHandler.MainHandler),
 										('/(.*)/', app.MainHandler.MainHandler),
 										('/', app.MainHandler.MainHandler),
 										

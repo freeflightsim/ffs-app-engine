@@ -19,6 +19,7 @@ ISSUES_FEED = 'http://code.google.com/feeds/issues/p/freeflightsim/issues/full'
 
 CDN = 'http://ffs-cache.appspot.com'
 #CDN = ''
+RPX_API_KEY = '76e64fe2ffbcd37e983f1826d7add3151943be45'
 
 ##########################################################
 ## Langs - TODO add links

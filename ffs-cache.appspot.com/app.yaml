@@ -7,9 +7,11 @@ handlers:
 
 - url: /js
   static_dir: js
+  expiration: 30d
 
 - url: /images
   static_dir: images
 
 - url: /style_sheets
   static_dir: style_sheets
+  expiration: 30d

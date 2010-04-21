@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1;">
+<title>{{ page_title }} - {{ conf.SITE_TITLE }}</title>
+
+<link rel="SHORTCUT ICON" href="favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="{{ conf.CDN }}/js/ext-3.2.0/resources/css/ext-all.css">
+
+
+<link rel="stylesheet" type="text/css" href="{{ conf.CDN }}/style_sheets/reset.css">
+<link rel="stylesheet" type="text/css" href="/style_sheets/launch.1.css">
+
+<script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/ext-all.js"></script>
+<!--<script type="text/javascript" src="js/ext-3.1.0/ext-all.js"></script>-->
+
+<script type="text/javascript" src="js/Ext.fp.1.js"></script>
+<script type="text/javascript" src="js/FP_Dialog.1.js"></script>
+
+</head> 
+<body> 
+
+<div id="main_container">
+	cook={{ cook }}
+	<!--### Header ########################-->
+	<div id="header_box">
+		<h2>Open Source Flight Simulation with FlightGear</h2>
+		<h1>Free Flight Sim.org</h1>
+		
+	</div>
+
+
+	<!--### Navigation ########################-->
+	<div id="site_nav_box">
+
+		<div id="fg_logo"><img src="{{ conf.CDN}}/images/fg2.png" alt="FlightGear"></div>
+
+		<ul id="navlist">
+			<li><a class="action" href="javascript:showFPDialog();" >Add Entry</a>
+			{% for n in appo.nav %}
+			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
+			{% endfor %}
+		</ul>
+
+
+		<p><a href="http://flightgear.org/forums/viewforum.php?f=10">FlightGear Forum</a></p>
+
+		{% if user %}<p><a href="{{ logout_url }}">Logout</a></p>{% endif %}
+
+
+
+	</div>
+	
+	<h1 id="ffs_cal_title">Flight Plans and ATC Schedules Board</h1>
+
+	<!--### Main Content ########################-->
+	<div id="content_box">
+
+		{% block content %}
+		content here
+		{% endblock content %}
+
+			<!--### Comment Box ########################-->
+			<div id="comment_box">
+				<h5>Bugs, Comments and Suggestions</h5>
+				{% for c in comments %}
+					<h6><i>{{ c.author.nickname }}</i> at {{ c.dated }}</h6>
+					<p>sss{{ c.comment }}</p>
+				{% endfor %}
+				<form action="/comment/" method="post">
+					<input type="hidden" value="add_comment" name="action">
+					<input type="hidden" value="{{ section }}" name="section">
+					<textarea style="width: 100%; " rows="5" name="comment"></textarea>
+					<input type="submit" value="Add Comment">
+				</form>
+			</div><!-- end footer-->
+
+	</div>
+
+
+
+
+
+	<!--### Navigation ########################-->
+	<div id="footer_box">
+		<p>
+		<a href="https://appengine.google.com/dashboard?&app_id=freeflightsim">Dashboard</a> 
+		&copy; 2010+ FreeFlightSim - all right reserved etc
+	</div><!-- end footer-->
+     
+	
+   
+
+
+</div><!-- main cotainer -->
+
+
+
+</body> 
+</html>

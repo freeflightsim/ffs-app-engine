@@ -1,0 +1,333 @@
+
+/********************************************************/
+/** Unique Item           **/
+/********************************************************/
+
+.tm{
+	color: #000099;
+	font-family: monospace;
+}
+
+
+td.amber{
+	background-color: #F4C240;
+}
+
+td.green{
+	background-color: #699D70;
+}
+
+td.red{
+	background-color: #FAC3EA;
+}
+
+/********************************************************/
+/** Main Containers           **/
+/********************************************************/
+
+body{
+	background-color: #ffffff;
+}
+
+
+#main_container{
+	margin: 10px 10px 10px 10px;
+	min-height: 700px;
+	font-family:  sans-serif;
+	ssbackground-color: #efefef;
+}
+
+#main_container #header_box{
+
+	smargin-bottom: 20px;
+	padding: 10px;
+	ssbackground-color: #376B91;
+	sborder: 1px solid #999999;
+	sborder-radius: 5px;
+	s-moz-border-radius: 5px; 
+	s-webkit-border-radius: 5px;
+
+}
+
+#main_container #header_box h1{
+	font-family: monospace;
+	font-size: 10pt;
+	color: #666666;
+}
+#main_container #header_box h2{
+	float: right;
+	font-family: monospace;
+	font-size: 8pt;
+	font-weight: normal;
+	color: #444444;
+}
+/********************************************************/
+/** Main Title           **/
+/********************************************************/
+#ffs_cal_title{
+	color: #C6E0F9;
+	font-size: 15pt;
+	padding: 10px;
+	background-color: #376B91;
+	border: 2px outset #517699;
+	border-radius: 5px;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+}
+
+
+
+/********************************************************/
+/** Site Nav  Box floated on right               **/
+/********************************************************/
+#site_nav_box {
+	float: right;
+	width: 200px;
+}
+
+#site_nav_box p{
+	margin-left: 30px;
+	margin-top: 20px;
+	margin-bottom: 0px;
+	font-size: 9pt;
+}
+
+#site_nav_box p a{
+	text-decoration: none;
+	color: blue;
+	font-size: 9pt;
+}
+#site_nav_box p a:hover{
+	text-decoration: underline;
+
+}
+/********************************************************/
+/** FG Logo               **/
+/********************************************************/
+#fg_logo{
+	ssborder: 1px solid red;
+	text-align: center;
+	margin: 10px 0px 10px 0px;
+	ssfloat: right;
+}
+#fg_logo img{
+	background-color: white;
+	padding: 10px;
+	border: 1px outset #dddddd;
+	border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+}
+
+/********************************************************/
+/** Site Havigation        **/
+/********************************************************/
+#navlist {
+}
+
+#navlist li {
+	list-style-type: none;
+
+}
+
+#navlist a {
+	padding: 10px;
+	font-weight: bold;
+	font-size: 10pt;
+	margin: 10px 10px 10px 10px;
+	text-decoration: none;
+	display: block;
+	
+	color: #222222;
+	background-color: #D8E7FF;
+	border: 2px outset #999999;
+
+	border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+}
+#navlist a:hover { 
+	border-color: #222222;
+	color: black;
+	background-color: #94B9E1;
+}
+
+
+
+#navlist a.selected {
+	background-color: #37598D;
+	border-color: #999999;
+	color: white;
+}
+#navlist a.selected:hover {
+	background-color: #37598D;
+	border-color: black;
+	color: #eeeeee;
+}
+
+
+#navlist a.action {
+	background-color: #4AA81D;
+	border-color: #999999;
+	color: white;
+}
+#navlist a.action:hover {
+	background-color: #97F56A;
+	border-color: black;
+	color: black;
+}
+
+/********************************************************/
+/** Content Box                 **/
+/********************************************************/
+#content_box{
+	margin-top: 30px;
+	margin-right: 250px;
+	margin-left: 10px;
+	min-height: 500px;
+}
+
+#content_box DEADh1{
+	font-family: sans-serif;
+	font-size: 20pt;
+	padding: 5px 10px;
+	margin-bottom: 20px;
+	border-bottom: 1px dashed #eeeeee;
+}
+#content_box h2{
+	font-family: sans-serif;
+	font-size: 18pt;
+	margin-bottom: 20px;
+	padding: 5px 0px;
+	margin-left: 40px;
+	border-bottom: 1px solid #dddddd;
+}
+
+#content_box h3{
+	font-family: sans-serif;
+	font-size: 14pt;
+	margin-bottom: 20px;
+	padding: 5px 10px;
+	margin-left: 40px;
+	border: 1px solid #dddddd;
+	background-color: #efefef;
+}
+#content_box form{
+	font-family: sans-serif;
+	font-size: 14pt;
+	margin-bottom: 20px;
+	padding: 5px 10px;
+	margin-left: 40px;
+	margin-top: 40px;
+}
+#content_box p{
+	margin-left: 40px;
+	line-height: 140%;
+	font-size: 10pt;
+	margin-bottom: 20px;
+	margin-right: 50px;
+}
+#content_box ul{
+	margin-left: 70px;
+	line-height: 140%;
+	font-size: 10pt;
+}
+#content_box li{
+	list-style-type: circle;
+	margin-bottom: 10px;
+}
+
+
+/********************************************************/
+/** Comment Box                 **/
+/********************************************************/
+#comment_box{
+	margin-top: 20px;
+	font-size: 12pt;
+	margin: 30px 0px 20px 50px;
+	clear: both;
+}
+
+#comment_box h5{
+	font-size: 12pt;
+	background-color: #efefef;
+	padding: 5px;
+	border-top: 1px solid #bbbbbb;
+	margin-bottom: 20px;
+}
+#comment_box h6{
+	font-size: 8pt;
+	font-weight: normal;
+	padding: 5px 0px 5px 10px;
+	border-left: 5px solid #bbbbbb;
+	border-top: 1px solid #bbbbbb;
+	border-right: 5px solid #bbbbbb;
+	margin-left: 20px;
+}
+
+#comment_box p{
+	font-size: 9pt;
+}
+
+/********************************************************/
+/** Footer Box                 **/
+/********************************************************/
+#footer_box{
+	clear: both;
+	margin-top: 20px;
+	font-size: 8px;
+	margin-left: 50px;
+}
+
+/********************************************************/
+/** ATC                 **/
+/********************************************************/
+table.fp{
+	width: 100%;
+
+}
+
+table.fp th{
+	font-size: 9pt;
+	border: 1px solid #999999;
+	padding: 3px;
+	text-align: left;
+	font-weight: normal;
+	background-color: #dddddd;
+}
+
+table.fp td{
+	font-size: 10pt;
+	border-bottom: 1px solid #999999;
+	padding: 3px;
+	text-align: left;
+	font-weight: normal;
+}
+table.fp tr:hover{
+	background-color: #F9DEF2;
+}
+
+table.fp button{
+	color: white;
+	font-size: 9pt;
+	padding: 1px;
+	background-color: #C07C16;
+	border: 1px outset #517699;
+	border-radius: 2px;
+	-moz-border-radius: 2px; 
+	-webkit-border-radius: 2px;
+	width: 40px;
+	text-align: center;
+}
+table.fp button:hover{
+	color: black;
+	font-size: 9pt;
+	padding: 1px;
+	background-color: #F9DB90;
+	border: 1px outset #517699;
+	border-radius: 2px;
+	-moz-border-radius: 2px; 
+	-webkit-border-radius: 2px;
+	width: 40px;
+	text-align: center;
+}
