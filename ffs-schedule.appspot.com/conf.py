@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+DEBUG = True
 
 APP_ID = 'ffs-schedule'
 
@@ -32,3 +32,7 @@ EMAIL = 'fg@freeflightsim.org'
 SECRET = 'Bravo787'
 
 CAL_URL = 'http://www.google.com/calendar/render?cid=%s' %  EMAIL
+
+
+MYSQL_DATETIME = '%Y-%m-%d %H:%M:%S'
+

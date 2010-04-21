@@ -6,13 +6,14 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 import conf
 import app.MainHandler
+import app.RpcHandler
 
 if os.environ.get('SERVER_SOFTWARE','').startswith('Devel'):
     DEBUG = True
 else:
     DEBUG = False
 
-application = webapp.WSGIApplication([	('/rpc/(.*)/', app.MainHandler.RpcHandler),
+application = webapp.WSGIApplication([	('/rpc/(.*)/', app.RpcHandler.RpcHandler),
 										('/(.*)/(.*)/', app.MainHandler.MainHandler),
 										('/(.*)/', app.MainHandler.MainHandler),
 										('/', app.MainHandler.MainHandler),

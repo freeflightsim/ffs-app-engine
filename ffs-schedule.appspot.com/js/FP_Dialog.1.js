@@ -2,9 +2,12 @@
 
 */
 
-function FP_Dialog(fppID){
+function FP_Dialog(fppIDX){
 
 var self = this;
+
+this.fppID = fppIDX
+
 //console.log("fppID", fppID);
 //*************************************************************************************				
 //** User Form
@@ -13,10 +16,10 @@ this.frm = new Ext.FormPanel({
 	    frame: true,
 	//title: 'Sign Up',
 	autoHeight: true,
-    url: '/entry/edit/',
-	baseParams: {fetch: 'account', },
+    url: '/rpc/fetch/',
+	baseParams: { fppID: this.fppID },
     reader: new Ext.data.JsonReader({
-				root: 'user',
+				root: 'fpp',
 				fields: [	'callsign', 
 							'dep','dep_date', 'dep_time', 'dep_atc',
 							'arr','arr_date', 'arr_time', 'arr_atc',
@@ -32,7 +35,7 @@ this.frm = new Ext.FormPanel({
 					items:[
 						{fieldLabel: 'Callsign', xtype: 'textfield',  value: 'ac001',
 								sallowBlank: false, minLength: 3, name: 'callsign', width: '30%', msgTarget: 'side'},
-						{fieldLabel: 'Email', xtype: 'textfield',  value: 'foo@bar.com',
+						{fieldLabel: 'Email', xtype: 'textfield',  value: 'foo@bar.com', disabled: true,
 								sallowBlank: false, minLength: 3, name: 'email', width: '80%', msgTarget: 'side'}
 					]
 				},
@@ -107,7 +110,51 @@ this.win = new Ext.Window({
 
 this.win.show();
 
-this.frm.load();
+this.load = function(fppID){
+	Ext.Ajax.request({
+		url: '/rpc/fetch/',
+		params: {fppID: fppID},
+		//self.frm.getEl().mask("Loading..");
+		success: function(response, opts){
+			//console.log(response, opts);
+			var data = Ext.decode(response.responseText);
+			console.log(data);
+			if(data.error){
+				alert("Error: " + data.error.description);
+				return;
+			}
+			var fpp = data.fpp;
+			//self.frm.fireEvent("fpp_refresh");
+			//self.win.close();
+			var f = self.frm.getForm() //.setValues(data.ffp);
+			f.findField("callsign").setValue(fpp.callsign);
+			f.findField("email").setValue(fpp.email);
+			f.findField("comment").setValue(fpp.comment);
+
+			f.findField("dep").setValue(fpp.dep);
+			var d = Date.parseDate(fpp.dep_date, 'Y-m-d H:i:s');
+			f.findField("dep_date").setValue(d);
+			f.findField("dep_time").setValue(d);
+			f.findField("dep_atc").setValue(fpp.dep_atc);
+
+			f.findField("arr").setValue(fpp.arr);
+			var d = Date.parseDate(fpp.arr_date, 'Y-m-d H:i:s');
+			f.findField("arr_date").setValue(d);
+			f.findField("arr_time").setValue(d);
+			f.findField("arr_atc").setValue(fpp.arr_atc);
+
+			//self.frm.getEl().unmask();		
+		},
+		failure: function(response, opts){
+
+			//Ext.geo.msg('OOOPS', 'Something went wrong !');
+		}
+
+	});
+}
+this.load(this.fppID);
+
+
 
 } /* FP_Dialog */
 

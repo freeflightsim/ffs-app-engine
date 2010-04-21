@@ -6,6 +6,7 @@ var self = this;
 
 
 
+
 this.statusLabel = new Ext.Toolbar.TextItem({text:'Socket Status'});
 
 
@@ -13,10 +14,10 @@ this.statusLabel = new Ext.Toolbar.TextItem({text:'Socket Status'});
 //* Pilots Datastore
 this.store = new Ext.data.JsonStore({
 	url: '/rpc/index/',
-	baseParams: {'fetch': 'servers'},
+	baseParams: {'fetch': 'schedule'},
 	root: 'schedule',
 	idProperty: 'fppID',
-	fields: [ 	'callsign', 
+	fields: [ 	'callsign', 'fppID',
 				'dep', {name: 'dep_date', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'dep_atc', 
 				'arr', {name: 'arr_date', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'arr_atc',
 				'comment'],
@@ -161,7 +162,7 @@ this.grid = new Ext.grid.GridPanel({
 	viewConfig: {emptyText: 'No servers online', forceFit: true}, 
 	store: this.store,
 	loadMask: true,
-	columns: [  {header: '#',  dataIndex:'server_id', sortable: true, hidden: true},
+	columns: [  {header: '#',  dataIndex:'fppID', sortable: true, hidden: false},
 				{header: 'Callsign',  dataIndex:'callsign', sortable: true},
 
 				{header: 'Depart',  dataIndex:'dep', sortable: true, renderer: this.render_dep},
@@ -185,13 +186,13 @@ this.grid = new Ext.grid.GridPanel({
         })
 });
 this.grid.on("rowdblclick", function(grid, idx, e){
-	return;
+	//return;
 	var record = self.store.getAt(idx);
-	var d = new FP_Dialog(record.data);
+	var d = new FP_Dialog(record.get('fppID'));
 });    
     
 this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
-	console.log(rowIdx, colIdx);
+	//console.log(rowIdx, colIdx);
 	if(colIdx == 4 || colIdx == 7){
 		var record = self.store.getAt(rowIdx);
 		var d = new FP_Dialog(record.data);
