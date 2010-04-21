@@ -2,32 +2,6 @@
 /********************************************************/
 /** Unique Item           **/
 /********************************************************/
-#real_time_box{
-	bbborder: 2px inset #efefef;
-	bbpadding: 5px;
-	sfont-size: 24pt;
-	sfont-family: monospace;
-	ddbackground-color: #eeeeee;
-	float: right;
-}
-#real_time{
-	sborder: 2px inset #efefef;
-	spadding: 5px;
-	font-size: 10pt;
-	font-family: monospace;
-	
-}
-.real_time_blip{
-	font-size: 8pt;
-	color: blue;
-}
-.real_time_utc{
-	font-size: 12pt;
-	color: #444444;
-}
-
-
-
 .tm{
 	color: #000099;
 	font-family: monospace;
@@ -271,7 +245,8 @@ body{
 }
 
 #comment_box h5{
-	font-size: 12pt;
+	font-size: 10pt;
+	font-weight: normal;
 	background-color: #efefef;
 	padding: 5px;
 	border-top: 1px solid #bbbbbb;
@@ -281,9 +256,9 @@ body{
 	font-size: 8pt;
 	font-weight: normal;
 	padding: 5px 0px 5px 10px;
-	border-left: 5px solid #bbbbbb;
-	border-top: 1px solid #bbbbbb;
-	border-right: 5px solid #bbbbbb;
+	border-left: 1px solid #dddddd;
+	border-top: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
 	margin-left: 20px;
 }
 
@@ -315,14 +290,12 @@ body{
 	background-color: #dddddd;
 	text-decoration: none;
 	padding: 2px;
+	display: block;
 }
 .atc_take:hover{
 	color: black;
-	text-align: center;
-	border: 1px outset #bbbbbb;
+	border-color: #bbbbbb;
 	background-color: #efefef;
-	text-decoration: none;
-	padding: 2px;
 }
 .atc_ok{
 	color: green;
@@ -331,24 +304,22 @@ body{
 	background-color: #D7F0E6;
 	text-decoration: none;
 	padding: 2px;
+	display: block;
 }
 .atc_ok:hover{
 	color: green;
-	text-align: center;
-	border: 1px outset green;
+	border-color: green;
 	background-color: #F5FBE7;
-	text-decoration: none;
-	padding: 2px;
 }
 
 
 .fpp_dep{
-	background-color: #FFF8D3;
-	padding: 2px;
+	border-left: 1px solid #FFE988;
+	border-right: 1px solid #FFE988;
 }
 .fpp_arr{
-	background-color: #FFFFDB;
-	padding: 2px;
+	border-left: 1px solid #FFB0FD;
+	border-right: 1px solid #FFB0FD;
 }
 
 
@@ -356,3 +327,11 @@ body{
 
 .icoFilterOn{background-image: url('/images/bullet_pink.png') !important;}
 .icoFilterOff{background-image: url('/images/bullet_purple.png') !important;}
+.icoRefresh{background-image: url('/images/refresh.gif') !important;}
+.icoSave{background-image: url('/images/accept.png') !important;}
+
+.icoFpp{background-image: url('/images/layout.png') !important;}
+.icoFppAdd{background-image: url('/images/layout_add.png') !important;}
+.icoFppEdit{background-image: url('/images/layout_edit.png') !important;}
+.icoFppDelete{background-image: url('/images/layout_delete.png') !important;}
+.icoFppTake{background-image: url('/images/layout.png') !important;}

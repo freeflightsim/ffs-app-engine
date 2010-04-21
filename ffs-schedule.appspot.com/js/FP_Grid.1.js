@@ -26,23 +26,40 @@ this.store = new Ext.data.JsonStore({
 
 this.store.load();
 
-/*
-this.actionAdd = new Ext.Button({ text:'Add', iconCls:'icoServerAdd', 
+
+this.actionAdd = new Ext.Button({ text:'Add Entry', iconCls:'icoFppAdd', 
 				handler:function(){
-					var d = new fgServerDialog();
+					var d = new FP_Dialog();
+					d.frm.on("fpp_refresh", function(){
+						self.store.reload();
+					});
 				}
 });
-this.actionEdit = new Ext.Button({ text:'Edit', iconCls:'icoServerEdit', disabled: true,
+this.actionEdit = new Ext.Button({ text:'Edit', iconCls:'icoFppEdit', disabled: true,
 				handler:function(){
 					
 				}
 });
-this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoServerDelete', disabled: true,
+this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoFppDelete', disabled: true,
 				handler:function(){
 					  Ext.fg.msg('OOOPS', 'Something went wrong !');
 				}
 });
-*/
+
+
+
+
+this.timmy = new Ext.Toolbar.TextItem({
+	text: '12:23:45',
+	width: 150
+});
+
+this.do_tick = function (){
+	gToggle = !gToggle;
+	gDate = gDate.add(Date.MILLI, 1000);
+	var str = Ext.util.Format.date(gDate, gToggle ? "Y-m-d H:i:s" : "Y-m-d H i s" );
+	self.timmy.setText(str);
+}
 
 //***************************************************************
 //** Toolbar Filter Buttons / functions
@@ -99,13 +116,13 @@ this.render_dep = function(v, meta, rec){
 }
 this.render_dep_date = function(v, meta, rec){
 	meta.css = 'fpp_dep';
-	return Ext.util.Format.date(v, "H:i d M");
+	return Ext.util.Format.date(v, "H:i - d M");
 }
 this.render_dep_atc = function(v, meta, rec){
 	meta.css = 'fpp_dep';
 	var c = v == "" ? 'atc_take' : 'atc_ok';
 	var lbl = v == "" ? 'Take' : v;
-	return "<a class='" + c + "' href='javascript:alert(\"foo\");'>" + lbl + "</a>";
+	return "<span class='" + c + "'>" + lbl + "</span>";
 }
 this.render_arr = function(v, meta, rec){
 	meta.css = 'fpp_arr';
@@ -113,13 +130,13 @@ this.render_arr = function(v, meta, rec){
 }
 this.render_arr_date = function(v, meta, rec){
 	meta.css = 'fpp_arr';
-	return Ext.util.Format.date(v, "H:i d M");
+	return Ext.util.Format.date(v, "H:i - d M");
 }
 this.render_arr_atc = function(v, meta, rec){
 	meta.css = 'fpp_arr';
 	var c = v == "" ? 'atc_take' : 'atc_ok';
 	var lbl = v == "" ? 'Take' : v;
-	return "<a  class='" + c + "' href='javascript:alert(\"foo\");'>" + lbl + "</a>";
+	return "<a  class='" + c + "' href='javascript:showDialog(\"\");'>" + lbl + "</a>";
 }
 
 //************************************************
@@ -133,9 +150,13 @@ this.grid = new Ext.grid.GridPanel({
 	autoScroll: true,
 	enableHdMenu: false,
 	layout:'fit',
+	stripeRows: true,
 	sm: this.selModel,
-	tbar:[ 
-			this.filters.curr, this.filters.tomorrow, this.filters.after
+	tbar:[  this.actionAdd, '-', this.actionEdit, this.actionDelete, '-', 
+			'->', '-',
+			this.filters.curr, this.filters.tomorrow, this.filters.after,
+			 /*   */
+			'-',this.timmy
 	],
 	viewConfig: {emptyText: 'No servers online', forceFit: true}, 
 	store: this.store,
@@ -164,12 +185,18 @@ this.grid = new Ext.grid.GridPanel({
         })
 });
 this.grid.on("rowdblclick", function(grid, idx, e){
+	return;
 	var record = self.store.getAt(idx);
-	var d = new fgServerDialog(record.data);
+	var d = new FP_Dialog(record.data);
 });    
     
-
-
+this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
+	console.log(rowIdx, colIdx);
+	if(colIdx == 4 || colIdx == 7){
+		var record = self.store.getAt(rowIdx);
+		var d = new FP_Dialog(record.data);
+	}
+});   
 
 } /***  */
 

@@ -48,7 +48,7 @@ class FFS:
 		self._nav = []
 		self._paths = {}
 
-		self.nav_append( {'path':'/', 'label': 'View Schedule'})
+		self.nav_append( {'path':'/index/', 'label': 'View Schedule'})
 		
 		#self.nav_append( {'path':'/subscribe/', 'label': 'Add An Event'})
 		self.nav_append( {'path':'/about/', 'label': 'About'})

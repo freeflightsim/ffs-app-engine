@@ -5,7 +5,7 @@
 function FP_Dialog(fppID){
 
 var self = this;
-console.log("fppID", fppID);
+//console.log("fppID", fppID);
 //*************************************************************************************				
 //** User Form
 //*************************************************************************************
@@ -63,21 +63,22 @@ this.frm = new Ext.FormPanel({
 					]
 				}
     ],
-    buttons: [  {text: 'Submit', iconCls: 'icoClean',
+    buttons: [  {text: 'Submit', iconCls: 'icoSave',
                     handler: function(){
                         if(self.frm.getForm().isValid()){
                             self.frm.getForm().submit({
                                 url: '/rpc/edit/',
                                 waitMsg: 'Saving...',
                                 success: function(frm, action){
-									//console.log(frm, action);
+									console.log(frm, action);
 									var data = Ext.decode(action.response.responseText);
 									//console.log(data);
 									if(data.error){
 										alert("Error: " + data.error.description);
 										return;
 									}
-                                    location.href= '/';
+									self.frm.fireEvent("fpp_refresh");
+                                    self.win.close();
 									
 									
                                 },
@@ -97,14 +98,16 @@ this.frm = new Ext.FormPanel({
 
 
 this.win = new Ext.Window({
-	title: 'Request ATC',
-	iconCls: 'icoUser',
+	title: 'ATC Request',
+	iconCls: 'icoFpp',
 	width: 500,
 	items:[ this.frm ]
 
 })
-console.log("ere");
+
 this.win.show();
+
+this.frm.load();
 
 } /* FP_Dialog */
 

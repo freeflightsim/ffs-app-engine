@@ -135,17 +135,10 @@ class MainHandler(webapp.RequestHandler):
 		action = self.request.get('action')
 	
 		if action:
-			## Add User To calendar
-			if action == 'add2cal':
-				user = users.get_current_user()
-				if user:
-					app.fetch.cal_add_acl(user.email())
-				self.redirect("/subscribe/")
-				return
 
 			## Add Comment
-			elif action == 'add_comment':
-				comment = self.request.get("comment").strip()
+			if action == 'add_comment':
+				comment = self.request.get("comment")
 				if comment != "":
 					
 					user = users.get_current_user()
