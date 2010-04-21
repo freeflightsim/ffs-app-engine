@@ -52,34 +52,49 @@ class RpcHandler(webapp.RequestHandler):
 							'arr_date': d.strftime(conf.MYSQL_DATETIME),
 							'arr_atc': 'aaaatdc',
 							'comment': 'comment',
-							'fppID': '0',
-							't': '%s' % t
+							'fppID': '0'
 					}
-					reply['fpp'] = dic
+
 				else:
-					reply['fpp'] = {'YES': 'NO'}
+					f = db.get( db.Key(fppID) )
+					dic = {	'callsign': f.callsign, 
+							'email': 'email',
+							'dep': f.dep,
+							'dep_date': f.dep_date.strftime(conf.MYSQL_DATETIME),
+							'dep_atc': f.dep_atc,
+							'arr': f.arr,
+							'arr_date': f.arr_date.strftime(conf.MYSQL_DATETIME),
+							'arr_atc': f.arr_atc,
+							'comment': f.comment,
+							'fppID': str(f.key()),
+					}
+				reply['fpp'] = dic
 
 		########################################################
 		### Edit
 		elif action == 'edit':
-			
-			
+			fppID = self.request.get("fppID")
+			if not fppID:
+				reply['error'] = 'No fppID'
+			else:
+				if fppID == '0':
+					fp = FPp(callsign =self.request.get("callsign"))
+				else:
+					fp = db.get( db.Key(fppID) )
+					fp.cookie = self.request.cookies['sessID'] 
 
-			fp = FPp(callsign =self.request.get("callsign"))
-			fp.cookie = self.request.cookies['sessID'] 
+					fp.dep = self.request.get("dep")
+					fp.dep_date = self.get_date(self.request.get("dep_date"), self.request.get("dep_time"))
+					
+					fp.dep_atc = self.request.get("dep_atc")
 
-			fp.dep = self.request.get("dep")
-			fp.dep_date = self.get_date(self.request.get("dep_date"), self.request.get("dep_time"))
-			
-			fp.dep_atc = self.request.get("dep_atc")
+					fp.arr = self.request.get("arr")
+					fp.arr_date = self.get_date(self.request.get("arr_date"), self.request.get("arr_time"))
+					fp.arr_atc = self.request.get("arr_atc")
 
-			fp.arr = self.request.get("arr")
-			fp.arr_date = self.get_date(self.request.get("arr_date"), self.request.get("arr_time"))
-			fp.arr_atc = self.request.get("arr_atc")
-
-			fp.comment = self.request.get("comment")
-			fp.email = self.request.get("email")
-			fp.put()
+					fp.comment = self.request.get("comment")
+					fp.email = self.request.get("email")
+					fp.put()
 
 		self.response.headers.add_header('Content-Type','text/plain')
 		self.response.out.write(json.dumps(reply))

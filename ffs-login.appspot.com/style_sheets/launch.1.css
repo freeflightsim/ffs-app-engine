@@ -105,14 +105,12 @@ body{
 /** FG Logo               **/
 /********************************************************/
 #fg_logo{
-	ssborder: 1px solid red;
 	text-align: center;
 	margin: 10px 0px 10px 0px;
-	ssfloat: right;
 }
 #fg_logo img{
 	background-color: white;
-	padding: 10px;
+	padding: 5px;
 	border: 1px outset #dddddd;
 	border-radius: 10px;
 	-moz-border-radius: 10px; 

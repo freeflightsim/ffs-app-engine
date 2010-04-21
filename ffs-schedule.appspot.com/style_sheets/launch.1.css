@@ -78,7 +78,7 @@ body{
 /********************************************************/
 #site_nav_box {
 	float: right;
-	width: 200px;
+	width: 180px;
 }
 
 #site_nav_box p{
@@ -178,7 +178,7 @@ body{
 /********************************************************/
 #content_box{
 	margin-top: 30px;
-	margin-right: 250px;
+	margin-right: 210px;
 	margin-left: 10px;
 	min-height: 500px;
 }
@@ -314,12 +314,12 @@ body{
 
 
 .fpp_dep{
-	border-left: 1px solid #FFE988;
-	border-right: 1px solid #FFE988;
+	border-left: 3px solid #FFE78C;
+	DDborder-bottom: 1px solid #FFE78C;
 }
 .fpp_arr{
-	border-left: 1px solid #FFB0FD;
-	border-right: 1px solid #FFB0FD;
+	border-left: 3px solid #FFC5E9;
+	DDborder-bottom: 1px solid #FFC5E9;
 }
 
 

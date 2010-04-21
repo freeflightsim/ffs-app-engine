@@ -162,7 +162,7 @@ this.grid = new Ext.grid.GridPanel({
 	viewConfig: {emptyText: 'No servers online', forceFit: true}, 
 	store: this.store,
 	loadMask: true,
-	columns: [  {header: '#',  dataIndex:'fppID', sortable: true, hidden: false},
+	columns: [  {header: '#',  dataIndex:'fppID', sortable: true, hidden: true},
 				{header: 'Callsign',  dataIndex:'callsign', sortable: true},
 
 				{header: 'Depart',  dataIndex:'dep', sortable: true, renderer: this.render_dep},
