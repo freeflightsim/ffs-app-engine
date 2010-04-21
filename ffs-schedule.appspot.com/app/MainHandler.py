@@ -13,7 +13,7 @@ from django.utils import simplejson as json
 
 import conf
 import app.FFS
-import fetch
+#import fetch
 from app.models import FPp, Cookie, Comment
 
 class MainHandler(webapp.RequestHandler):
@@ -187,31 +187,37 @@ class RpcHandler(webapp.RequestHandler):
 
 	def post(self, action):
 	
-		#if self.request.get("fppID"):
-			#// update
-		#	pass
-		#else:
+		reply = {'success': True }
+		if action == 'index':
+			lst = []
+			entries = db.GqlQuery("select * from FPp order by dep_date asc")
+			for e in entries:
+				lst.append({'callsign': e.callsign, 'comment': e.comment,
+							'dep': e.dep, 'dep_date': e.dep_date.strftime('%Y-%m-%d %H:%M:%S'), 'dep_atc': e.dep_atc,
+							'arr': e.arr, 'arr_date': e.arr_date.strftime('%Y-%m-%d %H:%M:%S'), 'arr_atc': e.arr_atc
+							})
+			reply['schedule'] = lst
 
-		fp = FPp(callsign =self.request.get("callsign"))
-		fp.cookie = self.request.cookies['sessID'] 
+		elif action == 'edit':
 
-		fp.dep = self.request.get("dep")
-		fp.dep_date = self.get_date(self.request.get("dep_date"), self.request.get("dep_time"))
-		
-		fp.dep_atc = self.request.get("dep_atc")
+			fp = FPp(callsign =self.request.get("callsign"))
+			fp.cookie = self.request.cookies['sessID'] 
 
-		fp.arr = self.request.get("arr")
-		fp.arr_date = self.get_date(self.request.get("arr_date"), self.request.get("arr_time"))
-		fp.arr_atc = self.request.get("arr_atc")
+			fp.dep = self.request.get("dep")
+			fp.dep_date = self.get_date(self.request.get("dep_date"), self.request.get("dep_time"))
+			
+			fp.dep_atc = self.request.get("dep_atc")
 
-		fp.comment = self.request.get("comment")
-		fp.email = self.request.get("email")
-		fp.put()
-		self.response.headers.add_header(	'Content-Type', 
-											'text/plain'
-		)
-		data = {'success': True }
-		self.response.out.write(json.dumps(data))
+			fp.arr = self.request.get("arr")
+			fp.arr_date = self.get_date(self.request.get("arr_date"), self.request.get("arr_time"))
+			fp.arr_atc = self.request.get("arr_atc")
+
+			fp.comment = self.request.get("comment")
+			fp.email = self.request.get("email")
+			fp.put()
+
+		self.response.headers.add_header('Content-Type','text/plain')
+		self.response.out.write(json.dumps(reply))
 
 	def get_date(self, dt, tt):
 		#self.response.out.write(json.dumps({dt: tt}))

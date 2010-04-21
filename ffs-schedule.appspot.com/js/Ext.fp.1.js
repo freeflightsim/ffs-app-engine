@@ -31,4 +31,26 @@ Ext.fg = function(){
 
 }();
 
+function tick_tock_clock(){
+	gToggle = !gToggle;
+	gDate = gDate.add(Date.MILLI, 1000);
+	var h,m,s;
+	var time="        ";
+	h = gDate.getHours();
+	m = gDate.getMinutes();
+	s = gDate.getSeconds();
+	if(s<=9) s="0"+s;
+	if(m<=9) m="0"+m;
+	if(h<=9) h="0"+h;
+	var sep =  gToggle ? ":" : " "
+	sep = "<span class='real_time_blip'>" + sep + "</span>"
+	time = h + sep + m + sep + s ;
+	document.getElementById('real_time').innerHTML=time;
+	setTimeout("tick_tock_clock()", 1000);    
+}
 
+
+function start(){
+	var g = new FP_Grid();
+	tick_tock_clock();
+}

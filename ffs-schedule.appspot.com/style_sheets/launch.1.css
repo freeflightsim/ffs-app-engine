@@ -2,6 +2,31 @@
 /********************************************************/
 /** Unique Item           **/
 /********************************************************/
+#real_time_box{
+	bbborder: 2px inset #efefef;
+	bbpadding: 5px;
+	sfont-size: 24pt;
+	sfont-family: monospace;
+	ddbackground-color: #eeeeee;
+	float: right;
+}
+#real_time{
+	sborder: 2px inset #efefef;
+	spadding: 5px;
+	font-size: 10pt;
+	font-family: monospace;
+	
+}
+.real_time_blip{
+	font-size: 8pt;
+	color: blue;
+}
+.real_time_utc{
+	font-size: 12pt;
+	color: #444444;
+}
+
+
 
 .tm{
 	color: #000099;
@@ -307,7 +332,7 @@ table.fp tr:hover{
 	background-color: #F9DEF2;
 }
 
-table.fp button{
+.SSSdep_atc{
 	color: white;
 	font-size: 9pt;
 	padding: 1px;
@@ -319,7 +344,7 @@ table.fp button{
 	width: 40px;
 	text-align: center;
 }
-table.fp button:hover{
+sstable.fp button:hover{
 	color: black;
 	font-size: 9pt;
 	padding: 1px;
@@ -330,4 +355,27 @@ table.fp button:hover{
 	-webkit-border-radius: 2px;
 	width: 40px;
 	text-align: center;
+}
+
+
+
+
+
+.atc_take{
+	color: #333333;
+	font-size: 8pt;
+	background-color: #CCCCCC;
+	border: 1px outset #517699;
+	border-radius: 2px;
+	-moz-border-radius: 2px; 
+	-webkit-border-radius: 2px;
+}
+
+.fpp_dep{
+	background-color: #FFF8D3;
+	padding: 2px;
+}
+.fpp_arr{
+	background-color: #E0FBFF;
+	padding: 2px;
 }

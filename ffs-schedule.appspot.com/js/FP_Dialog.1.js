@@ -110,6 +110,5 @@ this.win.show();
 
 function showFPDialog(){
 	var d = new FP_Dialog();
-	
-	
 }
+

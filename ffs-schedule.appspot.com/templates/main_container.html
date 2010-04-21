@@ -15,23 +15,32 @@
 <link rel="stylesheet" type="text/css" href="/style_sheets/launch.1.css">
 
 <script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/adapter/ext/ext-base.js"></script>
-<script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/ext-all.js"></script>
+<script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/ext-all-debug.js"></script>
 <!--<script type="text/javascript" src="js/ext-3.1.0/ext-all.js"></script>-->
 
 <script type="text/javascript" src="js/Ext.fp.1.js"></script>
 <script type="text/javascript" src="js/FP_Dialog.1.js"></script>
+<script type="text/javascript" src="js/FP_Grid.1.js"></script>
+<script type="text/javascript">
+
+var gToggle = false;
+var gDate = new Date('{% now "r" %}');
+
+
+</script>
 
 </head> 
-<body> 
+<body onload="start()"> 
 
 <div id="main_container">
-	cook={{ cook }}
+
 	<!--### Header ########################-->
 	<div id="header_box">
 		<h2>Open Source Flight Simulation with FlightGear</h2>
 		<h1>Free Flight Sim.org</h1>
-		
 	</div>
+
+
 
 
 	<!--### Navigation ########################-->
@@ -56,6 +65,8 @@
 	</div>
 	
 	<h1 id="ffs_cal_title">Flight Plans and ATC Schedules Board</h1>
+	<div id="real_time_box"><div id="real_time">#</div></div>
+
 
 	<!--### Main Content ########################-->
 	<div id="content_box">
