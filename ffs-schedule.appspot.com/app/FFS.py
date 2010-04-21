@@ -48,40 +48,8 @@ class FFS:
 		self._nav = []
 		self._paths = {}
 
-		self.nav_append( {'path':'/index/', 'label': 'View Calendar'})
+		self.nav_append( {'path':'/', 'label': 'View Schedule'})
 		
-		self.nav_append( {'path':'/subscribe/', 'label': 'Add An Event'})
+		#self.nav_append( {'path':'/subscribe/', 'label': 'Add An Event'})
 		self.nav_append( {'path':'/about/', 'label': 'About'})
-		
-		"""
-		self.nav_append( {'path':'/support/', 'label': 'Support', 
-						'subnav': [	
-							{'path':'/support/docs/', 'label': 'Documentation'},
-							{'path':'/support/faq/', 'label': 'FAQ', 'title': 'Frequently Answered Questions'}
-						]
-		})
-
-		self.nav_append( {'path':'/download/', 'label': 'Buy', 'title': 'Download Central',
-					'subnav': [	
-						{'path':'/download/requirements/', 'label': 'Requirements', 'title': 'Hardware Requirements'}, 	
-						{'path':'/download/flightgear/', 'label': 'FlightGear', 'title': 'Download FlightGear'}, 	
-						#{'path':'/download/aircraft/', 'label': 'Aircraft'},
-						{'path':'/download/scenery/', 'label': 'Scenery'},
-						{'path':'/download/versions/', 'label': 'Versions', 'title': 'Version Summary'},
-					]
-		})
-		
-		self.nav_append( {'path':'/developers/', 'label': 'Developers',
-					'subnav': [	
-							{'path':'/developers/src/', 'label': 'Source Code'},
-							{'path':'/developers/credits/', 'label': 'Credits'}
-					]
-		})
-		self.nav_append( {'path':'/links/', 'label': 'Links',
-					'subnav': [	
-							{'path':'/links/sites/', 'label': 'Related Sites'},
-							{'path':'/links/projects/', 'label': 'Projects'}
-					]
-		})
-		"""
-
+	

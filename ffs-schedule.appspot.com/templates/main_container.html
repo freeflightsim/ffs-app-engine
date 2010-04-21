@@ -18,9 +18,9 @@
 <script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/ext-all-debug.js"></script>
 <!--<script type="text/javascript" src="js/ext-3.1.0/ext-all.js"></script>-->
 
-<script type="text/javascript" src="js/Ext.fp.1.js"></script>
-<script type="text/javascript" src="js/FP_Dialog.1.js"></script>
-<script type="text/javascript" src="js/FP_Grid.1.js"></script>
+<script type="text/javascript" src="/js/Ext.fp.1.js"></script>
+<script type="text/javascript" src="/js/FP_Dialog.1.js"></script>
+<script type="text/javascript" src="/js/FP_Grid.1.js"></script>
 <script type="text/javascript">
 
 var gToggle = false;
@@ -30,15 +30,17 @@ var gDate = new Date('{% now "r" %}');
 </script>
 
 </head> 
-<body onload="start()"> 
+<body onload="startInit()"> 
+
+<!--### Header ########################-->
+<div id="header_box">
+	<h2>Open Source Flight Simulation with FlightGear</h2>
+	<h1>Free Flight Sim.org</h1>
+</div>
 
 <div id="main_container">
 
-	<!--### Header ########################-->
-	<div id="header_box">
-		<h2>Open Source Flight Simulation with FlightGear</h2>
-		<h1>Free Flight Sim.org</h1>
-	</div>
+
 
 
 
@@ -49,7 +51,7 @@ var gDate = new Date('{% now "r" %}');
 		<div id="fg_logo"><img src="{{ conf.CDN}}/images/fg2.png" alt="FlightGear"></div>
 
 		<ul id="navlist">
-			<li><a class="action" href="javascript:showFPDialog();" >Add Entry</a>
+			<!---<li><a class="action" href="javascript:showFPDialog();" >Add Entry</a>-->
 			{% for n in appo.nav %}
 			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
 			{% endfor %}
@@ -99,8 +101,9 @@ var gDate = new Date('{% now "r" %}');
 	<!--### Navigation ########################-->
 	<div id="footer_box">
 		<p>
-		<a href="https://appengine.google.com/dashboard?&app_id=freeflightsim">Dashboard</a> 
-		&copy; 2010+ FreeFlightSim - all right reserved etc
+		<a href="https://appengine.google.com/dashboard?&app_id={{ conf.APP_ID }}">Dashboard</a> -
+		<a href="http://github.com/FreeFlightSim/ffs-app-engine/tree/master/{{ conf.APP_ID }}.appspot.com/">Git</a> - 
+		&copy;{% now "Y" %} FreeFlightSim.org - all right reserved etc
 	</div><!-- end footer-->
      
 	

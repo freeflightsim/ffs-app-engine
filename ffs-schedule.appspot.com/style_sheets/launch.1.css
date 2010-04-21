@@ -54,6 +54,26 @@ body{
 	background-color: #ffffff;
 }
 
+#header_box{
+	margin: 0px;
+	padding: 5px;
+	background-color: #eeeeee;
+	border-bottom: 1px solid #dddddd;
+	color: #666666;
+}
+
+#header_box h1{
+	font-family: monospace;
+	font-size: 10pt;
+	CCcolor: #666666;
+}
+#header_box h2{
+	float: right;
+	font-family: monospace;
+	font-size: 8pt;
+	font-weight: normal;
+	CCcolor: #444444;
+}
 
 #main_container{
 	margin: 10px 10px 10px 10px;
@@ -62,30 +82,7 @@ body{
 	ssbackground-color: #efefef;
 }
 
-#main_container #header_box{
 
-	smargin-bottom: 20px;
-	padding: 10px;
-	ssbackground-color: #376B91;
-	sborder: 1px solid #999999;
-	sborder-radius: 5px;
-	s-moz-border-radius: 5px; 
-	s-webkit-border-radius: 5px;
-
-}
-
-#main_container #header_box h1{
-	font-family: monospace;
-	font-size: 10pt;
-	color: #666666;
-}
-#main_container #header_box h2{
-	float: right;
-	font-family: monospace;
-	font-size: 8pt;
-	font-weight: normal;
-	color: #444444;
-}
 /********************************************************/
 /** Main Title           **/
 /********************************************************/
@@ -300,82 +297,62 @@ body{
 #footer_box{
 	clear: both;
 	margin-top: 20px;
-	font-size: 8px;
+	padding-top: 10px;
+	font-size: 8pt;
 	margin-left: 50px;
+	border-top: 1px dotted #dddddd;
 }
 
-/********************************************************/
-/** ATC                 **/
-/********************************************************/
-table.fp{
-	width: 100%;
-
-}
-
-table.fp th{
-	font-size: 9pt;
-	border: 1px solid #999999;
-	padding: 3px;
-	text-align: left;
-	font-weight: normal;
-	background-color: #dddddd;
-}
-
-table.fp td{
-	font-size: 10pt;
-	border-bottom: 1px solid #999999;
-	padding: 3px;
-	text-align: left;
-	font-weight: normal;
-}
-table.fp tr:hover{
-	background-color: #F9DEF2;
-}
-
-.SSSdep_atc{
-	color: white;
-	font-size: 9pt;
-	padding: 1px;
-	background-color: #C07C16;
-	border: 1px outset #517699;
-	border-radius: 2px;
-	-moz-border-radius: 2px; 
-	-webkit-border-radius: 2px;
-	width: 40px;
-	text-align: center;
-}
-sstable.fp button:hover{
-	color: black;
-	font-size: 9pt;
-	padding: 1px;
-	background-color: #F9DB90;
-	border: 1px outset #517699;
-	border-radius: 2px;
-	-moz-border-radius: 2px; 
-	-webkit-border-radius: 2px;
-	width: 40px;
-	text-align: center;
-}
 
 
 
 
 
 .atc_take{
-	color: #333333;
-	font-size: 8pt;
-	background-color: #CCCCCC;
-	border: 1px outset #517699;
-	border-radius: 2px;
-	-moz-border-radius: 2px; 
-	-webkit-border-radius: 2px;
+	color: black;
+	text-align: center;
+	border: 1px outset #cccccc;
+	background-color: #dddddd;
+	text-decoration: none;
+	padding: 2px;
 }
+.atc_take:hover{
+	color: black;
+	text-align: center;
+	border: 1px outset #bbbbbb;
+	background-color: #efefef;
+	text-decoration: none;
+	padding: 2px;
+}
+.atc_ok{
+	color: green;
+	text-align: center;
+	border: 1px outset #cccccc;
+	background-color: #D7F0E6;
+	text-decoration: none;
+	padding: 2px;
+}
+.atc_ok:hover{
+	color: green;
+	text-align: center;
+	border: 1px outset green;
+	background-color: #F5FBE7;
+	text-decoration: none;
+	padding: 2px;
+}
+
 
 .fpp_dep{
 	background-color: #FFF8D3;
 	padding: 2px;
 }
 .fpp_arr{
-	background-color: #E0FBFF;
+	background-color: #FFFFDB;
 	padding: 2px;
 }
+
+
+
+
+.icoFilterOn{background-image: url('/images/bullet_pink.png') !important;}
+.icoFilterOff{background-image: url('/images/bullet_purple.png') !important;}

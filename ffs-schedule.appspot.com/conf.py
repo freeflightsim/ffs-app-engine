@@ -2,7 +2,7 @@
 
 
 
-APP_ID = 'ffs-cal'
+APP_ID = 'ffs-schedule'
 
 tm = "<span class='tm'>FreeFlightSim</span>" #&#0174;
 

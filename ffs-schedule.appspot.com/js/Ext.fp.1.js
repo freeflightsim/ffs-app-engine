@@ -50,7 +50,7 @@ function tick_tock_clock(){
 }
 
 
-function start(){
+function startInit(){
 	var g = new FP_Grid();
 	tick_tock_clock();
 }

@@ -26,7 +26,7 @@ this.store = new Ext.data.JsonStore({
 
 this.store.load();
 
-
+/*
 this.actionAdd = new Ext.Button({ text:'Add', iconCls:'icoServerAdd', 
 				handler:function(){
 					var d = new fgServerDialog();
@@ -42,7 +42,7 @@ this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoServerDelete', di
 					  Ext.fg.msg('OOOPS', 'Something went wrong !');
 				}
 });
-
+*/
 
 //***************************************************************
 //** Toolbar Filter Buttons / functions
@@ -55,21 +55,22 @@ this.set_filter = function(button, state){
     button.setIconClass( state ? 'icoFilterOn' : 'icoFilterOff');
 };
 this.filters = {};
-this.filters.curr = new Ext.Toolbar.Item({
+this.filters.curr = new Ext.Button({
     text: 'Current',
     iconCls: 'icoFilterOn',
-    enableToggle: true, allowDepress: false,
-    pressed: true,
-    myFilter: 'current', toggleHandler: this.set_filter, toggleGroup: 'tbFilter'
+	enableToggle: true, allowDepress: false,
+	pressed: true,
+    myFilter: 'current',  toggleHandler: this.set_filter, toggleGroup: 'tbFilter'
 });
-this.filters.tomorrow = new Ext.Toolbar.Item({
+
+this.filters.tomorrow = new Ext.Button({
     text: 'Tomorrow',
     iconCls: 'icoFilterOff',
     enableToggle: true, allowDepress: false,
     pressed: false,
     myFilter: 'completed', toggleHandler: this.set_filter, toggleGroup: 'tbFilter'
 });
-this.filters.after = new Ext.Toolbar.Item({
+this.filters.after = new Ext.Button({
     text: 'After',
     iconCls: 'icoFilterOff',
     enableToggle: true, allowDepress: false,
@@ -102,7 +103,9 @@ this.render_dep_date = function(v, meta, rec){
 }
 this.render_dep_atc = function(v, meta, rec){
 	meta.css = 'fpp_dep';
-	return "<button class='atc_take' onclick='alert(\"foo\");'>Take</button>";
+	var c = v == "" ? 'atc_take' : 'atc_ok';
+	var lbl = v == "" ? 'Take' : v;
+	return "<a class='" + c + "' href='javascript:alert(\"foo\");'>" + lbl + "</a>";
 }
 this.render_arr = function(v, meta, rec){
 	meta.css = 'fpp_arr';
@@ -114,7 +117,9 @@ this.render_arr_date = function(v, meta, rec){
 }
 this.render_arr_atc = function(v, meta, rec){
 	meta.css = 'fpp_arr';
-	return "<button class='atc_take' onclick='alert(\"foo\");'>Take</button>";
+	var c = v == "" ? 'atc_take' : 'atc_ok';
+	var lbl = v == "" ? 'Take' : v;
+	return "<a  class='" + c + "' href='javascript:alert(\"foo\");'>" + lbl + "</a>";
 }
 
 //************************************************
@@ -129,7 +134,7 @@ this.grid = new Ext.grid.GridPanel({
 	enableHdMenu: false,
 	layout:'fit',
 	sm: this.selModel,
-	tbar:[ 	/* this.actionAdd, this.actionEdit, this.actionDelete */,
+	tbar:[ 
 			this.filters.curr, this.filters.tomorrow, this.filters.after
 	],
 	viewConfig: {emptyText: 'No servers online', forceFit: true}, 
@@ -140,11 +145,11 @@ this.grid = new Ext.grid.GridPanel({
 
 				{header: 'Depart',  dataIndex:'dep', sortable: true, renderer: this.render_dep},
 				{header: 'Date', dataIndex:'dep_date', sortable: true, renderer: this.render_dep_date},
-				{header: 'ATC', dataIndex:'dep_atc', sortable: true, align: 'center', renderer: this.render_dep_atc},
+				{header: 'ATC', dataIndex:'dep_atc', sortable: true, align: 'center',renderer: this.render_dep_atc},
 
 				{header: 'Arrive',  dataIndex:'arr', sortable: true, renderer: this.render_arr},
 				{header: 'Date', dataIndex:'arr_date', sortable: true, renderer: this.render_arr_date},
-				{header: 'ATC', dataIndex:'arr_atc', sortable: true, align: 'center', renderer: this.render_arr_atc},
+				{header: 'ATC', dataIndex:'arr_atc', sortable: true, renderer: this.render_arr_atc},
 
 				{header: 'Comment', dataIndex:'comment', sortable: true}
 	],

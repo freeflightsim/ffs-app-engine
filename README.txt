@@ -21,7 +21,7 @@ Code at - http://github.com/FreeFlightSim
 == Development  ==
 ===============================================================================
 The GAE production server currently uses python 2.5. 
-There should be minor problem with running on 2.5+.
+There should be minor problem with running locally on > 2.5 and < 3.0
 Notable exception is 
  > import simplejson as json  # python 2.5
  > import json                # python 2.6+ json is built 
