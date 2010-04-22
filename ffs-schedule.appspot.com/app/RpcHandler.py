@@ -27,6 +27,9 @@ class RpcHandler(webapp.RequestHandler):
 			}
 		return dic
 
+	def date_to_ts(self, n):
+		return time.mktime((n.year, n.month, n.day, n.hour, 0, 0, 0, 0, 0))
+
 	def get(self, action):
 		self.post(action)
 
@@ -43,42 +46,28 @@ class RpcHandler(webapp.RequestHandler):
 		########################################################
 		### TimeLIne
 		elif action == 'timeline':
+			SECS_IN_HOUR = 60 * 60 
+			
+			##  current, start and end dates
+			n = datetime.datetime.utcnow()
+			curr_ts = time.mktime((n.year, n.month, n.day, n.hour, 0, 0, 0, 0, 0))
+			curr_dt = datetime.datetime.fromtimestamp(curr_ts)
+			reply['current_date'] = curr_dt.strftime(conf.MYSQL_DATETIME)
+
+			start_ts = curr_ts - SECS_IN_HOUR
+			start_dt = datetime.datetime.fromtimestamp(start_ts)
+			reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
+
+			end_ts = curr_ts + (SECS_IN_HOUR * 30)
+			end_dt = datetime.datetime.fromtimestamp(end_ts)
+			reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
+
+			## Cols
+			col_no = 0
 			cols = {}
 			reverse = {}
-			#cols.append({'label': 'Pilot'})
-			#cols.append({'label': 'Airport'})
-			"""tod = datetime.datetime.now()
-			SECS_IN_HOUR = 60 * 60 * 50
-			y = tod.year
-			m = tod.month
-			d =  tod.day
-			h =  tod.hour
-			for c in range(0, 24):
-				nt = datetime.datetime(y, m, d, h, 0, 0)
-				#print c, tod, nt
-				h = h + 1
-				if h == 24:
-					h = 0
-					d = d + 1
-				#for c in range(-1, 25):
-				col_ki = 'col_%s' % c 
-				cols[col_ki] =  nt.strftime("%H");
-				reverse[h] = col_ki
-			"""
-			n = datetime.datetime.now()
-			SECS_IN_HOUR = 60 * 60 
-			curr_ts = time.mktime((n.year, n.month, n.day, n.hour, n.minute, 0, 0, 0, 0))
-			start_dt = datetime.datetime.fromtimestamp(curr_ts - SECS_IN_HOUR)
-			#reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
-			#print "start=", curr_ts, start_dt
-			end_dt = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * 23))
-			#reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
-			#print "end=", curr_ts, end_dt
-
-			col_no = 0
-			for c in range(-1, 24):
+			for c in range(-1, 32):
 				col_time = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * c))
-				#print c,  col_time
 				h =  int(col_time.strftime("%H"))
 				ki = "col_%s" % col_no
 				cols[ki] =  str(h)
@@ -86,7 +75,7 @@ class RpcHandler(webapp.RequestHandler):
 				col_no += 1
 			reply['cols'] = cols
 
-			#entries = db.GqlQuery("select * from FPp order by dep_date asc")
+			# Rows
 			rows = []
 			rowsX = {}
 			q = FPp.all()
@@ -95,54 +84,38 @@ class RpcHandler(webapp.RequestHandler):
 			scheds = q.fetch(100)
 			rows = []
 			for e in scheds:
-				"""if e.dep:
-					col_ki = 'col_%s' % int(e.dep_date.strftime("%H"))
-					dic = { 'time': e.dep_date.strftime("%H:%M"), 'col_ki': col_ki, 'fppID': str(e.key()),
-							'mode': 'dep', 'airport':e.dep, 'callsign': e.callsign }
-					rows.append(dic)
-				if e.arr:
-					col_ki = 'col_%s' % int(e.arr_date.strftime("%H")) 
-					dic = {	'time': e.arr_date.strftime("%H:%M"), 'col_ki': col_ki,'fppID': str(e.key()),
-							'mode': 'arr', 'airport':e.arr, 'callsign': e.callsign}
-					#rowsX[col_ki] = dic
-					rows.append(dic)
-				"""
-				#dic = {'callsign': e.callsign}
 				cols = []
 
 				## Departure
-				data = {'col_ki': reverse[int(e.dep_date.strftime("%H"))],
-						'time': e.dep_date.strftime("%M"), 'mode': 'dep', 'airport': e.dep
-				}
-				cols.append(data)
+				if self.date_to_ts(e.dep_date) < start_ts:
+					data = {'col_ki': reverse[int(start_dt.strftime("%H"))],
+							'time': e.dep_date.strftime("%M"), 'mode': 'dep'}
+				else:
+					data = {'col_ki': reverse[int(e.dep_date.strftime("%H"))],
+							'time': e.dep_date.strftime("%M"), 'mode': 'dep'}
+					cols.append(data)
 
 				## Arrival
 				data = {'col_ki': reverse[int(e.arr_date.strftime("%H"))],
-						'time': e.arr_date.strftime("%M"), 'mode': 'arr', 'airport': e.arr
-				}
+						'time': e.arr_date.strftime("%M"), 'mode': 'arr'}
 				cols.append(data)
 
-
 				loop_ts = time.mktime((e.dep_date.year, e.dep_date.month, e.dep_date.day, e.dep_date.hour, 0, 0, 0, 0, 0)) + SECS_IN_HOUR
-				#loop_time = datetime.datetime.fromtimestamp(start_ts + SECS_IN_HOUR)
-
-				end_ts = time.mktime((e.arr_date.year, e.arr_date.month, e.arr_date.day, e.arr_date.hour, 0, 0, 0, 0, 0)) 
-				#end_time =  datetime.datetime.fromtimestamp(end_ts)
+				last_ts = time.mktime((e.arr_date.year, e.arr_date.month, e.arr_date.day, e.arr_date.hour, 0, 0, 0, 0, 0)) 
 				hr =  0
-				while loop_ts < end_ts:
+				while loop_ts < last_ts:
 					loop_time = datetime.datetime.fromtimestamp(loop_ts )
 					data = {'col_ki': reverse[int(loop_time.strftime("%H"))],
 							'time': loop_time.strftime("%M"), 'mode': 'mid'
 					}
 					cols.append(data)
-					#hr = hr + 1
 					loop_ts = loop_ts + SECS_IN_HOUR 
-				#data = {'callsign': e.callsign, 'cols': cols, 's': loop_ts, 'e': end_ts}	
-				#cols.append(data)	
 				
 				data = {'callsign': e.callsign, 'cols': cols, 'dep': e.dep, 'arr': e.arr, 'fppID': str(e.key())}
 				rows.append(data)
 			reply['rows'] = rows
+
+
 
 		########################################################
 		### Fetch 

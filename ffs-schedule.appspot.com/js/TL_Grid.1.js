@@ -14,7 +14,8 @@ this.store = new Ext.data.JsonStore({
 				'col_0','col_1', 'col_2', 'col_3', 'col_4', 'col_5', 'col_6', 
 				'col_7', 'col_8', 'col_9', 'col_10', 'col_11', 'col_12', 
 				'col_13', 'col_14','col_15','col_16','col_17','col_18',
-				'col_19','col_20','col_21','col_22','col_23','col_24'
+				'col_19','col_20','col_21','col_22','col_23','col_24',
+				'col_25','col_26','col_27','col_28','col_29','col_30','col_31','col_32'
 	],
 	remoteSort: false,
 	sortInfo: {field: "dep_date", direction: 'ASC'}
@@ -25,7 +26,7 @@ this.edit_dialog = function(fppID){
 	var d = new FP_Dialog(fppID);
 	d.frm.on("fpp_refresh", function(data){
 		Ext.fp.msg('Saved');
-		self.store.loadData(data);
+		self.load();
 	});
 
 }
@@ -34,7 +35,7 @@ this.actionAdd = new Ext.Button({ text:'Add Entry', iconCls:'icoFppAdd',
 		self.edit_dialog(0);
 	}
 });
-this.actionEdit = new Ext.Button({ text:'Edit', iconCls:'icoFppEdit', disabled: true,
+this.actionEdit = new Ext.Button({ text:'Edit Entry', iconCls:'icoFppEdit', disabled: true,
 	handler:function(){
 		if( !self.selModel.hasSelection() ){
 			return;
@@ -43,7 +44,7 @@ this.actionEdit = new Ext.Button({ text:'Edit', iconCls:'icoFppEdit', disabled: 
 		edit_dialog(record.get('fppID'));
 	}
 });
-this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoFppDelete', disabled: true,
+this.actionDelete = new Ext.Button({text:'Delete Entry', iconCls:'icoFppDelete', disabled: true,
 	handler:function(){
 		Ext.fg.msg('OOOPS', 'Something went wrong !');
 	}
@@ -113,34 +114,10 @@ this.selModel.on("selectionchange", function(selModel){
 //***************************************************************
 //** Renderers
 //***************************************************************
-this.render_dep = function(v, meta, rec){
-	meta.css = 'fpp_dep';
-	return v;
-}
-this.render_dep_date = function(v, meta, rec){
-	meta.css = 'fpp_dep';
-	return Ext.util.Format.date(v, "H:i - d M");
-}
-this.render_dep_atc = function(v, meta, rec){
-	meta.css = 'fpp_dep';
-	var c = v == "" ? 'atc_take' : 'atc_ok';
-	var lbl = v == "" ? 'Take' : v;
-	return "<span class='" + c + "'>" + lbl + "</span>";
-}
-this.render_arr = function(v, meta, rec){
-	meta.css = 'fpp_arr';
-	return v;
-}
-this.render_arr_date = function(v, meta, rec){
-	meta.css = 'fpp_arr';
-	return Ext.util.Format.date(v, "H:i - d M");
-}
-
 this.render_airport = function(v, meta, rec){
 	return rec.get('dep') + " - " + rec.get("arr");
 } 
 this.render_cell = function(v, meta, rec){
-	
 	if(!v){
 		return;
 	}
@@ -162,10 +139,13 @@ this.render_cell = function(v, meta, rec){
 this.colHeaders = []
 this.colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true});
 this.colHeaders.push({header: 'From > To',  dataIndex:'airport', sortable: true});
-for(var i = 0; i < 24; i++){
-	this.colHeaders.push({header: "#" + i ,  dataIndex: 'col_' + i, sortable: false});
+for(var i = 0; i < 32; i++){
+	this.colHeaders.push({header: + i ,  dataIndex: 'col_' + i, sortable: false});
 }
 
+this.rangeLabel = new Ext.Toolbar.TextItem({
+	text: 'Foo'
+});
 
 //************************************************
 //**  Grid
@@ -178,11 +158,10 @@ this.grid = new Ext.grid.GridPanel({
 	layout:'fit',
 	stripeRows: true,
 	sm: this.selModel,
-	tbar:[  this.actionAdd, '-', this.actionEdit, this.actionDelete, '-', 
-			'->', '-',
-			this.filters.curr, this.filters.tomorrow, this.filters.after,
-			 /*   */
-			'-',this.timmy
+	tbar:[  this.actionAdd, '-', this.actionEdit, '-', this.actionDelete, '-', 
+				this.filters.curr, this.filters.tomorrow, this.filters.after, '-',
+			 
+			'->', this.rangeLabel
 	],
 	viewConfig: {emptyText: 'No item scheduled', forceFit: true}, 
 	store: this.store,
@@ -218,7 +197,7 @@ this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
 
 this.load = function(){
 	//self.grid.getEl().mask("Loading..");
-	Ext.fp.msg('OOOPS', 'Something went wrong !');
+	//Ext.fp.msg('OOOPS', 'Something went wrong !');
 	Ext.Ajax.request({
 		url: '/rpc/timeline/',
 		params: {},
@@ -231,17 +210,14 @@ this.load = function(){
 				return;
 			}
 			
-			//var fpp = data.rows;
-			//#for(var r in data.cols){
-			//#	#console.log(r, data.cols[r]);
-			//}
-			colHeaders = []
+			self.rangeLabel.setText(data.start_date + "=" + data.end_date);
+			self.store.removeAll();
+			colHeaders = [];
 			colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true, renderer: self.render_callsign});
 			colHeaders.push({header: 'From &gt; To',  dataIndex:'dep', sortable: true, renderer: self.render_airport});
-			for(var i = 0; i < 24; i++){
+			for(var i = 0; i < 32; i++){
 				var ki = 'col_' + i;
-				//console.log(ki);
-				this.colHeaders.push({header: data.cols[ki],  dataIndex: ki, sortable: false, width: 30,
+				colHeaders.push({header: data.cols[ki],  dataIndex: ki, sortable: false, width: 30,
 										align: 'center', renderer: self.render_cell});
 			}
 			self.grid.getColumnModel().setConfig(colHeaders);

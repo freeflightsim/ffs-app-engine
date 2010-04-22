@@ -90,27 +90,21 @@ body{
 	padding: 10px;
 	background-color: white;
 }
-#fg_logo img{
-	SSbackground-color: white;
-	SSpadding: 10px;
-
-}
 
 /********************************************************/
 /** Clock              **/
 /********************************************************/
 #real_date{
-	font-size: 10pt;
+	font-size: 9pt;
 	font-weight: normal;
 	color: #777777;
-	margin-top: 10px;
+	margin-top: 5px;
 }
 #real_time{
 	font-size: 12pt;
 	font-weight: bold;
-	ssmargin-top: 10px;
 	font-family: monospace;
-	color: #777777;
+	color: #999999;
 }
 
 
