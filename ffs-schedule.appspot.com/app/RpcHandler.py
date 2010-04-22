@@ -69,11 +69,12 @@ class RpcHandler(webapp.RequestHandler):
 			SECS_IN_HOUR = 60 * 60 
 			curr_ts = time.mktime((n.year, n.month, n.day, n.hour, n.minute, 0, 0, 0, 0))
 			start_dt = datetime.datetime.fromtimestamp(curr_ts - SECS_IN_HOUR)
-			reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
+			#reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
 			#print "start=", curr_ts, start_dt
 			end_dt = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * 23))
-			reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
+			#reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
 			#print "end=", curr_ts, end_dt
+
 			col_no = 0
 			for c in range(-1, 24):
 				col_time = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * c))
@@ -92,6 +93,7 @@ class RpcHandler(webapp.RequestHandler):
 			#q.filter('dep_date >=', tod)
 			q.order('dep_date');
 			scheds = q.fetch(100)
+			rows = []
 			for e in scheds:
 				"""if e.dep:
 					col_ki = 'col_%s' % int(e.dep_date.strftime("%H"))
@@ -105,9 +107,41 @@ class RpcHandler(webapp.RequestHandler):
 					#rowsX[col_ki] = dic
 					rows.append(dic)
 				"""
-				dic = {'callsign': e.callsign}
-				#start_h = int(e.dep_date.strftime("%H")
-				#dic[]
+				#dic = {'callsign': e.callsign}
+				cols = []
+
+				## Departure
+				data = {'col_ki': reverse[int(e.dep_date.strftime("%H"))],
+						'time': e.dep_date.strftime("%M"), 'mode': 'dep', 'airport': e.dep
+				}
+				cols.append(data)
+
+				## Arrival
+				data = {'col_ki': reverse[int(e.arr_date.strftime("%H"))],
+						'time': e.arr_date.strftime("%M"), 'mode': 'arr', 'airport': e.arr
+				}
+				cols.append(data)
+
+
+				loop_ts = time.mktime((e.dep_date.year, e.dep_date.month, e.dep_date.day, e.dep_date.hour, 0, 0, 0, 0, 0)) + SECS_IN_HOUR
+				#loop_time = datetime.datetime.fromtimestamp(start_ts + SECS_IN_HOUR)
+
+				end_ts = time.mktime((e.arr_date.year, e.arr_date.month, e.arr_date.day, e.arr_date.hour, 0, 0, 0, 0, 0)) 
+				#end_time =  datetime.datetime.fromtimestamp(end_ts)
+				hr =  0
+				while loop_ts < end_ts:
+					loop_time = datetime.datetime.fromtimestamp(loop_ts )
+					data = {'col_ki': reverse[int(loop_time.strftime("%H"))],
+							'time': loop_time.strftime("%M"), 'mode': 'mid'
+					}
+					cols.append(data)
+					#hr = hr + 1
+					loop_ts = loop_ts + SECS_IN_HOUR 
+				#data = {'callsign': e.callsign, 'cols': cols, 's': loop_ts, 'e': end_ts}	
+				#cols.append(data)	
+				
+				data = {'callsign': e.callsign, 'cols': cols, 'dep': e.dep, 'arr': e.arr, 'fppID': str(e.key())}
+				rows.append(data)
 			reply['rows'] = rows
 
 		########################################################

@@ -10,7 +10,7 @@ this.store = new Ext.data.JsonStore({
 	baseParams: {'filter': 'TODO'},
 	root: 'schedule',
 	idProperty: 'fppID',
-	fields: [ 	'callsign', 'airport', 'mode', 'fppID',
+	fields: [ 	'callsign', 'dep', 'arr', 'mode', 'fppID',
 				'col_0','col_1', 'col_2', 'col_3', 'col_4', 'col_5', 'col_6', 
 				'col_7', 'col_8', 'col_9', 'col_10', 'col_11', 'col_12', 
 				'col_13', 'col_14','col_15','col_16','col_17','col_18',
@@ -136,21 +136,32 @@ this.render_arr_date = function(v, meta, rec){
 	return Ext.util.Format.date(v, "H:i - d M");
 }
 
-
+this.render_airport = function(v, meta, rec){
+	return rec.get('dep') + " - " + rec.get("arr");
+} 
 this.render_cell = function(v, meta, rec){
-	if(v){
-		meta.css = rec.get('mode') == 'arr' ? 'cell_arr' : 'cell_dep'
+	
+	if(!v){
+		return;
 	}
-	return v;
-	var c = v == "" ? 'atc_take' : 'atc_ok';
-	var lbl = v == "" ? 'Take' : v;
-	return "<a  class='" + c + "' href='javascript:showDialog(\"\");'>" + lbl + "</a>";
+	var arr = v.split("|");
+	if(arr[0] == 'dep'){
+		meta.css = 'cell_dep'
+		return arr[1];
+	}else if (arr[0] == 'arr'){
+		meta.css = 'cell_arr'
+		return arr[1];
+	}else{
+		meta.css = 'cell_mid'
+		return "&gt;";
+	}
+	
 }
 
 
 this.colHeaders = []
 this.colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true});
-this.colHeaders.push({header: 'Airport',  dataIndex:'airport', sortable: true});
+this.colHeaders.push({header: 'From > To',  dataIndex:'airport', sortable: true});
 for(var i = 0; i < 24; i++){
 	this.colHeaders.push({header: "#" + i ,  dataIndex: 'col_' + i, sortable: false});
 }
@@ -226,7 +237,7 @@ this.load = function(){
 			//}
 			colHeaders = []
 			colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true, renderer: self.render_callsign});
-			colHeaders.push({header: 'Airport',  dataIndex:'airport', sortable: true, renderer: self.render_callsign});
+			colHeaders.push({header: 'From &gt; To',  dataIndex:'dep', sortable: true, renderer: self.render_airport});
 			for(var i = 0; i < 24; i++){
 				var ki = 'col_' + i;
 				//console.log(ki);
@@ -242,17 +253,21 @@ this.load = function(){
 				var recDef = Ext.data.Record.create([
 					{name: 'fppID'},
 					{name: 'callsign'},
-					{name: 'airport'},
-					{name: 'mode'},
-					{name: f.col_ki}
+					{name: 'dep'},
+					{name: 'arr'}
 				]);
 				var rec = new recDef({
 					fppID: f.fppID,
 					callsign: f.callsign,
-					airport: f.airport,
-					mode: f.mode
+					dep: f.dep,
+					arr: f.arr
 				});
-				rec.set(f.col_ki, f.time);
+				for(var i =0; i < f.cols.length; i++){
+					//console.log(i, f.cols[i]);
+					var s = f.cols[i].mode + "|" + f.cols[i].time + "|" + f.cols[i].airport
+					rec.set(f.cols[i].col_ki, s);
+				}
+				
 				self.store.add(rec);
 			}
 
