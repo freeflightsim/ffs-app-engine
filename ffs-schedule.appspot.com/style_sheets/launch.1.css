@@ -95,7 +95,7 @@ body{
 /** Clock              **/
 /********************************************************/
 #real_date{
-	font-size: 9pt;
+	font-size: 7pt;
 	font-weight: normal;
 	color: #777777;
 	margin-top: 5px;
@@ -254,7 +254,7 @@ body{
 #comment_box{
 	margin-top: 20px;
 	font-size: 12pt;
-	margin: 30px 0px 20px 50px;
+	margin: 30px 0px 20px 30px;
 	clear: both;
 }
 
@@ -348,8 +348,11 @@ body{
 
 .icoFilterOn{background-image: url('/images/bullet_pink.png') !important;}
 .icoFilterOff{background-image: url('/images/bullet_purple.png') !important;}
+
 .icoRefresh{background-image: url('/images/refresh.gif') !important;}
 .icoSave{background-image: url('/images/accept.png') !important;}
+.icoCancel{background-image: url('/images/bullet_black.png') !important;}
+.icoDelete{background-image: url('/images/bullet_delete.png') !important;}
 
 .icoFpp{background-image: url('/images/layout.png') !important;}
 .icoFppAdd{background-image: url('/images/layout_add.png') !important;}

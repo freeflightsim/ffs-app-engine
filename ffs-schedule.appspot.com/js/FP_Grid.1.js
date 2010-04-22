@@ -22,9 +22,8 @@ this.store = new Ext.data.JsonStore({
 this.store.load();
 
 this.edit_dialog = function(fppID){
-	var d = new FP_Dialog(fppID);
+	var d = new FP_Dialog(fppID, 'index');
 	d.frm.on("fpp_refresh", function(data){
-		Ext.fp.msg('Saved');
 		self.store.loadData(data);
 	});
 
@@ -48,7 +47,12 @@ this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoFppDelete', disab
 		Ext.fg.msg('OOOPS', 'Something went wrong !');
 	}
 });
-
+this.actionRefresh = new Ext.Action({
+	iconCls:'icoRefresh', 
+	handler: function(){
+		self.load();
+	}
+});
 
 
 
@@ -57,8 +61,9 @@ this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoFppDelete', disab
 //***************************************************************
 this.set_filter = function(button, state){
 	if(state){
-		self.jobsStore.baseParams.filter = button.myFilter;
-		self.jobsStore.load();
+		//self.jobsStore.baseParams.filter = button.myFilter;
+		//self.jobsStore.load();
+		Ext.fp.msg('','Not yet implemented');
 	}
     button.setIconClass( state ? 'icoFilterOn' : 'icoFilterOff');
 };
@@ -144,8 +149,9 @@ this.grid = new Ext.grid.GridPanel({
 	stripeRows: true,
 	sm: this.selModel,
 	tbar:[  this.actionAdd, '-', this.actionEdit, this.actionDelete, '-', 
-			'->', '-',
-			this.filters.curr, this.filters.tomorrow, this.filters.after
+			'->', 
+			this.filters.curr, this.filters.tomorrow, this.filters.after,
+			'-', this.actionRefresh
 	],
 	viewConfig: {emptyText: 'No item scheduled', forceFit: true}, 
 	store: this.store,
@@ -187,7 +193,11 @@ this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
 		var record = self.store.getAt(rowIdx);
 		self.edit_dialog(record.get('fppID'));
 	}
-});   
+});  
+
+this.load = function(){
+	self.store.load();
+} 
 
 } /***  */
 

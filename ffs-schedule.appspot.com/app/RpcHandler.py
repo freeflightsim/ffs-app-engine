@@ -16,19 +16,86 @@ class RpcHandler(webapp.RequestHandler):
 		lst = []
 		entries = db.GqlQuery("select * from FPp order by dep_date asc")
 		for e in entries:
-			lst.append(self.fpp_dic(e))
+			lst.append({	'callsign': e.callsign, 'fppID': str(e.key()),
+						'comment': e.comment,
+						'dep': e.dep, 'dep_date': e.dep_date.strftime(conf.MYSQL_DATETIME), 'dep_atc': e.dep_atc,
+						'arr': e.arr, 'arr_date': e.arr_date.strftime(conf.MYSQL_DATETIME), 'arr_atc': e.arr_atc
+			})
 		return lst
 
-	def fpp_dic(self, e):
-		dic = {'callsign': e.callsign, 'fppID': str(e.key()),
-			'comment': e.comment,
-			'dep': e.dep, 'dep_date': e.dep_date.strftime(conf.MYSQL_DATETIME), 'dep_atc': e.dep_atc,
-			'arr': e.arr, 'arr_date': e.arr_date.strftime(conf.MYSQL_DATETIME), 'arr_atc': e.arr_atc
-			}
-		return dic
+	def get_timeline(self):
+		reply = {}
+		SECS_IN_HOUR = 60 * 60 
+		
+		################### current, start and end dates
+		n = datetime.datetime.utcnow()
+		curr_ts = time.mktime((n.year, n.month, n.day, n.hour, 0, 0, 0, 0, 0))
+		curr_dt = datetime.datetime.fromtimestamp(curr_ts)
+		reply['current_date'] = curr_dt.strftime(conf.MYSQL_DATETIME)
 
-	def date_to_ts(self, n):
-		return time.mktime((n.year, n.month, n.day, n.hour, 0, 0, 0, 0, 0))
+		start_ts = curr_ts - SECS_IN_HOUR
+		start_dt = datetime.datetime.fromtimestamp(start_ts)
+		reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
+
+		end_ts = curr_ts + (SECS_IN_HOUR * 30)
+		end_dt = datetime.datetime.fromtimestamp(end_ts)
+		reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
+
+		########################## Cols
+		col_no = 0
+		cols = {}
+		reverse = {}
+		rev_ki = "%d_%H"
+		for c in range(-1, 33):
+			col_time = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * c))
+			ki = "col_%s" % col_no
+			cols[ki] =  str(int(col_time.strftime("%H")))
+			reverse[col_time.strftime(rev_ki)] = ki
+			col_no += 1
+		reply['cols'] = cols
+
+		####################### Rows
+		rows = []
+		rowsX = {}
+		q = FPp.all()
+		#q.filter('dep_date >=', tod)
+		q.order('dep_date');
+		scheds = q.fetch(100)
+		rows = []
+		for e in scheds:
+			cols = []
+
+			## Departure
+			if reverse.has_key( e.dep_date.strftime(rev_ki)):
+				cols.append({	'col_ki': reverse[e.dep_date.strftime(rev_ki)],
+								'time': e.dep_date.strftime("%M"), 
+								'mode': 'dep'
+				})
+
+			## Arrival
+			if reverse.has_key( e.arr_date.strftime(rev_ki) ):
+				cols.append({	'col_ki': reverse[e.arr_date.strftime(rev_ki)],
+								'time': e.arr_date.strftime("%M"), 
+								'mode': 'dep'
+				})
+
+			## loop the middle
+			loop_ts = time.mktime((e.dep_date.year, e.dep_date.month, e.dep_date.day, e.dep_date.hour, 0, 0, 0, 0, 0)) + SECS_IN_HOUR
+			last_ts = time.mktime((e.arr_date.year, e.arr_date.month, e.arr_date.day, e.arr_date.hour, 0, 0, 0, 0, 0)) 
+			hr =  0
+			while loop_ts < last_ts:
+				loop_time = datetime.datetime.fromtimestamp(loop_ts )
+				if reverse.has_key(loop_time.strftime(rev_ki)):
+					cols.append({'col_ki': reverse[loop_time.strftime(rev_ki)],
+							'time': loop_time.strftime("%M"), 'mode': 'mid'
+					})
+				loop_ts = loop_ts + SECS_IN_HOUR 
+			
+			data = {'callsign': e.callsign, 'cols': cols, 'dep': e.dep, 'arr': e.arr, 'fppID': str(e.key())}
+			rows.append(data)
+		reply['rows'] = rows
+		return reply
+
 
 	def get(self, action):
 		self.post(action)
@@ -46,74 +113,7 @@ class RpcHandler(webapp.RequestHandler):
 		########################################################
 		### TimeLIne
 		elif action == 'timeline':
-			SECS_IN_HOUR = 60 * 60 
-			
-			##  current, start and end dates
-			n = datetime.datetime.utcnow()
-			curr_ts = time.mktime((n.year, n.month, n.day, n.hour, 0, 0, 0, 0, 0))
-			curr_dt = datetime.datetime.fromtimestamp(curr_ts)
-			reply['current_date'] = curr_dt.strftime(conf.MYSQL_DATETIME)
-
-			start_ts = curr_ts - SECS_IN_HOUR
-			start_dt = datetime.datetime.fromtimestamp(start_ts)
-			reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
-
-			end_ts = curr_ts + (SECS_IN_HOUR * 30)
-			end_dt = datetime.datetime.fromtimestamp(end_ts)
-			reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
-
-			## Cols
-			col_no = 0
-			cols = {}
-			reverse = {}
-			for c in range(-1, 32):
-				col_time = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * c))
-				h =  int(col_time.strftime("%H"))
-				ki = "col_%s" % col_no
-				cols[ki] =  str(h)
-				reverse[h] = ki
-				col_no += 1
-			reply['cols'] = cols
-
-			# Rows
-			rows = []
-			rowsX = {}
-			q = FPp.all()
-			#q.filter('dep_date >=', tod)
-			q.order('dep_date');
-			scheds = q.fetch(100)
-			rows = []
-			for e in scheds:
-				cols = []
-
-				## Departure
-				if self.date_to_ts(e.dep_date) < start_ts:
-					data = {'col_ki': reverse[int(start_dt.strftime("%H"))],
-							'time': e.dep_date.strftime("%M"), 'mode': 'dep'}
-				else:
-					data = {'col_ki': reverse[int(e.dep_date.strftime("%H"))],
-							'time': e.dep_date.strftime("%M"), 'mode': 'dep'}
-					cols.append(data)
-
-				## Arrival
-				data = {'col_ki': reverse[int(e.arr_date.strftime("%H"))],
-						'time': e.arr_date.strftime("%M"), 'mode': 'arr'}
-				cols.append(data)
-
-				loop_ts = time.mktime((e.dep_date.year, e.dep_date.month, e.dep_date.day, e.dep_date.hour, 0, 0, 0, 0, 0)) + SECS_IN_HOUR
-				last_ts = time.mktime((e.arr_date.year, e.arr_date.month, e.arr_date.day, e.arr_date.hour, 0, 0, 0, 0, 0)) 
-				hr =  0
-				while loop_ts < last_ts:
-					loop_time = datetime.datetime.fromtimestamp(loop_ts )
-					data = {'col_ki': reverse[int(loop_time.strftime("%H"))],
-							'time': loop_time.strftime("%M"), 'mode': 'mid'
-					}
-					cols.append(data)
-					loop_ts = loop_ts + SECS_IN_HOUR 
-				
-				data = {'callsign': e.callsign, 'cols': cols, 'dep': e.dep, 'arr': e.arr, 'fppID': str(e.key())}
-				rows.append(data)
-			reply['rows'] = rows
+			reply['timeline'] = self.get_timeline()
 
 
 

@@ -2,11 +2,12 @@
 
 */
 
-function FP_Dialog(fppIDX){
+function FP_Dialog(fppIDX, retDataType){
 
 var self = this;
 
 this.fppID = fppIDX
+this.retDataType = retDataType
 
 this.depDate = new Ext.form.DateField({
 	fieldLabel: 'Date', allowBlank: false, minLength: 3,   
@@ -27,6 +28,13 @@ this.depTime = new Ext.form.TimeField({
 });
 this.depTime.on("select", function(widget, date){
 	var f = self.frm.getForm();
+
+	// checl the dat eaint blank
+	var arrDate = f.findField('arr_date');
+	if(arrDate.getValue() == ''){
+		arrDate.setValue(f.findField('dep_date').getValue());
+	}
+
 	var arrDate = f.findField('arr_time');
 	if(arrDate.getValue() == ''){
 		arrDate.setValue(widget.getValue());
@@ -55,7 +63,7 @@ this.frm = new Ext.FormPanel({
     labelAlign: 'right',
     bodyStyle: 'padding: 20px',
     waitMsgTarget: true,
-    items: [	{xtype: 'hidden', name: 'fppID'},
+    items: [	{xtype: 'hidden', name: 'fppID'},{xtype: 'hidden', name: 'retDataType', value: this.retDataType},
 				/*  Pilot */
 				{xtype: 'fieldset', title: 'Pilot', autoHeight: true, 
 					items:[
@@ -91,11 +99,16 @@ this.frm = new Ext.FormPanel({
 					]
 				}
     ],
-    buttons: [  {text: 'Submit', iconCls: 'icoSave',
+    buttons: [  /** Delete Button **/
+				{text: 'Delete', iconCls: 'icoDelete',
                     handler: function(){
+						var ok = confirm("Delete this item?'");
+						if(!ok){
+							return;
+						}
                         if(self.frm.getForm().isValid()){
                             self.frm.getForm().submit({
-                                url: '/rpc/edit/',
+                                url: '/rpc/delete/',
                                 waitMsg: 'Saving...',
                                 success: function(frm, action){
 										var data = Ext.decode(action.response.responseText);
@@ -111,6 +124,38 @@ this.frm = new Ext.FormPanel({
                                 failure: function(){
 
                                     //Ext.geo.msg('OOOPS', 'Something went wrong !');
+                                }
+
+                            });
+
+                        }
+                    }
+                },
+				/** Cancel Button **/
+				{text: 'Cancel', iconCls: 'icoCancel',
+                    handler: function(){
+                        self.win.close();
+                    }
+                },
+				/** Submit Button **/
+				{text: 'Submit', iconCls: 'icoSave',
+                    handler: function(){
+                        if(self.frm.getForm().isValid()){
+                            self.frm.getForm().submit({
+                                url: '/rpc/edit/',
+                                waitMsg: 'Saving...',
+                                success: function(frm, action){
+										var data = Ext.decode(action.response.responseText);
+									if(data.error){
+										alert("Error: " + data.error.description);
+										return;
+									}
+									Ext.fp.msg('Saved');
+									self.frm.fireEvent("fpp_refresh", data);
+                                    self.win.close();
+                                },
+                                failure: function(){
+                                    Ext.fp.msg('OOOPS', 'Something went wrong !');
                                 }
 
                             });

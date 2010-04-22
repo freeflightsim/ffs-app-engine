@@ -32,12 +32,20 @@ Ext.fp = function(){
 }();
 
 var widget;
+var gToggle = false;
 
 function tick_tock_clock(){
 	gToggle = !gToggle;
-	gDate = gDate.add(Date.MILLI, 1000);
-	document.getElementById('real_date').innerHTML = Ext.util.Format.date(gDate, "d F Y" ); 
-	document.getElementById('real_time').innerHTML = Ext.util.Format.date(gDate, gToggle ? "H:i:s" : "H.i.s" ); 
+	var d = new Date();
+	document.getElementById('real_date').innerHTML = Ext.util.Format.date(d, "l d F Y" ); 
+	var sep  = gToggle ? ":" : "." 
+	
+	var s = d.getUTCHours() < 10 ? "0" + d.getUTCHours() : d.getUTCHours();  
+	s += sep 
+	s += d.getUTCMinutes() < 10 ? "0" + d.getUTCMinutes() : d.getUTCMinutes()  
+	s += sep 
+	s += d.getUTCSeconds() < 10 ? "0" + d.getUTCSeconds() : d.getUTCSeconds()  
+	document.getElementById('real_time').innerHTML = s
 	setTimeout("tick_tock_clock()", 1000); 
 }
 
@@ -56,7 +64,15 @@ function startInit(){
 		, pilotRequestsGrid.grid
 	]
 	});
-
-	
+	tabWidget.on('tabChange', function(tabPanel, tab){
+		console.log(tabPanel.getActiveTab());
+		var tit = tabPanel.getActiveTab().title 
+		if(tit == 'Pilot Requests'){
+			pilotRequestsGrid.load();
+		}else{
+			timelineGrid.load();
+		}
+	});
+	timelineGrid.load();
 	tick_tock_clock();
 }

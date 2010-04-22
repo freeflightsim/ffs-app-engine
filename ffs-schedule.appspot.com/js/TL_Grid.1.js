@@ -6,8 +6,6 @@ var self = this;
 
 
 this.store = new Ext.data.JsonStore({
-	url: '/rpc/timeline/',
-	baseParams: {'filter': 'TODO'},
 	root: 'schedule',
 	idProperty: 'fppID',
 	fields: [ 	'callsign', 'dep', 'arr', 'mode', 'fppID',
@@ -23,10 +21,10 @@ this.store = new Ext.data.JsonStore({
 
 
 this.edit_dialog = function(fppID){
-	var d = new FP_Dialog(fppID);
+	var d = new FP_Dialog(fppID, 'timeline');
 	d.frm.on("fpp_refresh", function(data){
 		Ext.fp.msg('Saved');
-		self.load();
+		self.store.loadData(data);
 	});
 
 }
@@ -41,7 +39,7 @@ this.actionEdit = new Ext.Button({ text:'Edit Entry', iconCls:'icoFppEdit', disa
 			return;
 		}
 		var record = self.selModel.getSelected();
-		edit_dialog(record.get('fppID'));
+		self.edit_dialog(record.get('fppID'));
 	}
 });
 this.actionDelete = new Ext.Button({text:'Delete Entry', iconCls:'icoFppDelete', disabled: true,
@@ -50,28 +48,22 @@ this.actionDelete = new Ext.Button({text:'Delete Entry', iconCls:'icoFppDelete',
 	}
 });
 
-
-
-
-this.timmy = new Ext.Toolbar.TextItem({
-	text: '12:23:45',
-	width: 150
+this.actionRefresh = new Ext.Action({
+	iconCls:'icoRefresh', 
+	handler: function(){
+		self.load();
+	}
 });
 
-this.do_tick = function (){
-	gToggle = !gToggle;
-	gDate = gDate.add(Date.MILLI, 1000);
-	var str = Ext.util.Format.date(gDate, gToggle ? "Y-m-d H:i:s" : "Y-m-d H i s" );
-	self.timmy.setText(str);
-}
 
 //***************************************************************
 //** Toolbar Filter Buttons / functions
 //***************************************************************
 this.set_filter = function(button, state){
 	if(state){
-		self.jobsStore.baseParams.filter = button.myFilter;
-		self.jobsStore.load();
+		//self.jobsStore.baseParams.filter = button.myFilter;
+		//self.jobsStore.load();
+		Ext.fp.msg('','Not yet implemented');
 	}
     button.setIconClass( state ? 'icoFilterOn' : 'icoFilterOff');
 };
@@ -144,9 +136,11 @@ for(var i = 0; i < 32; i++){
 }
 
 this.rangeLabel = new Ext.Toolbar.TextItem({
-	text: 'Foo'
+	text: '-'
 });
-
+this.countLabel = new Ext.Toolbar.TextItem({
+	text: '-'
+});
 //************************************************
 //**  Grid
 //************************************************
@@ -159,9 +153,8 @@ this.grid = new Ext.grid.GridPanel({
 	stripeRows: true,
 	sm: this.selModel,
 	tbar:[  this.actionAdd, '-', this.actionEdit, '-', this.actionDelete, '-', 
-				this.filters.curr, this.filters.tomorrow, this.filters.after, '-',
-			 
-			'->', this.rangeLabel
+			'->', this.filters.curr, this.filters.tomorrow, this.filters.after,
+			'-', this.actionRefresh, 
 	],
 	viewConfig: {emptyText: 'No item scheduled', forceFit: true}, 
 	store: this.store,
@@ -169,14 +162,9 @@ this.grid = new Ext.grid.GridPanel({
 	columns: this.colHeaders,
 
 	listeners: {},
-	bbar: new Ext.PagingToolbar({
-            pageSize: 50,
-            store: this.store,
-            displayInfo: true,
-            displayMsg: 'Schedules {0} - {1} of {2}',
-            emptyMsg: "No schedules to display",
-            items:['-']
-        })
+	bbar: [ this.countLabel, '->', this.rangeLabel
+
+	]
 });
 this.grid.on("rowdblclick", function(grid, idx, e){
 	//return;
@@ -196,20 +184,20 @@ this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
 
 
 this.load = function(){
-	//self.grid.getEl().mask("Loading..");
+	self.grid.getEl().mask("Loading..");
 	//Ext.fp.msg('OOOPS', 'Something went wrong !');
 	Ext.Ajax.request({
 		url: '/rpc/timeline/',
 		params: {},
 		success: function(response, opts){
 			//#console.log(response, opts);
-			var data = Ext.decode(response.responseText);
+			var payload = Ext.decode(response.responseText);
 			//console.log(data);
-			if(data.error){
-				alert("Error: " + data.error.description);
+			if(payload.error){
+				alert("Error: " + payload.error);
 				return;
 			}
-			
+			var data = payload.timeline
 			self.rangeLabel.setText(data.start_date + "=" + data.end_date);
 			self.store.removeAll();
 			colHeaders = [];
@@ -225,7 +213,6 @@ this.load = function(){
 			//var fpp = data.rows;
 			for(var r=0; r < data.rows.length; r++){
 				var f = data.rows[r]
-				console.log(r,  f.col_ki);
 				var recDef = Ext.data.Record.create([
 					{name: 'fppID'},
 					{name: 'callsign'},
@@ -246,19 +233,17 @@ this.load = function(){
 				
 				self.store.add(rec);
 			}
-
-			//var f = self.frm.getForm() 
-
-			//self.frm.getEl().unmask();		
+			self.countLabel.setText( self.store.getCount() > 0 ? self.store.getCount() + ' flights' : 'No flights');
+			self.grid.getEl().unmask();	
 		},
 		failure: function(response, opts){
 
-			//Ext.geo.msg('OOOPS', 'Something went wrong !');
+			Ext.fg.msg('OOOPS', 'Something went wrong !');
 		}
 
 	});
 }
-this.load();
+//this.load();
 
 } /***  */
 
