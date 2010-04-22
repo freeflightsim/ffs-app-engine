@@ -8,6 +8,7 @@ from google.appengine.ext import webapp
 from django.utils import simplejson as json
 from google.appengine.ext.webapp import template
 from google.appengine.ext import db
+from google.appengine.api import mail
 from google.appengine.api import urlfetch
 import urllib
 
@@ -77,7 +78,6 @@ class CrewHandler(webapp.RequestHandler):
 
 	def post(self, action):
 	
-
 		if action == 'auth':
 
 			token = self.request.get('token')
@@ -103,19 +103,27 @@ class CrewHandler(webapp.RequestHandler):
 				crew = q.get()
 				if not crew:
 					crew = Crew(ident=unique_identifier)
-					crew.name = nickname = data['profile']['preferredUsername']
+					crew.name = data['profile']['preferredUsername']
 					if data['profile'].has_key('email'):
 						crew.email = data['profile']['email']
 					crew.put()
 					welcome = 1
+					subject = "New Login: %s" % crew.name
+					body = "New login on schedule"
+				else:
+					subject = "Return Login: %s" % crew.name
+					body = "New login on schedule"		
 
 				sessID = str(crew.key())
 				cook_str = 'sessID=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT; Path=/;'	% sessID
 				self.response.headers.add_header(	'Set-Cookie', 
 													cook_str
 				)
-
-				#tvars = {'welcome': welcome, 'sessID': sessID, 'cook_str':cook_str}				
+				mail.send_mail(	sender = conf.EMAIL,
+									to = "Dev <dev@freeflightsim.org>",
+									subject = subject,
+									body = body
+				)		
 				self.redirect("/crew/profile/?welcome=%s" % welcome)
 				return	
 			else:

@@ -5,6 +5,7 @@ import datetime
 from google.appengine.ext import webapp
 from django.utils import simplejson as json
 from google.appengine.ext import db
+from google.appengine.api import mail
 
 import conf
 from app.models import FPp,  Comment
@@ -135,7 +136,7 @@ class RpcHandler(webapp.RequestHandler):
 				if fppID == '0':
 					t = time.time()
 					d = datetime.datetime.fromtimestamp(t - t % (60 *15) )
-					dic = {	'callsign': '', 
+					dic = {	'callsign':  self.request.cookies['sessIdent'] , 
 							'email': '',
 							'dep': '',
 							'dep_date': d.strftime(conf.MYSQL_DATETIME),
@@ -172,7 +173,9 @@ class RpcHandler(webapp.RequestHandler):
 				callsign = self.request.get("callsign")
 				if fppID == '0':
 					fp = FPp(callsign = callsign)
+					subject = 'New FP: %s' % callsign
 				else:
+					subject = 'Edit FP: %s' % callsign
 					fp = db.get( db.Key(fppID) )
 					fp.cookie = self.request.cookies['sessID'] 
 					fp.callsign = callsign
@@ -189,7 +192,11 @@ class RpcHandler(webapp.RequestHandler):
 				fp.email = self.request.get("email")
 				fp.put()
 				reply['fppID'] = str(fp.key())
-
+				mail.send_mail(	sender = conf.EMAIL,
+									to = "Dev <dev@freeflightsim.org>",
+									subject = subject,
+									body = "Fp edited"
+				)	
 		########################################################
 		### Edit
 		elif action == 'rm':

@@ -44,7 +44,6 @@ class MainHandler(webapp.RequestHandler):
 			sessIdent =  self.request.cookies['sessIdent'] 
 		else:
 			sessIdent = None
-		template_vars['profile_label'] = "%s Profile" % sessIdent if sessIdent else "My Profile"
 
 		## Setup Section and Page
 		if section == None:
@@ -77,10 +76,10 @@ class MainHandler(webapp.RequestHandler):
 		#	template_vars['logout_url'] = users.create_logout_url("/subscribe/")
 
 	
-		## Subscribe Section
+		## Sign In Section
 		if section == 'signin' :
 			if sessID:
-				self.redirect("/crew/profile/")
+				self.redirect("/profile/")
 				return 
 			template_vars['page_title'] = 'Sign In with OpenId'
 
@@ -97,6 +96,7 @@ class MainHandler(webapp.RequestHandler):
 			if not sessID:
 				self.redirect("/signin/")
 				return
+			template_vars['welcome'] = True if self.request.get("welcome") == '1' else False
 			template_vars['page_title'] = 'My Profile'
 	
 

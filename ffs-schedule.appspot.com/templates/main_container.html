@@ -56,7 +56,7 @@
 			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
 			{% endfor %}
 			{% if sessID %}
-			<li><a {% ifequal path '/profile/'  %}class="selected"{% endifequal %} href="/profile/" >{{ profile_label }}</a>
+			<li><a {% ifequal path '/profile/'  %}class="selected"{% endifequal %} href="/profile/" >My Profile</a>
 			<li><a  href="javascript:signOut();" >Sign Out</a>
 			{% else %}
 			<li><a {% ifequal path '/signin/'  %}class="selected"{% endifequal %} href="/signin/" >Sign In</a>
