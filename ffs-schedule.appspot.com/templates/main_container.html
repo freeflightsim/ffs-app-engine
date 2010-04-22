@@ -16,18 +16,16 @@
 
 <script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="{{ conf.CDN }}/js/ext-3.2.0/ext-all.js"></script>
-<!--<script type="text/javascript" src="js/ext-3.1.0/ext-all.js"></script>-->
+<script type="text/javascript" src="/js/StaticTextField.js"></script>
 
 <script type="text/javascript" src="/js/Ext.fp.1.js"></script>
 <script type="text/javascript" src="/js/FP_Dialog.1.js"></script>
 <script type="text/javascript" src="/js/FP_Grid.1.js"></script>
 <script type="text/javascript" src="/js/TL_Grid.1.js"></script>
-<script type="text/javascript" src="/js/airports.0.js"></script>
+<script type="text/javascript" src="/js/FP_UserForm.1.js"></script>
 
 </head> 
 <body onload="startInit()"> 
-
-
 
 <!--### Header ########################-->
 <div id="header_box">
@@ -57,6 +55,12 @@
 			{% for n in appo.nav %}
 			<li><a {% ifequal path n.path  %}class="selected"{% endifequal %} href="{{ n.path }}" >{{ n.label }}</a>
 			{% endfor %}
+			{% if sessID %}
+			<li><a {% ifequal path '/profile/'  %}class="selected"{% endifequal %} href="/profile/" >{{ profile_label }}</a>
+			<li><a  href="javascript:signOut();" >Sign Out</a>
+			{% else %}
+			<li><a {% ifequal path '/signin/'  %}class="selected"{% endifequal %} href="/signin/" >Sign In</a>
+			{% endif %}
 		</ul>
 
 
@@ -103,7 +107,8 @@
 		<p>
 		<a href="https://appengine.google.com/dashboard?&app_id={{ conf.APP_ID }}">Dashboard</a> -
 		<a href="http://github.com/FreeFlightSim/ffs-app-engine/tree/master/{{ conf.APP_ID }}.appspot.com/">Git</a> - 
-		&copy;{% now "Y" %} FreeFlightSim.org - all right reserved etc
+		&copy;{% now "Y" %} FreeFlightSim.org - all right reserved etc<br>
+		{{ sessID }}
 	</div><!-- end footer-->
      
 	
@@ -112,15 +117,12 @@
 
 </div><!-- main cotainer -->
 
-<!--### Help ########################-->
-<div id="help_text_div" Aclass="x-hide-display"> 
-	<p>This site is work in progress and is subject to change. Please leave your comments and suggestions.</p> 
-	<p>The general idea at the moment is to create a flight, and mark the departure/arrival airport and time.</p>
-	<p>ATC controllers can then see an event that needs coverage, and can do so bu entering their callsign in the box.</p>
-	<p>I'm still trying to figure out colour coding, eg purple for no atc, or green for atc present etc.</p>
-	<p>The ATC's interface is coming next.</p>
-</div> 
+
 
 
 </body> 
+
+
+
+
 </html>

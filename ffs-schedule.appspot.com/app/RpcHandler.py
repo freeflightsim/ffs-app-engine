@@ -7,7 +7,7 @@ from django.utils import simplejson as json
 from google.appengine.ext import db
 
 import conf
-from app.models import FPp, Cookie, Comment
+from app.models import FPp,  Comment
 
 from data.airports import airports
 
@@ -201,14 +201,43 @@ class RpcHandler(webapp.RequestHandler):
 
 
 		########################################################
-		### Return Data
-		ret_type =  self.request.get('retDataType')
-		if ret_type:
-			if ret_type == 'schedule':
-				reply['schedule'] = self.get_schedule()
-			if ret_type == 'timeline':
-				reply['timeline'] = self.get_timeline()
+		### Crew
+		elif action == 'crew':
+			if 'sessID' in self.request.cookies:
+				sessID  = self.request.cookies['sessID'] 		
+				crew = db.get( db.Key(sessID) )
+				reply['crew'] = [{'name': crew.name, 'email': crew.email, 'callsign': crew.callsign,
+								 'cvs': crew.cvs, 'forum': crew.forum, 'irc': crew.irc, 'wiki': crew.wiki,
+								'pilot': crew.pilot, 'atc': crew.atc, 'fgcom': crew.fgcom, 
+								'date_created': crew.date_created.strftime(conf.MYSQL_DATETIME),
+								'location': crew.location, 'ident': crew.ident
+								}]
 
+		elif action == 'crew_edit':
+			if 'sessID' in self.request.cookies:
+				sessID  = self.request.cookies['sessID'] 		
+				crew = db.get( db.Key(sessID) )
+				crew.name = self.request.get('name')
+				crew.email = self.request.get('email')
+
+				crew.callsign = self.request.get('callsign')
+				crew.cvs = self.request.get('cvs')
+				crew.irc = self.request.get('irc')
+				crew.forum = self.request.get('forum')
+				crew.wiki = self.request.get('wiki')
+
+				crew.pilot = False if self.request.get('pilot') == '' else True
+				crew.atc = False if self.request.get('atc') == '' else True
+				crew.fgcom = False if self.request.get('fgcom') == '' else True
+				crew.location = self.request.get('location')
+				#crew.email = self.request.get('email')
+				#crew.email = self.request.get('email')
+				crew.put()
+				reply['crew+saved'] = True
+				cook_str = 'sessIdent=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT; Path=/;'	% crew.callsign
+				self.response.headers.add_header(	'Set-Cookie', 
+													cook_str
+				)
 
 		########################################################
 		### Airpots
@@ -224,6 +253,17 @@ class RpcHandler(webapp.RequestHandler):
 				for icao in airports:
 					if airports[icao].upper().find(search) > -1:
 						reply['airports'].append({'icao': icao, 'airport': airports[icao]})
+
+
+
+		########################################################
+		### Return Data
+		ret_type =  self.request.get('retDataType')
+		if ret_type:
+			if ret_type == 'schedule':
+				reply['schedule'] = self.get_schedule()
+			if ret_type == 'timeline':
+				reply['timeline'] = self.get_timeline()
 
 
 		########################################################

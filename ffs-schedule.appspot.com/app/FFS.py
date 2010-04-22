@@ -50,6 +50,6 @@ class FFS:
 
 		self.nav_append( {'path':'/index/', 'label': 'View Schedule'})
 		
-		self.nav_append( {'path':'/signin/', 'label': 'Sign In'})
+		#self.nav_append( {'path':'/signin/', 'label': 'Sign In'})
 		self.nav_append( {'path':'/about/', 'label': 'About'})
 	

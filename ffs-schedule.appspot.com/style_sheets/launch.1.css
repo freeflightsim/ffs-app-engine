@@ -370,3 +370,36 @@ padding: 10px;
 .icoFppTake{background-image: url('/images/layout.png') !important;}
 
 .icoTimeline{background-image: url('/images/date.png') !important;}
+
+
+.x-form-miscfield {
+	height: 22px;
+	line-height: 18px;
+	vertical-align: middle;
+	overflow: hidden;
+}
+.ext-ie .x-form-miscfield {
+    height: 22px; /* ie quirks */
+    line-height: 18px;
+}
+.ext-strict .x-form-miscfield {
+    height: 18px;
+}
+.ext-safari .x-form-miscfield {
+    height: 20px; /* safari always same size */
+}
+.ext-gecko .x-form-miscfield {
+    padding-top: 2px; /* FF won't center the text vertically */
+    padding-bottom: 0;
+}
+
+/* Static field text */
+.ux-form-statictextfield {
+    background: transparent;
+    border: none;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    color: #111;
+    overflow: hidden; 
+    border: 1px solid white
+}

@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 
-DEBUG = True
+if os.environ.get('SERVER_SOFTWARE','').startswith('Devel'):
+	DEBUG = True
+	SERVER = 'http://localhost:8080'
+else:
+	DEBUG = False
+	SERVER = 'http://schedule.freeflightsim.org'
 
 APP_ID = 'ffs-schedule'
 
@@ -32,6 +38,8 @@ EMAIL = 'fg@freeflightsim.org'
 SECRET = 'Bravo787'
 
 CAL_URL = 'http://www.google.com/calendar/render?cid=%s' %  EMAIL
+
+RPX_API_KEY = '76e64fe2ffbcd37e983f1826d7add3151943be45'
 
 
 MYSQL_DATETIME = '%Y-%m-%d %H:%M:%S'

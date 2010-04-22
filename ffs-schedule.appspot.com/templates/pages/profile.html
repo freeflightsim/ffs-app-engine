@@ -1,0 +1,19 @@
+{% extends "../main_container.html" %}
+
+{% block content %}
+
+<h2>My Profile</h2>
+
+<div id="profile_widget_div" style="width: 600px; margin: 10px auto;"></div>
+
+<script>
+
+Ext.onReady(function(){
+	var profileWidget = new FP_UserForm();
+});
+
+</script>
+
+
+
+{% endblock content %}

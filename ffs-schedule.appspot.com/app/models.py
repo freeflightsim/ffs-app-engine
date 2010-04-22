@@ -12,9 +12,24 @@ class Comment(db.Model):
 	author = db.UserProperty()
 
 
-class Cookie(db.Model):
-	sessID =  db.StringProperty(indexed=True)
-	dated = db.DateTimeProperty(indexed=True, auto_now_add=True)
+
+class Crew(db.Model):
+	ident =  db.StringProperty(indexed=True)
+	name = db.StringProperty(indexed=True)
+	email = db.StringProperty()
+	callsign = db.StringProperty(indexed=True)
+	irc = db.StringProperty()
+	forum = db.StringProperty()
+	wiki = db.StringProperty()
+	cvs = db.StringProperty()
+	pilot = db.BooleanProperty()
+	atc = db.BooleanProperty()
+	fgcom = db.BooleanProperty()
+	date_created = db.DateTimeProperty(indexed=True, auto_now_add=True)
+	location = db.StringProperty()
+	
+
+
 
 class FPp(db.Model):
 	cookie = db.StringProperty(indexed=True)

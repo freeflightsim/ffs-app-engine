@@ -14,37 +14,38 @@ from django.utils import simplejson as json
 import conf
 import app.FFS
 #import fetch
-from app.models import FPp, Cookie, Comment
+from app.models import FPp,  Comment
 
 
 
 class MainHandler(webapp.RequestHandler):
 
+
 	def do_cookie_check(self):
 		if 'sessID' in self.request.cookies:
 			return  self.request.cookies['sessID'] 
 		else:
-			sessID = str(uuid.uuid1())
-			cook = Cookie(sessID=sessID)
-			cook.put()
-			self.response.headers.add_header(	'Set-Cookie', 
-												'sessID=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT'	% sessID
-			)
-			return sessID
+			return None
 
 	###################################################################################################
 	## Get Actions
 	###################################################################################################
 	def get(self, section=None, page=None):
 	
-		cook = self.do_cookie_check()
+		sessID = self.do_cookie_check()
+
+
 
 		template_vars = {}
-		template_vars['now'] = datetime.datetime.now()
 		template_vars['conf'] = conf
 		template_vars['user'] = None
-		template_vars['cook'] = cook
-		
+		template_vars['sessID'] = sessID
+		if 'sessIdent' in self.request.cookies:
+			sessIdent =  self.request.cookies['sessIdent'] 
+		else:
+			sessIdent = None
+		template_vars['profile_label'] = "%s Profile" % sessIdent if sessIdent else "My Profile"
+
 		## Setup Section and Page
 		if section == None:
 			section = "index"
@@ -67,56 +68,36 @@ class MainHandler(webapp.RequestHandler):
 
 
 		## Setup User + Aauth
-		user = users.get_current_user()
-		if not user:
-			template_vars['user'] = None
-			template_vars['login_url'] = users.create_login_url("/set_session/")		
-		else:
-			template_vars['user'] = user
-			template_vars['logout_url'] = users.create_logout_url("/subscribe/")
+		#user = users.get_current_user()
+		#if not user:
+		#	template_vars['user'] = None
+		#	template_vars['login_url'] = users.create_login_url("/set_session/")		
+		#else:
+		#	template_vars['user'] = user
+		#	template_vars['logout_url'] = users.create_logout_url("/subscribe/")
 
-		## Subscribe Section
-		if user and section == 'set_session':
-			mail.send_mail(	sender = conf.EMAIL,
-							to = "Dev <dev@freeflightsim.org>",
-							subject = "Login: %s" % user.email(),
-							body = "OK"
-			)
-			self.redirect("/subscribe/")
-			return
 	
 		## Subscribe Section
-		if section == 'subscribe' :
-			if not user:
-				step = 1
-			else:
-				cal = fetch.cal_subscribed(user.email())
-				if cal == 0:
-					step = 2 
-				else:
-					step = 3
-	
-			steps = []
-			steps.append({'step': 1, 'label': 'Sign In', 'cls': 'amber' if step == 1 else 'green'})
+		if section == 'signin' :
+			if sessID:
+				self.redirect("/crew/profile/")
+				return 
+			template_vars['page_title'] = 'Sign In with OpenId'
 
-			if step == 2:
-				cls = 'amber'
-			elif step > 2:
-				cls = 'green'
-			else:
-				cls = 'red'
-			steps.append({'step': 2, 'label': 'Subscribe', 'cls': cls})
+		if section == 'do_logout':
+				cook_str = 'sessID=%s; expires=Fri, 31-Dec-1980 23:59:59 GMT; Path=/;'	% ''
+				self.response.headers.add_header(	'Set-Cookie', 
+													cook_str
+				)
+				self.redirect("/")
+				return
 
-			if step == 3:
-				cls = 'amber'
-			elif step > 3:
-				cls = 'green'
-			else:
-				cls = 'red'
-			steps.append({'step': 3, 'label': 'Create Event', 'cls': cls})
 
-			template_vars['steps'] = steps
-			template_vars['step'] = step
+		if section == 'profile':
+			if not sessID:
+				self.redirect("/signin/")
+				return
+			template_vars['page_title'] = 'My Profile'
 	
 
 		main_template = '%s.html' % (section)

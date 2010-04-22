@@ -50,9 +50,6 @@ function tick_tock_clock(){
 
 
 
-var mainWidget;
-
-
 //*******************************************
 // ** Main Widget
 //*******************************************
@@ -75,7 +72,6 @@ this.tabWidget = new Ext.TabPanel({
 	]
 });
 this.tabWidget.on('tabChange', function(tabPanel, tab){
-	//console.log(tabPanel.getActiveTab());
 	var tit = tabPanel.getActiveTab().title 
 	if(tit == 'Pilot Requests'){
 		self.pilotRequestsGrid.load();
@@ -92,14 +88,26 @@ this.timelineGrid.load();
 // ** Startup
 //*******************************************
 function startInit(){
-	mainWidget = new FP_MainWidget();
 	tick_tock_clock();
-
-	
 }
 
 
 
+
+
+//*******************************************
+// ** Sign Out
+//*******************************************
+function signOut(){
+	var m = Ext.MessageBox.confirm("Sign Out", "Clicking Yes will nuke the cookie", 
+		function(){
+			location.href = '/do_logout/'
+		}
+
+	)
+
+
+}
 
 
 
