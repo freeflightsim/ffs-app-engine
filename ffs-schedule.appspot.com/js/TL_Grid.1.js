@@ -209,7 +209,7 @@ this.load_timeline = function(data, xSelectedID){
 	}else{
 		selectedID = null;
 	}
-	console.log('sel', selectedID, self.store.indexOfId(selectedID) );
+	//console.log('sel', selectedID, self.store.indexOfId(selectedID) );
 	self.rangeLabel.setText(data.start_date + "=" + data.end_date);
 	self.store.removeAll();
 	colHeaders = [];

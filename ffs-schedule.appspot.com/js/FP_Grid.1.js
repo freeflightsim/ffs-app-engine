@@ -22,7 +22,7 @@ this.store = new Ext.data.JsonStore({
 this.store.load();
 
 this.edit_dialog = function(fppID){
-	var d = new FP_Dialog(fppID, 'index');
+	var d = new FP_Dialog(fppID, 'schedule');
 	d.frm.on("fpp_refresh", function(data){
 		self.store.loadData(data);
 	});
@@ -39,14 +39,10 @@ this.actionEdit = new Ext.Button({ text:'Edit', iconCls:'icoFppEdit', disabled: 
 			return;
 		}
 		var record = self.selModel.getSelected();
-		edit_dialog(record.get('fppID'));
+		self.edit_dialog(record.get('fppID'));
 	}
 });
-this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoFppDelete', disabled: true,
-	handler:function(){
-		Ext.fg.msg('OOOPS', 'Something went wrong !');
-	}
-});
+
 this.actionRefresh = new Ext.Action({
 	iconCls:'icoRefresh', 
 	handler: function(){
@@ -61,8 +57,6 @@ this.actionRefresh = new Ext.Action({
 //***************************************************************
 this.set_filter = function(button, state){
 	if(state){
-		//self.jobsStore.baseParams.filter = button.myFilter;
-		//self.jobsStore.load();
 		Ext.fp.msg('','Not yet implemented');
 	}
     button.setIconClass( state ? 'icoFilterOn' : 'icoFilterOff');
@@ -98,7 +92,6 @@ this.filters.after = new Ext.Button({
 this.selModel = new Ext.grid.RowSelectionModel({singleSelect: true});
 this.selModel.on("selectionchange", function(selModel){
 	self.actionEdit.setDisabled(!selModel.hasSelection())
-	self.actionDelete.setDisabled(!selModel.hasSelection())
 });
 
 
@@ -148,7 +141,7 @@ this.grid = new Ext.grid.GridPanel({
 	layout:'fit',
 	stripeRows: true,
 	sm: this.selModel,
-	tbar:[  this.actionAdd, '-', this.actionEdit, this.actionDelete, '-', 
+	tbar:[  this.actionAdd, '-', this.actionEdit,'-', 
 			'->', 
 			this.filters.curr, this.filters.tomorrow, this.filters.after,
 			'-', this.actionRefresh
