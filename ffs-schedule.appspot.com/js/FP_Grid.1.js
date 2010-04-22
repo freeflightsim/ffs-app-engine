@@ -5,46 +5,48 @@ function FP_Grid(){
 var self = this;
 
 
-
-
-this.statusLabel = new Ext.Toolbar.TextItem({text:'Socket Status'});
-
-
-
-//* Pilots Datastore
 this.store = new Ext.data.JsonStore({
 	url: '/rpc/index/',
-	baseParams: {'fetch': 'schedule'},
+	baseParams: {'filter': 'TODO'},
 	root: 'schedule',
 	idProperty: 'fppID',
 	fields: [ 	'callsign', 'fppID',
 				'dep', {name: 'dep_date', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'dep_atc', 
 				'arr', {name: 'arr_date', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'arr_atc',
-				'comment'],
+				'comment'
+	],
 	remoteSort: false,
-	sortInfo: {field: "callsign", direction: 'ASC'}
+	sortInfo: {field: "dep_date", direction: 'ASC'}
 });
 
 this.store.load();
 
+this.edit_dialog = function(fppID){
+	var d = new FP_Dialog(fppID);
+	d.frm.on("fpp_refresh", function(data){
+		Ext.fp.msg('Saved');
+		self.store.loadData(data);
+	});
 
+}
 this.actionAdd = new Ext.Button({ text:'Add Entry', iconCls:'icoFppAdd', 
-				handler:function(){
-					var d = new FP_Dialog();
-					d.frm.on("fpp_refresh", function(){
-						self.store.reload();
-					});
-				}
+	handler:function(){
+		self.edit_dialog(0);
+	}
 });
 this.actionEdit = new Ext.Button({ text:'Edit', iconCls:'icoFppEdit', disabled: true,
-				handler:function(){
-					
-				}
+	handler:function(){
+		if( !self.selModel.hasSelection() ){
+			return;
+		}
+		var record = self.selModel.getSelected();
+		edit_dialog(record.get('fppID'));
+	}
 });
 this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoFppDelete', disabled: true,
-				handler:function(){
-					  Ext.fg.msg('OOOPS', 'Something went wrong !');
-				}
+	handler:function(){
+		Ext.fg.msg('OOOPS', 'Something went wrong !');
+	}
 });
 
 
@@ -159,10 +161,10 @@ this.grid = new Ext.grid.GridPanel({
 			 /*   */
 			'-',this.timmy
 	],
-	viewConfig: {emptyText: 'No servers online', forceFit: true}, 
+	viewConfig: {emptyText: 'No item scheduled', forceFit: true}, 
 	store: this.store,
 	loadMask: true,
-	columns: [  {header: '#',  dataIndex:'fppID', sortable: true, hidden: true},
+	columns: [  /* {header: '#',  dataIndex:'fppID', sortable: true, hidden: true}, */
 				{header: 'Callsign',  dataIndex:'callsign', sortable: true},
 
 				{header: 'Depart',  dataIndex:'dep', sortable: true, renderer: this.render_dep},
@@ -187,15 +189,17 @@ this.grid = new Ext.grid.GridPanel({
 });
 this.grid.on("rowdblclick", function(grid, idx, e){
 	//return;
+	//self.actionEdit.execute();
 	var record = self.store.getAt(idx);
-	var d = new FP_Dialog(record.get('fppID'));
+	self.edit_dialog(record.get('fppID'));
+	
 });    
     
 this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
 	//console.log(rowIdx, colIdx);
 	if(colIdx == 4 || colIdx == 7){
 		var record = self.store.getAt(rowIdx);
-		var d = new FP_Dialog(record.data);
+		self.edit_dialog(record.get('fppID'));
 	}
 });   
 

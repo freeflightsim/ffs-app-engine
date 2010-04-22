@@ -8,6 +8,32 @@ var self = this;
 
 this.fppID = fppIDX
 
+this.depDate = new Ext.form.DateField({
+	fieldLabel: 'Date', allowBlank: false, minLength: 3,   
+	format: 'Y-m-d', 
+	name: 'dep_date', width: '40%', msgTarget: 'side'
+});
+this.depDate.on("select", function(widget, date){
+	var f = self.frm.getForm();
+	var arrDate = f.findField('arr_date');
+	if(arrDate.getValue() == ''){
+		arrDate.setValue(widget.getValue());
+	}
+});
+
+this.depTime = new Ext.form.TimeField({
+	fieldLabel: 'Time', 
+	name: 'dep_time', width: '80%', msgTarget: 'side', format: 'H:i' 
+});
+this.depTime.on("select", function(widget, date){
+	var f = self.frm.getForm();
+	var arrDate = f.findField('arr_time');
+	if(arrDate.getValue() == ''){
+		arrDate.setValue(widget.getValue());
+	}
+});
+
+
 //console.log("fppID", fppID);
 //*************************************************************************************				
 //** User Form
@@ -20,16 +46,19 @@ this.frm = new Ext.FormPanel({
 	baseParams: { fppID: this.fppID },
     reader: new Ext.data.JsonReader({
 				root: 'fpp',
-				fields: [	'callsign', 
+				fields: [	'callsign', 'fppID', 
 							'dep','dep_date', 'dep_time', 'dep_atc',
 							'arr','arr_date', 'arr_time', 'arr_atc',
-							'comments', 'email'
+							'comments', 'email'#msg-div{
+    position: absolute;
+}
+
 				]
 	}),
     labelAlign: 'right',
     bodyStyle: 'padding: 20px',
     waitMsgTarget: true,
-    items: [	{xtype: 'hidden',  name: 'fppID', value:'foobar'},
+    items: [	{xtype: 'hidden',  name: 'fppID', value: self.fppID},
 				/** USer **/
 				{xtype: 'fieldset', title: 'Pilot', autoHeight: true, 
 					items:[
@@ -44,9 +73,7 @@ this.frm = new Ext.FormPanel({
 					items:[
 							
 							{fieldLabel: 'Airport', xtype: 'textfield', minLength: 3, name: 'dep', width: '20%', msgTarget: 'side', sallowBlank: false, emptyText: 'icao', value: 'EGLL'},
-							{fieldLabel: 'Date', xtype: 'datefield', sallowBlank: false, minLength: 3,   format: 'Y-m-d', 
-								name: 'dep_date', width: '40%', msgTarget: 'side', boxLabel: 'If blank then today'},
-							{fieldLabel: 'Time', xtype: 'timefield',  name: 'dep_time', width: '80%', msgTarget: 'side', format: 'H:i' },
+							this.depDate, this.depTime,
 							{fieldLabel: 'ATC', xtype: 'textfield',  name: 'dep_atc', width: '20%', msgTarget: 'side'}
 					]
 				},
@@ -73,14 +100,12 @@ this.frm = new Ext.FormPanel({
                                 url: '/rpc/edit/',
                                 waitMsg: 'Saving...',
                                 success: function(frm, action){
-									console.log(frm, action);
-									var data = Ext.decode(action.response.responseText);
-									//console.log(data);
+										var data = Ext.decode(action.response.responseText);
 									if(data.error){
 										alert("Error: " + data.error.description);
 										return;
 									}
-									self.frm.fireEvent("fpp_refresh");
+									self.frm.fireEvent("fpp_refresh", data);
                                     self.win.close();
 									
 									
@@ -111,10 +136,10 @@ this.win = new Ext.Window({
 this.win.show();
 
 this.load = function(fppID){
+	self.frm.getEl().mask("Loading..");
 	Ext.Ajax.request({
 		url: '/rpc/fetch/',
 		params: {fppID: fppID},
-		//self.frm.getEl().mask("Loading..");
 		success: function(response, opts){
 			//console.log(response, opts);
 			var data = Ext.decode(response.responseText);
@@ -124,9 +149,8 @@ this.load = function(fppID){
 				return;
 			}
 			var fpp = data.fpp;
-			//self.frm.fireEvent("fpp_refresh");
-			//self.win.close();
-			var f = self.frm.getForm() //.setValues(data.ffp);
+			var f = self.frm.getForm() 
+			f.findField("fppID").setValue(fpp.fppID);
 			f.findField("callsign").setValue(fpp.callsign);
 			f.findField("email").setValue(fpp.email);
 			f.findField("comment").setValue(fpp.comment);
@@ -143,7 +167,9 @@ this.load = function(fppID){
 			f.findField("arr_time").setValue(d);
 			f.findField("arr_atc").setValue(fpp.arr_atc);
 
-			//self.frm.getEl().unmask();		
+			f.clearInvalid();
+			f.findField("arr_atc").focus();
+			self.frm.getEl().unmask();		
 		},
 		failure: function(response, opts){
 
@@ -158,7 +184,4 @@ this.load(this.fppID);
 
 } /* FP_Dialog */
 
-function showFPDialog(){
-	var d = new FP_Dialog();
-}
 

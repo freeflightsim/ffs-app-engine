@@ -7,6 +7,10 @@
 	font-family: monospace;
 }
 
+#msg-div{
+    position: absolute;
+}
+
 
 td.amber{
 	background-color: #F4C240;
