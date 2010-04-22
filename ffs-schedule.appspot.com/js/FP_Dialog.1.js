@@ -67,7 +67,8 @@ this.depCombo = new Ext.form.ComboBox({
 	hiddenName: 'dep',
 	forceSelection: true,
 	minChars: 3,
-	allowBlank: false
+	allowBlank: false,
+	width: '85%'
 });
 
 this.arrStore = new Ext.data.JsonStore({
@@ -90,7 +91,8 @@ this.arrCombo = new Ext.form.ComboBox({
 	hiddenName: 'arr',
 	forceSelection: true,
 	minChars: 3,
-	allowBlank: false
+	allowBlank: false,
+	width: '85%'
 });
 /*var st = self.depCombo.getStore();
 for(var i = 0; i < airports.length; i++){

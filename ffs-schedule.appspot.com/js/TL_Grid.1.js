@@ -5,8 +5,17 @@ function TL_Grid(){
 var self = this;
 this.selectedID = null;
 
+
 //********************************************
 //**** Store
+var recDef = Ext.data.Record.create([
+	{name: 'fppID'},
+	{name: 'callsign'},
+	{name: 'dep'},
+	{name: 'arr'}
+]);
+
+
 this.store = new Ext.data.JsonStore({
 	root: 'schedule',
 	idProperty: 'fppID',
@@ -128,8 +137,9 @@ this.render_cell = function(v, meta, rec){
 //**** Placeholder Cols
 this.colHeaders = []
 this.colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true});
-this.colHeaders.push({header: 'From > To',  dataIndex:'airport', sortable: true});
-for(var i = 0; i < 32; i++){
+this.colHeaders.push({header: 'Dep',  dataIndex:'dep', sortable: true});
+this.colHeaders.push({header: 'Arr',  dataIndex:'arr', sortable: true});
+for(var i = 0; i < 26; i++){
 	this.colHeaders.push({header: + i ,  dataIndex: 'col_' + i, sortable: false});
 }
 
@@ -214,11 +224,12 @@ this.load_timeline = function(data, xSelectedID){
 	self.store.removeAll();
 	colHeaders = [];
 	//colHeaders.push({header: 'ID',  dataIndex:'fppID', sortable: true, width: 200});
-	colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true, renderer: self.render_callsign,  sswidth: 80});
-	colHeaders.push({header: 'From &gt; To',  dataIndex:'dep', sortable: true, renderer: self.render_airport});
-	for(var i = 0; i < 32; i++){
+	colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true});
+	colHeaders.push({header: 'Dep',  dataIndex:'dep', sortable: true, width: 40});
+	colHeaders.push({header: 'Arr',  dataIndex:'arr', sortable: true, width: 40});
+	for(var i = 0; i < 27; i++){
 		var ki = 'col_' + i;
-		colHeaders.push({header: data.cols[ki],  dataIndex: ki, sortable: false, width: 25,
+		colHeaders.push({header: data.cols[ki],  dataIndex: ki, sortable: false, width: 20,
 								align: 'center', renderer: self.render_cell});
 	}
 	self.grid.getColumnModel().setConfig(colHeaders);
@@ -226,12 +237,7 @@ this.load_timeline = function(data, xSelectedID){
 	//var fpp = data.rows;
 	for(var r=0; r < data.rows.length; r++){
 		var f = data.rows[r]
-		var recDef = Ext.data.Record.create([
-			{name: 'fppID'},
-			{name: 'callsign'},
-			{name: 'dep'},
-			{name: 'arr'}
-		]);
+
 		var rec = new recDef({
 			fppID: f.fppID,
 			callsign: f.callsign,

@@ -13,7 +13,8 @@ if os.environ.get('SERVER_SOFTWARE','').startswith('Devel'):
 else:
     DEBUG = False
 
-application = webapp.WSGIApplication([	('/rpc/(.*)/', app.RpcHandler.RpcHandler),
+application = webapp.WSGIApplication([	('/auth/(.*)/', app.RpcHandler.RpcHandler),
+										('/rpc/(.*)/', app.RpcHandler.RpcHandler),
 										('/(.*)/(.*)/', app.MainHandler.MainHandler),
 										('/(.*)/', app.MainHandler.MainHandler),
 										('/', app.MainHandler.MainHandler),

@@ -44,7 +44,7 @@ class RpcHandler(webapp.RequestHandler):
 		start_dt = datetime.datetime.fromtimestamp(start_ts)
 		reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
 
-		end_ts = curr_ts + (SECS_IN_HOUR * 30)
+		end_ts = curr_ts + (SECS_IN_HOUR * 26)
 		end_dt = datetime.datetime.fromtimestamp(end_ts)
 		reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
 
@@ -53,7 +53,7 @@ class RpcHandler(webapp.RequestHandler):
 		cols = {}
 		reverse = {}
 		rev_ki = "%d_%H"
-		for c in range(-1, 33):
+		for c in range(-1, 26):
 			col_time = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * c))
 			ki = "col_%s" % col_no
 			cols[ki] =  str(int(col_time.strftime("%H")))
@@ -213,7 +213,6 @@ class RpcHandler(webapp.RequestHandler):
 		########################################################
 		### Airpots
 		elif action == 'airports':
-			
 			
 			search = self.request.get("search")
 			reply['airports'] = []

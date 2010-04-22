@@ -342,9 +342,10 @@ body{
 }
 .cell_mid{
 	background-color: #DBBFEE;
-	font-size: 8pt;
 }
-
+.cell_timeline{
+	
+}
 
 #help_text_div{
 padding: 10px;
