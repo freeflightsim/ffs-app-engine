@@ -21,6 +21,7 @@
 <script type="text/javascript" src="/js/Ext.fp.1.js"></script>
 <script type="text/javascript" src="/js/FP_Dialog.1.js"></script>
 <script type="text/javascript" src="/js/FP_Grid.1.js"></script>
+<script type="text/javascript" src="/js/TL_Grid.1.js"></script>
 <script type="text/javascript">
 
 var gToggle = false;
@@ -48,7 +49,12 @@ var gDate = new Date('{% now "r" %}');
 	<!--### Navigation ########################-->
 	<div id="site_nav_box">
 
-		<div id="fg_logo"><img src="{{ conf.CDN}}/images/fg2.png" alt="FlightGear"></div>
+		<div id="fg_logo">
+			<img src="{{ conf.CDN}}/images/fg2.png" alt="FlightGear">
+			<div id="real_time">-</div>
+			<div id="real_date">-</div>
+			
+			</div>
 
 		<ul id="navlist">
 			<!---<li><a class="action" href="javascript:showFPDialog();" >Add Entry</a>-->

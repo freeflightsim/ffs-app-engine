@@ -49,22 +49,19 @@ this.frm = new Ext.FormPanel({
 				fields: [	'callsign', 'fppID', 
 							'dep','dep_date', 'dep_time', 'dep_atc',
 							'arr','arr_date', 'arr_time', 'arr_atc',
-							'comments', 'email'#msg-div{
-    position: absolute;
-}
-
+							'comments', 'email'
 				]
 	}),
     labelAlign: 'right',
     bodyStyle: 'padding: 20px',
     waitMsgTarget: true,
-    items: [	{xtype: 'hidden',  name: 'fppID', value: self.fppID},
-				/** USer **/
+    items: [	{xtype: 'hidden', name: 'fppID'},
+				/*  Pilot */
 				{xtype: 'fieldset', title: 'Pilot', autoHeight: true, 
 					items:[
-						{fieldLabel: 'Callsign', xtype: 'textfield',  value: 'ac001',
-								sallowBlank: false, minLength: 3, name: 'callsign', width: '30%', msgTarget: 'side'},
-						{fieldLabel: 'Email', xtype: 'textfield',  value: 'foo@bar.com', disabled: true,
+						{fieldLabel: 'Callsign', xtype: 'textfield',  
+								 minLength: 3, name: 'callsign', width: '30%', msgTarget: 'side'},
+						{fieldLabel: 'Email', xtype: 'textfield',   disabled: true,
 								sallowBlank: false, minLength: 3, name: 'email', width: '80%', msgTarget: 'side'}
 					]
 				},
@@ -72,17 +69,18 @@ this.frm = new Ext.FormPanel({
 				{xtype: 'fieldset', title: 'Departure', autoHeight: true, 
 					items:[
 							
-							{fieldLabel: 'Airport', xtype: 'textfield', minLength: 3, name: 'dep', width: '20%', msgTarget: 'side', sallowBlank: false, emptyText: 'icao', value: 'EGLL'},
+							{fieldLabel: 'Airport', xtype: 'textfield', minLength: 3, name: 'dep', width: '20%', msgTarget: 'side', allowBlank: false, emptyText: 'icao'},
 							this.depDate, this.depTime,
 							{fieldLabel: 'ATC', xtype: 'textfield',  name: 'dep_atc', width: '20%', msgTarget: 'side'}
 					]
 				},
+				/** Arrival **/
 				{xtype: 'fieldset', title: 'Arrival', autoHeight: true, 
 					items:[
 							
-							{fieldLabel: 'Airport', xtype: 'textfield', minLength: 3, name: 'arr', width: '20%', msgTarget: 'side', sallowBlank: false, emptyText: 'icao', value: 'EGFF'},
+							{fieldLabel: 'Airport', xtype: 'textfield', minLength: 3, name: 'arr', width: '20%', msgTarget: 'side', sallowBlank: false, emptyText: 'icao', },
 							{fieldLabel: 'Date', xtype: 'datefield', sallowBlank: false, minLength: 3, format: 'Y-m-d', 
-								name: 'arr_date', width: '40%', msgTarget: 'side', boxLabel: 'sssss' },
+								name: 'arr_date', width: '40%', msgTarget: 'side' },
 							{fieldLabel: 'Time', xtype: 'timefield',  name: 'arr_time', width: '20%', msgTarget: 'side', format: 'H:i' },
 							{fieldLabel: 'ATC', xtype: 'textfield',  name: 'arr_atc', width: '20%', msgTarget: 'side'}
 					]
@@ -143,11 +141,12 @@ this.load = function(fppID){
 		success: function(response, opts){
 			//console.log(response, opts);
 			var data = Ext.decode(response.responseText);
-			console.log(data);
+			//console.log(data);
 			if(data.error){
 				alert("Error: " + data.error.description);
 				return;
 			}
+			
 			var fpp = data.fpp;
 			var f = self.frm.getForm() 
 			f.findField("fppID").setValue(fpp.fppID);

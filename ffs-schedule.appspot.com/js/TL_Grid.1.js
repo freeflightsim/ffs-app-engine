@@ -1,25 +1,25 @@
 
 
-function FP_Grid(){
+function TL_Grid(){
 
 var self = this;
 
 
 this.store = new Ext.data.JsonStore({
-	url: '/rpc/index/',
+	url: '/rpc/timeline/',
 	baseParams: {'filter': 'TODO'},
 	root: 'schedule',
 	idProperty: 'fppID',
-	fields: [ 	'callsign', 'fppID',
-				'dep', {name: 'dep_date', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'dep_atc', 
-				'arr', {name: 'arr_date', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'arr_atc',
-				'comment'
+	fields: [ 	'callsign', 'airport', 'mode',
+				'col_0','col_1', 'col_2', 'col_3', 'col_4', 'col_5', 'col_6', 
+				'col_7', 'col_8', 'col_9', 'col_10', 'col_11', 'col_12', 
+				'col_13', 'col_14','col_15','col_16','col_17','col_18',
+				'col_19','col_20','col_21','col_22','col_23','col_24'
 	],
 	remoteSort: false,
 	sortInfo: {field: "dep_date", direction: 'ASC'}
 });
 
-this.store.load();
 
 this.edit_dialog = function(fppID){
 	var d = new FP_Dialog(fppID);
@@ -51,6 +51,18 @@ this.actionDelete = new Ext.Button({text:'Delete', iconCls:'icoFppDelete', disab
 
 
 
+
+this.timmy = new Ext.Toolbar.TextItem({
+	text: '12:23:45',
+	width: 150
+});
+
+this.do_tick = function (){
+	gToggle = !gToggle;
+	gDate = gDate.add(Date.MILLI, 1000);
+	var str = Ext.util.Format.date(gDate, gToggle ? "Y-m-d H:i:s" : "Y-m-d H i s" );
+	self.timmy.setText(str);
+}
 
 //***************************************************************
 //** Toolbar Filter Buttons / functions
@@ -123,21 +135,33 @@ this.render_arr_date = function(v, meta, rec){
 	meta.css = 'fpp_arr';
 	return Ext.util.Format.date(v, "H:i - d M");
 }
-this.render_arr_atc = function(v, meta, rec){
-	meta.css = 'fpp_arr';
+
+
+this.render_cell = function(v, meta, rec){
+	if(v){
+		meta.css = rec.get('mode') == 'arr' ? 'cell_arr' : 'cell_dep'
+	}
+	return v;
 	var c = v == "" ? 'atc_take' : 'atc_ok';
 	var lbl = v == "" ? 'Take' : v;
 	return "<a  class='" + c + "' href='javascript:showDialog(\"\");'>" + lbl + "</a>";
 }
 
+
+this.colHeaders = []
+this.colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true});
+this.colHeaders.push({header: 'Airport',  dataIndex:'airport', sortable: true});
+for(var i = 0; i < 24; i++){
+	this.colHeaders.push({header: "#" + i ,  dataIndex: 'col_' + i, sortable: false});
+}
+
+
 //************************************************
 //**  Grid
 //************************************************
 this.grid = new Ext.grid.GridPanel({
-	title: 'Pilot Requests',
-	iconCls: 'icoFpp',
-	height: 600,
-	deferredRender: true,
+	iconCls: 'icoTimeline',
+	title: 'Time Line',
 	autoScroll: true,
 	enableHdMenu: false,
 	layout:'fit',
@@ -145,24 +169,15 @@ this.grid = new Ext.grid.GridPanel({
 	sm: this.selModel,
 	tbar:[  this.actionAdd, '-', this.actionEdit, this.actionDelete, '-', 
 			'->', '-',
-			this.filters.curr, this.filters.tomorrow, this.filters.after
+			this.filters.curr, this.filters.tomorrow, this.filters.after,
+			 /*   */
+			'-',this.timmy
 	],
 	viewConfig: {emptyText: 'No item scheduled', forceFit: true}, 
 	store: this.store,
 	loadMask: true,
-	columns: [  /* {header: '#',  dataIndex:'fppID', sortable: true, hidden: true}, */
-				{header: 'Callsign',  dataIndex:'callsign', sortable: true},
+	columns: this.colHeaders,
 
-				{header: 'Depart',  dataIndex:'dep', sortable: true, renderer: this.render_dep},
-				{header: 'Date', dataIndex:'dep_date', sortable: true, renderer: this.render_dep_date},
-				{header: 'ATC', dataIndex:'dep_atc', sortable: true, align: 'center',renderer: this.render_dep_atc},
-
-				{header: 'Arrive',  dataIndex:'arr', sortable: true, renderer: this.render_arr},
-				{header: 'Date', dataIndex:'arr_date', sortable: true, renderer: this.render_arr_date},
-				{header: 'ATC', dataIndex:'arr_atc', sortable: true, renderer: this.render_arr_atc},
-
-				{header: 'Comment', dataIndex:'comment', sortable: true}
-	],
 	listeners: {},
 	bbar: new Ext.PagingToolbar({
             pageSize: 50,
@@ -188,6 +203,69 @@ this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
 		self.edit_dialog(record.get('fppID'));
 	}
 });   
+
+
+this.load = function(){
+	//self.grid.getEl().mask("Loading..");
+	Ext.fp.msg('OOOPS', 'Something went wrong !');
+	Ext.Ajax.request({
+		url: '/rpc/timeline/',
+		params: {},
+		success: function(response, opts){
+			//#console.log(response, opts);
+			var data = Ext.decode(response.responseText);
+			//console.log(data);
+			if(data.error){
+				alert("Error: " + data.error.description);
+				return;
+			}
+			
+			//var fpp = data.rows;
+			//#for(var r in data.cols){
+			//#	#console.log(r, data.cols[r]);
+			//}
+			colHeaders = []
+			colHeaders.push({header: 'Callsign',  dataIndex:'callsign', sortable: true, renderer: self.render_callsign});
+			colHeaders.push({header: 'Airport',  dataIndex:'airport', sortable: true, renderer: self.render_callsign});
+			for(var i = 0; i < 24; i++){
+				var ki = 'col_' + i;
+				//console.log(ki);
+				this.colHeaders.push({header: data.cols[ki],  dataIndex: ki, sortable: false, width: 30,
+										align: 'center', renderer: self.render_cell});
+			}
+			self.grid.getColumnModel().setConfig(colHeaders);
+
+			//var fpp = data.rows;
+			for(var r=0; r < data.rows.length; r++){
+				var f = data.rows[r]
+				console.log(r,  f.col_ki);
+				var recDef = Ext.data.Record.create([
+					{name: 'callsign'},
+					{name: 'airport'},
+					{name: 'mode'},
+					{name: f.col_ki}
+				]);
+				var rec = new recDef({
+					callsign: f.callsign,
+					airport: f.airport,
+					mode: f.mode
+				});
+				rec.set(f.col_ki, f.time);
+				self.store.add(rec);
+			}
+
+			//var f = self.frm.getForm() 
+
+			//self.frm.getEl().unmask();		
+		},
+		failure: function(response, opts){
+
+			//Ext.geo.msg('OOOPS', 'Something went wrong !');
+		}
+
+	});
+}
+this.load();
 
 } /***  */
 

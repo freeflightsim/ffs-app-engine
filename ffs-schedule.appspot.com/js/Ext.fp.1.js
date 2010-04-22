@@ -34,27 +34,29 @@ Ext.fp = function(){
 var widget;
 
 function tick_tock_clock(){
-	/*gToggle = !gToggle;
+	gToggle = !gToggle;
 	gDate = gDate.add(Date.MILLI, 1000);
-	var h,m,s;
-	var time="        ";
-	h = gDate.getHours();
-	m = gDate.getMinutes();
-	s = gDate.getSeconds();
-	if(s<=9) s="0"+s;
-	if(m<=9) m="0"+m;
-	if(h<=9) h="0"+h;
-	var sep =  gToggle ? ":" : " "
-	sep = "<span class='real_time_blip'>" + sep + "</span>"
-	time = h + sep + m + sep + s ;
-	document.getElementById('real_time').innerHTML=time; */
-	//setTimeout("tick_tock_clock()", 1000); 
-	widget.do_tick();
+	document.getElementById('real_date').innerHTML = Ext.util.Format.date(gDate, "d F Y" ); 
+	document.getElementById('real_time').innerHTML = Ext.util.Format.date(gDate, gToggle ? "H:i:s" : "H.i.s" ); 
 	setTimeout("tick_tock_clock()", 1000); 
 }
 
-
 function startInit(){
-	widget = new FP_Grid();
+	var pilotRequestsGrid = new FP_Grid();
+	var timelineGrid = new TL_Grid();
+
+
+	var tabWidget = new Ext.TabPanel({
+	activeTab: 0,
+	renderTo: 'grid_div',
+	plain: true,
+	height: 600,
+	items:[
+		timelineGrid.grid
+		, pilotRequestsGrid.grid
+	]
+	});
+
+	
 	tick_tock_clock();
 }
