@@ -22,9 +22,12 @@
 <script type="text/javascript" src="/js/FP_Dialog.1.js"></script>
 <script type="text/javascript" src="/js/FP_Grid.1.js"></script>
 <script type="text/javascript" src="/js/TL_Grid.1.js"></script>
+<script type="text/javascript" src="/js/airports.0.js"></script>
 
 </head> 
 <body onload="startInit()"> 
+
+
 
 <!--### Header ########################-->
 <div id="header_box">
@@ -44,8 +47,8 @@
 
 		<div id="fg_logo">
 			<img src="{{ conf.CDN}}/images/fg2.png" alt="FlightGear">
-			<div id="real_time">-</div>
-			<div id="real_date">-</div>
+			<div id="real_time">&nbsp;</div>
+			<div id="real_date">&nbsp;</div>
 			
 			</div>
 
@@ -109,6 +112,14 @@
 
 </div><!-- main cotainer -->
 
+<!--### Help ########################-->
+<div id="help_text_div" Aclass="x-hide-display"> 
+	<p>This site is work in progress and is subject to change. Please leave your comments and suggestions.</p> 
+	<p>The general idea at the moment is to create a flight, and mark the departure/arrival airport and time.</p>
+	<p>ATC controllers can then see an event that needs coverage, and can do so bu entering their callsign in the box.</p>
+	<p>I'm still trying to figure out colour coding, eg purple for no atc, or green for atc present etc.</p>
+	<p>The ATC's interface is coming next.</p>
+</div> 
 
 
 </body> 

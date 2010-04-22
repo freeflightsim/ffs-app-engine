@@ -41,6 +41,66 @@ this.depTime.on("select", function(widget, date){
 	}
 });
 
+var recDef = Ext.data.Record.create([
+	{name: 'icao'},
+	{name: 'airport'}
+]);
+
+
+this.depStore = new Ext.data.JsonStore({
+	url: '/rpc/airports/',
+	root: 'airports',
+	idProperty: 'icao',
+	fields: ['icao', 'airport']
+});
+this.depCombo = new Ext.form.ComboBox({
+	typeAhead: true,
+	triggerAction: 'all',
+	fieldLabel: 'Airport',
+	loadingText: 'Searching...',
+	mode: 'remote',
+	queryParam: 'search',
+	store: this.depStore,
+	valueField: 'icao',
+	displayField: 'airport',
+	name: 'dep',
+	hiddenName: 'dep',
+	forceSelection: true,
+	minChars: 3,
+	allowBlank: false
+});
+
+this.arrStore = new Ext.data.JsonStore({
+	url: '/rpc/airports/',
+	root: 'airports',
+	idProperty: 'icao',
+	fields: ['icao', 'airport']
+});
+this.arrCombo = new Ext.form.ComboBox({
+	typeAhead: true,
+	triggerAction: 'all',
+	fieldLabel: 'Airport',
+	loadingText: 'Searching...',
+	mode: 'remote',
+	queryParam: 'search',
+	store: this.arrStore,
+	valueField: 'icao',
+	displayField: 'airport',
+	name: 'arr',
+	hiddenName: 'arr',
+	forceSelection: true,
+	minChars: 3,
+	allowBlank: false
+});
+/*var st = self.depCombo.getStore();
+for(var i = 0; i < airports.length; i++){
+	console.log(airports[i].airport);
+	var rec = new recDef({
+		icao: airports[i].icao,
+		airport: airports[i].airport
+	});
+}
+*/
 
 //console.log("fppID", fppID);
 //*************************************************************************************				
@@ -76,8 +136,7 @@ this.frm = new Ext.FormPanel({
 				/** Departure **/
 				{xtype: 'fieldset', title: 'Departure', autoHeight: true, 
 					items:[
-							
-							{fieldLabel: 'Airport', xtype: 'textfield', minLength: 3, name: 'dep', width: '20%', msgTarget: 'side', allowBlank: false, emptyText: 'icao'},
+							this.depCombo,
 							this.depDate, this.depTime,
 							{fieldLabel: 'ATC', xtype: 'textfield',  name: 'dep_atc', width: '20%', msgTarget: 'side'}
 					]
@@ -86,7 +145,7 @@ this.frm = new Ext.FormPanel({
 				{xtype: 'fieldset', title: 'Arrival', autoHeight: true, 
 					items:[
 							
-							{fieldLabel: 'Airport', xtype: 'textfield', minLength: 3, name: 'arr', width: '20%', msgTarget: 'side', sallowBlank: false, emptyText: 'icao', },
+							this.arrCombo,
 							{fieldLabel: 'Date', xtype: 'datefield', sallowBlank: false, minLength: 3, format: 'Y-m-d', 
 								name: 'arr_date', width: '40%', msgTarget: 'side' },
 							{fieldLabel: 'Time', xtype: 'timefield',  name: 'arr_time', width: '20%', msgTarget: 'side', format: 'H:i' },

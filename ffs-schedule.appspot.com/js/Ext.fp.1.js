@@ -31,9 +31,8 @@ Ext.fp = function(){
 
 }();
 
-var widget;
-var gToggle = false;
 
+var gToggle = false;
 function tick_tock_clock(){
 	gToggle = !gToggle;
 	var d = new Date();
@@ -49,30 +48,58 @@ function tick_tock_clock(){
 	setTimeout("tick_tock_clock()", 1000); 
 }
 
-function startInit(){
-	var pilotRequestsGrid = new FP_Grid();
-	var timelineGrid = new TL_Grid();
 
 
-	var tabWidget = new Ext.TabPanel({
+var mainWidget;
+
+
+//*******************************************
+// ** Main Widget
+//*******************************************
+function FP_MainWidget(){
+
+var self = this;
+
+this.pilotRequestsGrid = new FP_Grid();
+this.timelineGrid = new TL_Grid();
+
+this.tabWidget = new Ext.TabPanel({
 	activeTab: 0,
 	renderTo: 'grid_div',
 	plain: true,
 	height: 600,
 	items:[
-		timelineGrid.grid
-		, pilotRequestsGrid.grid
+		this.timelineGrid.grid
+		, this.pilotRequestsGrid.grid,
+		{contentEl:'help_text_div', title: 'Help', iconCls: 'icoHelp'}
 	]
-	});
-	tabWidget.on('tabChange', function(tabPanel, tab){
-		console.log(tabPanel.getActiveTab());
-		var tit = tabPanel.getActiveTab().title 
-		if(tit == 'Pilot Requests'){
-			pilotRequestsGrid.load();
-		}else{
-			timelineGrid.load();
-		}
-	});
-	timelineGrid.load();
-	tick_tock_clock();
+});
+this.tabWidget.on('tabChange', function(tabPanel, tab){
+	//console.log(tabPanel.getActiveTab());
+	var tit = tabPanel.getActiveTab().title 
+	if(tit == 'Pilot Requests'){
+		self.pilotRequestsGrid.load();
+	}else{
+		self.timelineGrid.load();
+	}
+});
+this.timelineGrid.load();
+
 }
+
+
+//*******************************************
+// ** Startup
+//*******************************************
+function startInit(){
+	mainWidget = new FP_MainWidget();
+	tick_tock_clock();
+
+	
+}
+
+
+
+
+
+

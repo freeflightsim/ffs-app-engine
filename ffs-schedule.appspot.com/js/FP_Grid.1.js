@@ -190,6 +190,7 @@ this.grid.on("cellclick", function(grid, rowIdx, colIdx, e){
 
 this.load = function(){
 	self.store.load();
+	//console.log(airports);
 } 
 
 } /***  */

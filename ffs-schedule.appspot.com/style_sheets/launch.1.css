@@ -346,6 +346,13 @@ body{
 }
 
 
+#help_text_div{
+padding: 10px;
+}
+#help_text_div p{
+padding: 10px;
+}
+
 .icoFilterOn{background-image: url('/images/bullet_pink.png') !important;}
 .icoFilterOff{background-image: url('/images/bullet_purple.png') !important;}
 
@@ -353,6 +360,7 @@ body{
 .icoSave{background-image: url('/images/accept.png') !important;}
 .icoCancel{background-image: url('/images/bullet_black.png') !important;}
 .icoDelete{background-image: url('/images/bullet_delete.png') !important;}
+.icoHelp{background-image: url('/images/help.png') !important;}
 
 .icoFpp{background-image: url('/images/layout.png') !important;}
 .icoFppAdd{background-image: url('/images/layout_add.png') !important;}

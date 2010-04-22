@@ -9,6 +9,9 @@ from google.appengine.ext import db
 import conf
 from app.models import FPp, Cookie, Comment
 
+from data.airports import airports
+
+
 class RpcHandler(webapp.RequestHandler):
 
 
@@ -22,6 +25,10 @@ class RpcHandler(webapp.RequestHandler):
 						'arr': e.arr, 'arr_date': e.arr_date.strftime(conf.MYSQL_DATETIME), 'arr_atc': e.arr_atc
 			})
 		return lst
+
+
+	def get_date(self, dt, tt):
+		return datetime.datetime.strptime( '%s %s:00' % (dt, tt) , conf.MYSQL_DATETIME)
 
 	def get_timeline(self):
 		reply = {}
@@ -202,9 +209,25 @@ class RpcHandler(webapp.RequestHandler):
 			if ret_type == 'timeline':
 				reply['timeline'] = self.get_timeline()
 
+
+		########################################################
+		### Airpots
+		elif action == 'airports':
+			
+			
+			search = self.request.get("search")
+			reply['airports'] = []
+			if not search:
+				pass
+			else:
+				search = search.upper()
+				reply['search'] = search
+				for icao in airports:
+					if airports[icao].upper().find(search) > -1:
+						reply['airports'].append({'icao': icao, 'airport': airports[icao]})
+
+
+		########################################################
+		### Send
 		self.response.headers.add_header('Content-Type','text/plain')
 		self.response.out.write(json.dumps(reply))
-
-	def get_date(self, dt, tt):
-		#self.response.out.write(json.dumps({dt: tt}))
-		return datetime.datetime.strptime( '%s %s:00' % (dt, tt) , conf.MYSQL_DATETIME)
