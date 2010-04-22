@@ -10,7 +10,7 @@ this.store = new Ext.data.JsonStore({
 	baseParams: {'filter': 'TODO'},
 	root: 'schedule',
 	idProperty: 'fppID',
-	fields: [ 	'callsign', 'airport', 'mode',
+	fields: [ 	'callsign', 'airport', 'mode', 'fppID',
 				'col_0','col_1', 'col_2', 'col_3', 'col_4', 'col_5', 'col_6', 
 				'col_7', 'col_8', 'col_9', 'col_10', 'col_11', 'col_12', 
 				'col_13', 'col_14','col_15','col_16','col_17','col_18',
@@ -240,12 +240,14 @@ this.load = function(){
 				var f = data.rows[r]
 				console.log(r,  f.col_ki);
 				var recDef = Ext.data.Record.create([
+					{name: 'fppID'},
 					{name: 'callsign'},
 					{name: 'airport'},
 					{name: 'mode'},
 					{name: f.col_ki}
 				]);
 				var rec = new recDef({
+					fppID: f.fppID,
 					callsign: f.callsign,
 					airport: f.airport,
 					mode: f.mode

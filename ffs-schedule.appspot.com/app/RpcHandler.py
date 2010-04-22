@@ -47,7 +47,7 @@ class RpcHandler(webapp.RequestHandler):
 			reverse = {}
 			#cols.append({'label': 'Pilot'})
 			#cols.append({'label': 'Airport'})
-			tod = datetime.datetime.now()
+			"""tod = datetime.datetime.now()
 			SECS_IN_HOUR = 60 * 60 * 50
 			y = tod.year
 			m = tod.month
@@ -64,6 +64,25 @@ class RpcHandler(webapp.RequestHandler):
 				col_ki = 'col_%s' % c 
 				cols[col_ki] =  nt.strftime("%H");
 				reverse[h] = col_ki
+			"""
+			n = datetime.datetime.now()
+			SECS_IN_HOUR = 60 * 60 
+			curr_ts = time.mktime((n.year, n.month, n.day, n.hour, n.minute, 0, 0, 0, 0))
+			start_dt = datetime.datetime.fromtimestamp(curr_ts - SECS_IN_HOUR)
+			reply['start_date'] = start_dt.strftime(conf.MYSQL_DATETIME)
+			#print "start=", curr_ts, start_dt
+			end_dt = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * 23))
+			reply['end_date'] = end_dt.strftime(conf.MYSQL_DATETIME)
+			#print "end=", curr_ts, end_dt
+			col_no = 0
+			for c in range(-1, 24):
+				col_time = datetime.datetime.fromtimestamp(curr_ts + (SECS_IN_HOUR * c))
+				#print c,  col_time
+				h =  int(col_time.strftime("%H"))
+				ki = "col_%s" % col_no
+				cols[ki] =  str(h)
+				reverse[h] = ki
+				col_no += 1
 			reply['cols'] = cols
 
 			#entries = db.GqlQuery("select * from FPp order by dep_date asc")
@@ -74,7 +93,7 @@ class RpcHandler(webapp.RequestHandler):
 			q.order('dep_date');
 			scheds = q.fetch(100)
 			for e in scheds:
-				if e.dep:
+				"""if e.dep:
 					col_ki = 'col_%s' % int(e.dep_date.strftime("%H"))
 					dic = { 'time': e.dep_date.strftime("%H:%M"), 'col_ki': col_ki, 'fppID': str(e.key()),
 							'mode': 'dep', 'airport':e.dep, 'callsign': e.callsign }
@@ -85,6 +104,10 @@ class RpcHandler(webapp.RequestHandler):
 							'mode': 'arr', 'airport':e.arr, 'callsign': e.callsign}
 					#rowsX[col_ki] = dic
 					rows.append(dic)
+				"""
+				dic = {'callsign': e.callsign}
+				#start_h = int(e.dep_date.strftime("%H")
+				#dic[]
 			reply['rows'] = rows
 
 		########################################################
