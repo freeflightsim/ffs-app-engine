@@ -106,7 +106,7 @@ class RpcHandler(webapp.RequestHandler):
 
 		########################################################
 		### Index
-		if action == 'index':
+		if action == 'schedule':
 			reply['schedule'] = self.get_schedule()
 
 
@@ -181,7 +181,26 @@ class RpcHandler(webapp.RequestHandler):
 				fp.comment = self.request.get("comment")
 				fp.email = self.request.get("email")
 				fp.put()
+				reply['fppID'] = str(fp.key())
+
+		########################################################
+		### Edit
+		elif action == 'rm':
+			fppID = self.request.get("fppID")
+			if not fppID:
+				reply['error'] = 'No fppID'
+			fp = db.get( db.Key(fppID) )
+			fp.delete()
+
+
+		########################################################
+		### Return Data
+		ret_type =  self.request.get('retDataType')
+		if ret_type:
+			if ret_type == 'schedule':
 				reply['schedule'] = self.get_schedule()
+			if ret_type == 'timeline':
+				reply['timeline'] = self.get_timeline()
 
 		self.response.headers.add_header('Content-Type','text/plain')
 		self.response.out.write(json.dumps(reply))

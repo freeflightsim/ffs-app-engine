@@ -6,7 +6,7 @@ var self = this;
 
 
 this.store = new Ext.data.JsonStore({
-	url: '/rpc/index/',
+	url: '/rpc/schedule/',
 	baseParams: {'filter': 'TODO'},
 	root: 'schedule',
 	idProperty: 'fppID',

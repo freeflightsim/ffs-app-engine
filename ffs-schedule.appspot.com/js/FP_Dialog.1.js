@@ -100,35 +100,28 @@ this.frm = new Ext.FormPanel({
 				}
     ],
     buttons: [  /** Delete Button **/
-				{text: 'Delete', iconCls: 'icoDelete',
+				{text: 'Delete', iconCls: 'icoDelete', hidden: self.fppID == 0,
                     handler: function(){
 						var ok = confirm("Delete this item?'");
 						if(!ok){
 							return;
 						}
-                        if(self.frm.getForm().isValid()){
-                            self.frm.getForm().submit({
-                                url: '/rpc/delete/',
-                                waitMsg: 'Saving...',
-                                success: function(frm, action){
-										var data = Ext.decode(action.response.responseText);
-									if(data.error){
-										alert("Error: " + data.error.description);
-										return;
-									}
-									self.frm.fireEvent("fpp_refresh", data);
-                                    self.win.close();
-									
-									
-                                },
-                                failure: function(){
+						self.frm.getEl().mask('Nuking item');	
+						Ext.Ajax.request({
+							url: '/rpc/rm/',
+							params: {fppID: self.fppID, retDataType: self.retDataType},
+							success: function(response, opts){
+								var payload = Ext.decode(response.responseText);
+								self.frm.fireEvent("fpp_refresh", payload);
+								Ext.fp.msg('Deleted');
+								self.win.close();
+							},
+							failure: function(response, opts){
+								Ext.fg.msg('OOOPS', 'Something went wrong !');
+								self.frm.getEl().ummask();
+							}
 
-                                    //Ext.geo.msg('OOOPS', 'Something went wrong !');
-                                }
-
-                            });
-
-                        }
+						});
                     }
                 },
 				/** Cancel Button **/
@@ -138,20 +131,22 @@ this.frm = new Ext.FormPanel({
                     }
                 },
 				/** Submit Button **/
-				{text: 'Submit', iconCls: 'icoSave',
+				{text: self.fppID == 0 ? 'Create' : 'Save',
+					iconCls: 'icoSave',
                     handler: function(){
                         if(self.frm.getForm().isValid()){
                             self.frm.getForm().submit({
                                 url: '/rpc/edit/',
                                 waitMsg: 'Saving...',
                                 success: function(frm, action){
-										var data = Ext.decode(action.response.responseText);
-									if(data.error){
-										alert("Error: " + data.error.description);
+									var payload = Ext.decode(action.response.responseText);
+									if(payload.error){
+										alert("Error: " + payload.error);
 										return;
 									}
+							
 									Ext.fp.msg('Saved');
-									self.frm.fireEvent("fpp_refresh", data);
+									self.frm.fireEvent("fpp_refresh", payload);
                                     self.win.close();
                                 },
                                 failure: function(){
