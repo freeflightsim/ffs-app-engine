@@ -5,7 +5,7 @@ This is the script that runs for most pages,
 it starts a wsgi application
 """
 
-from google.appengine.ext import webapp
+sfrom google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 ## Load Configuation
