@@ -6,9 +6,9 @@ var self = this;
 
 
 this.store = new Ext.data.JsonStore({
-	url: '/rpc/schedule/',
+	url: '/rpc/requests/',
 	baseParams: {'filter': 'TODO'},
-	root: 'schedule',
+	root: 'requests',
 	idProperty: 'fppID',
 	fields: [ 	'callsign', 'fppID',
 				'dep', {name: 'dep_date', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'dep_atc', 
@@ -19,7 +19,7 @@ this.store = new Ext.data.JsonStore({
 	sortInfo: {field: "dep_date", direction: 'ASC'}
 });
 
-this.store.load();
+
 
 this.edit_dialog = function(fppID){
 	var d = new FP_Dialog(fppID, 'schedule');
@@ -135,7 +135,7 @@ this.grid = new Ext.grid.GridPanel({
 	title: 'Pilot Requests',
 	iconCls: 'icoFpp',
 	height: 600,
-	deferredRender: true,
+	deferredRender: false,
 	autoScroll: true,
 	enableHdMenu: false,
 	layout:'fit',

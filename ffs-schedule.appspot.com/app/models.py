@@ -44,5 +44,16 @@ class FPp(db.Model):
 	email = db.StringProperty()
 
 
+class Plan(db.Model):
+	dep =  db.StringProperty(indexed=True)
+	dest =  db.StringProperty(indexed=True)
+	cruise =  db.StringProperty(indexed=True)
+	route = db.StringProperty()
+	comment =  db.StringProperty(multiline=True)
+	xml =  db.TextProperty()
 
+	date_created = db.DateTimeProperty(indexed=True, auto_now_add=True)
+	author = db.ReferenceProperty(Crew)
+	date_updated = db.DateTimeProperty(indexed=True, auto_now_add=True)
+	#author = db.ReferenceProperty(Crew)
 	

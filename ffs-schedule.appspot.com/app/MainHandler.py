@@ -9,12 +9,15 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.api import mail
 from google.appengine.ext.webapp import template
+
 from django.utils import simplejson as json
+from google.appengine.api import urlfetch
+import urllib
 
 import conf
 import app.FFS
-#import fetch
-from app.models import FPp,  Comment
+
+from app.models import FPp,  Comment, Crew
 
 
 
@@ -116,7 +119,6 @@ class MainHandler(webapp.RequestHandler):
 	def post(self, section=None, page=None):
 
 		action = self.request.get('action')
-	
 		if action:
 
 			## Add Comment
@@ -137,7 +139,58 @@ class MainHandler(webapp.RequestHandler):
 					)
 					self.redirect("/%s/" % section)
 					return
-		self.redirect("/")
+		self.response.out.write(section)
+		if section == 'auth':
+
+			token = self.request.get('token')
+			url = 'https://rpxnow.com/api/v2/auth_info'
+			args = {
+				'format': 'json',
+				'apiKey': conf.RPX_API_KEY,
+				'token': token
+			}
+
+			r = urlfetch.fetch(	url=url,
+								payload=urllib.urlencode(args),
+								method=urlfetch.POST,
+								headers={'Content-Type':'application/x-www-form-urlencoded'}
+			)
+			data = json.loads(r.content)
+
+			if data['stat'] == 'ok':   
+				welcome = 0
+				unique_identifier = data['profile']['identifier']
+				
+				q = db.GqlQuery("select * from Crew where ident= :1", unique_identifier)
+				crew = q.get()
+				if not crew:
+					crew = Crew(ident=unique_identifier)
+					crew.name = data['profile']['preferredUsername']
+					if data['profile'].has_key('email'):
+						crew.email = data['profile']['email']
+					crew.put()
+					welcome = 1
+					subject = "New Login: %s" % crew.name
+					body = "New login on schedule"
+				else:
+					subject = "Return Login: %s" % crew.name
+					body = "New login on schedule"		
+
+				sessID = str(crew.key())
+				cook_str = 'sessID=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT; Path=/;'	% sessID
+				self.response.headers.add_header(	'Set-Cookie', 
+													cook_str
+				)
+				mail.send_mail(	sender = conf.EMAIL,
+									to = "Dev <dev@freeflightsim.org>",
+									subject = subject,
+									body = body
+				)		
+				self.redirect("/profile/?welcome=%s" % welcome)
+				return	
+		else:
+			print "foo"
+		#self.redirect("/")
 				
 
 

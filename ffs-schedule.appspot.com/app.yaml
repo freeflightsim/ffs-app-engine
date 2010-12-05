@@ -4,6 +4,7 @@ runtime: python
 api_version: 1
 
 handlers:
+
 - url: /images
   static_dir: images
 
@@ -20,6 +21,11 @@ handlers:
 - url: /robots.txt
   static_files: static/robots.txt
   upload: static/robots.txt
+
+- url: /_ah/mail/.+ 
+  script: handle_incoming_email.py 
+  login: admin
+
 
 - url: /.*
   script: main.py

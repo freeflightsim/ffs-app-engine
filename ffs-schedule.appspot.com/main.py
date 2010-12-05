@@ -5,13 +5,13 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 import conf
-import app.CrewHandler
+#import app.CrewHandler
 import app.MainHandler
 import app.RpcHandler
 
 
 
-application = webapp.WSGIApplication([	('/crew/(.*)/', app.CrewHandler.CrewHandler),
+application = webapp.WSGIApplication([	('/rpc/(.*)/(.*)/', app.RpcHandler.RpcHandler),
 										('/rpc/(.*)/', app.RpcHandler.RpcHandler),
 										('/(.*)/(.*)/', app.MainHandler.MainHandler),
 										('/(.*)/', app.MainHandler.MainHandler),

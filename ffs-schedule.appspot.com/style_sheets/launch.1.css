@@ -371,6 +371,12 @@ padding: 10px;
 
 .icoTimeline{background-image: url('/images/date.png') !important;}
 
+.icoPlans{background-image: url('/images/table_multiple.png') !important;}
+.icoPlan{background-image: url('/images/table.png') !important;}
+.icoPlanAdd{background-image: url('/images/table_add.png') !important;}
+.icoPlanEdit{background-image: url('/images/table_edit.png') !important;}
+.icoPlanDelete{background-image: url('/images/table_delete.png') !important;}
+
 
 .x-form-miscfield {
 	height: 22px;

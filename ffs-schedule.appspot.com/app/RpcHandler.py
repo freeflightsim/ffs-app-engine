@@ -6,9 +6,10 @@ from google.appengine.ext import webapp
 from django.utils import simplejson as json
 from google.appengine.ext import db
 from google.appengine.api import mail
+from BeautifulSoup.BeautifulSoup import BeautifulSoup
 
 import conf
-from app.models import FPp,  Comment
+from app.models import FPp, Comment, Plan
 
 from data.airports import airports
 
@@ -105,113 +106,142 @@ class RpcHandler(webapp.RequestHandler):
 		return reply
 
 
-	def get(self, action):
-		self.post(action)
+	def get(self, section, page=None):
+		self.post(section, page)
 
-	def post(self, action):
+	def post(self, section, page=None):
 	
 		reply = {'success': True }
 
 		########################################################
 		### Index
-		if action == 'schedule':
-			reply['schedule'] = self.get_schedule()
+		
 
 
 		########################################################
 		### TimeLIne
-		elif action == 'timeline':
+		if section == 'timeline':
 			reply['timeline'] = self.get_timeline()
 
 
 
 		########################################################
-		### Fetch 
-		elif action == 'fetch':
-			fppID = self.request.get("fppID")
-			if not fppID:
-				reply['error'] = 'No fppID'
+		### Requests
 
-			else:
-				if fppID == '0':
-					t = time.time()
-					d = datetime.datetime.fromtimestamp(t - t % (60 *15) )
-					dic = {	'callsign':  self.request.cookies['sessIdent'] , 
-							'email': '',
-							'dep': '',
-							'dep_date': d.strftime(conf.MYSQL_DATETIME),
-							'dep_atc': '',
-							'arr': '',
-							'arr_date': '',
-							'arr_atc': '',
-							'comment': '',
-							'fppID': '0'
-					}
+		elif section == 'requests':
+			reply['requests'] = self.get_schedule()
+		
+		elif section == 'request':
+
+			### Fetch Request
+			if page == 'fetch':
+				fppID = self.request.get("fppID")
+				if not fppID:
+					reply['error'] = 'No fppID'
 
 				else:
-					f = db.get( db.Key(fppID) )
-					dic = {	'callsign': f.callsign, 
-							'email': 'email',
-							'dep': f.dep,
-							'dep_date': f.dep_date.strftime(conf.MYSQL_DATETIME),
-							'dep_atc': f.dep_atc,
-							'arr': f.arr,
-							'arr_date': f.arr_date.strftime(conf.MYSQL_DATETIME),
-							'arr_atc': f.arr_atc,
-							'comment': f.comment,
-							'fppID': str(f.key()),
-					}
-				reply['fpp'] = dic
+					if fppID == '0':
+						t = time.time()
+						d = datetime.datetime.fromtimestamp(t - t % (60 *15) )
+						dic = {	'callsign':  self.request.cookies['sessIdent'] , 
+								'email': '',
+								'dep': '',
+								'dep_date': d.strftime(conf.MYSQL_DATETIME),
+								'dep_atc': '',
+								'arr': '',
+								'arr_date': '',
+								'arr_atc': '',
+								'comment': '',
+								'fppID': '0'
+						}
 
-		########################################################
-		### Edit
-		elif action == 'edit':
-			fppID = self.request.get("fppID")
-			if not fppID:
-				reply['error'] = 'No fppID'
-			else:
-				callsign = self.request.get("callsign")
-				if fppID == '0':
-					fp = FPp(callsign = callsign)
-					subject = 'New FP: %s' % callsign
+					else:
+						f = db.get( db.Key(fppID) )
+						dic = {	'callsign': f.callsign, 
+								'email': 'email',
+								'dep': f.dep,
+								'dep_date': f.dep_date.strftime(conf.MYSQL_DATETIME),
+								'dep_atc': f.dep_atc,
+								'arr': f.arr,
+								'arr_date': f.arr_date.strftime(conf.MYSQL_DATETIME),
+								'arr_atc': f.arr_atc,
+								'comment': f.comment,
+								'fppID': str(f.key()),
+						}
+					reply['fpp'] = dic
+
+			###################
+			### Edit Request
+			elif page == 'edit':
+				fppID = self.request.get("fppID")
+				if not fppID:
+					reply['error'] = 'No fppID'
 				else:
-					subject = 'Edit FP: %s' % callsign
-					fp = db.get( db.Key(fppID) )
-					fp.cookie = self.request.cookies['sessID'] 
-					fp.callsign = callsign
-				fp.dep = self.request.get("dep")
-				fp.dep_date = self.get_date(self.request.get("dep_date"), self.request.get("dep_time"))
-				
-				fp.dep_atc = self.request.get("dep_atc")
+					callsign = self.request.get("callsign")
+					if fppID == '0':
+						fp = FPp(callsign = callsign)
+						subject = 'New FP: %s' % callsign
+					else:
+						subject = 'Edit FP: %s' % callsign
+						fp = db.get( db.Key(fppID) )
+						fp.cookie = self.request.cookies['sessID'] 
+						fp.callsign = callsign
+					fp.dep = self.request.get("dep")
+					fp.dep_date = self.get_date(self.request.get("dep_date"), self.request.get("dep_time"))
+					
+					fp.dep_atc = self.request.get("dep_atc")
 
-				fp.arr = self.request.get("arr")
-				fp.arr_date = self.get_date(self.request.get("arr_date"), self.request.get("arr_time"))
-				fp.arr_atc = self.request.get("arr_atc")
+					fp.arr = self.request.get("arr")
+					fp.arr_date = self.get_date(self.request.get("arr_date"), self.request.get("arr_time"))
+					fp.arr_atc = self.request.get("arr_atc")
 
-				fp.comment = self.request.get("comment")
-				fp.email = self.request.get("email")
-				fp.put()
-				reply['fppID'] = str(fp.key())
-				mail.send_mail(	sender = conf.EMAIL,
-									to = "Dev <dev@freeflightsim.org>",
-									subject = subject,
-									body = "Fp edited"
-				)	
-		########################################################
-		### Edit
-		elif action == 'rm':
-			fppID = self.request.get("fppID")
-			if not fppID:
-				reply['error'] = 'No fppID'
-			fp = db.get( db.Key(fppID) )
-			fp.delete()
+					fp.comment = self.request.get("comment")
+					fp.email = self.request.get("email")
+					fp.put()
+					reply['fppID'] = str(fp.key())
+					mail.send_mail(	sender = conf.EMAIL,
+										to = "Dev <dev@freeflightsim.org>",
+										subject = subject,
+										body = "Fp edited"
+					)	
+			###################
+			### Delete Request
+			elif page == 'delete':
+				fppID = self.request.get("fppID")
+				if not fppID:
+					reply['error'] = 'No fppID'
+				fp = db.get( db.Key(fppID) )
+				fp.delete()
 
 
 		########################################################
 		### Crew
-		elif action == 'crew':
+		elif section == 'crew':
 			if 'sessID' in self.request.cookies:
-				sessID  = self.request.cookies['sessID'] 		
+				sessID  = self.request.cookies['sessID'] 
+			
+			if page == 'edit':
+					crew = db.get( db.Key(sessID) )
+					crew.name = self.request.get('name')
+					crew.email = self.request.get('email')
+
+					crew.callsign = self.request.get('callsign')
+					crew.cvs = self.request.get('cvs')
+					crew.irc = self.request.get('irc')
+					crew.forum = self.request.get('forum')
+					crew.wiki = self.request.get('wiki')
+
+					crew.pilot = False if self.request.get('pilot') == '' else True
+					crew.atc = False if self.request.get('atc') == '' else True
+					crew.fgcom = False if self.request.get('fgcom') == '' else True
+					crew.location = self.request.get('location')
+					crew.put()
+					reply['crew+saved'] = True
+					cook_str = 'sessIdent=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT; Path=/;'	% crew.callsign
+					self.response.headers.add_header(	'Set-Cookie', 
+														cook_str
+					)
+			else:
 				crew = db.get( db.Key(sessID) )
 				reply['crew'] = [{'name': crew.name, 'email': crew.email, 'callsign': crew.callsign,
 								 'cvs': crew.cvs, 'forum': crew.forum, 'irc': crew.irc, 'wiki': crew.wiki,
@@ -220,35 +250,12 @@ class RpcHandler(webapp.RequestHandler):
 								'location': crew.location, 'ident': crew.ident
 								}]
 
-		elif action == 'crew_edit':
-			if 'sessID' in self.request.cookies:
-				sessID  = self.request.cookies['sessID'] 		
-				crew = db.get( db.Key(sessID) )
-				crew.name = self.request.get('name')
-				crew.email = self.request.get('email')
 
-				crew.callsign = self.request.get('callsign')
-				crew.cvs = self.request.get('cvs')
-				crew.irc = self.request.get('irc')
-				crew.forum = self.request.get('forum')
-				crew.wiki = self.request.get('wiki')
 
-				crew.pilot = False if self.request.get('pilot') == '' else True
-				crew.atc = False if self.request.get('atc') == '' else True
-				crew.fgcom = False if self.request.get('fgcom') == '' else True
-				crew.location = self.request.get('location')
-				#crew.email = self.request.get('email')
-				#crew.email = self.request.get('email')
-				crew.put()
-				reply['crew+saved'] = True
-				cook_str = 'sessIdent=%s; expires=Fri, 31-Dec-2020 23:59:59 GMT; Path=/;'	% crew.callsign
-				self.response.headers.add_header(	'Set-Cookie', 
-													cook_str
-				)
 
 		########################################################
 		### Airpots
-		elif action == 'airports':
+		elif section == 'airports':
 			
 			search = self.request.get("search")
 			reply['airports'] = []
@@ -258,8 +265,42 @@ class RpcHandler(webapp.RequestHandler):
 				search = search.upper()
 				reply['search'] = search
 				for icao in airports:
-					if airports[icao].upper().find(search) > -1:
+					ss = icao + ' ' + airports[icao]
+					if ss.upper().find(search) > -1:
 						reply['airports'].append({'icao': icao, 'airport': airports[icao]})
+
+		########################################################
+		###  Plans
+		elif section == 'plans':
+			col_len = -1
+			q = Plan.all()
+			plans = q.fetch(1000)
+			ret = []
+			for p in plans:
+				route = json.loads(p.route)
+				ret.append({'dep': p.dep, 'dest': p.dest, 'cruise': p.cruise, 'route': route, 'planID': str(p.key())})
+				if len(route) > col_len:
+					col_len = len(route)
+			reply['plans'] = ret
+			reply['col_len'] = col_len
+
+		elif section == 'plan':	
+			planID = '0'
+			if page == 'edit':
+				xml_str = self.request.get("xml")
+				if planID == '0':
+					
+					data = self.parse_plan_xml(xml_str)
+					
+					plan = Plan()
+					plan.xml = xml_str
+					plan.dep = data['dep']
+					plan.dest = data['dest']
+					plan.route = json.dumps(data['route'])
+					plan.put()
+					reply['planID'] = str(plan.key())
+					
+
 
 
 
@@ -277,3 +318,24 @@ class RpcHandler(webapp.RequestHandler):
 		### Send
 		self.response.headers.add_header('Content-Type','text/plain')
 		self.response.out.write(json.dumps(reply))
+
+
+
+
+	def parse_plan_xml(self, xml_str):
+		if not xml_str:
+			return None
+		xml_str = xml_str.strip()
+		soup = BeautifulSoup(xml_str)
+		dic = {}
+		dic['dep'] = soup.departure.airport.text
+		dic['dest'] = soup.destination.airport.text
+		dic['cruise'] = soup.cruise.findAll("altitude-ft")[0].text
+		dic['route'] = []
+		wp = soup.route.findAll("wp")
+		for w in wp:
+			dic['route'].append({'ident': w.ident.text})
+
+		#print dic
+		return dic
+		

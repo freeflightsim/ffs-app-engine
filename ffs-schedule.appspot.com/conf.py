@@ -34,7 +34,7 @@ langs = [ 	{'code': 'En', 'label': 'English'},
 			{'code': 'De', 'label': 'German'}
 ]
 
-EMAIL = 'fg@freeflightsim.org'
+EMAIL = 'pete@freeflightsim.org'
 SECRET = 'Bravo787'
 
 CAL_URL = 'http://www.google.com/calendar/render?cid=%s' %  EMAIL

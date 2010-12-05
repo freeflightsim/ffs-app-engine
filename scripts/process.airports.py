@@ -93,7 +93,7 @@ class ProcessAirports:
 									'atc': bool(cols[2])
 							}
 							"""
-							self.airports[icao] =  icao + ' ' + airport.replace("'", "")
+							self.airports[icao] = airport.replace("'", "")
 									
 							#print self.airports[icao]
 							#json.dumps(self.airports[icao])

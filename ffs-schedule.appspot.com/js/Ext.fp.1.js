@@ -1,6 +1,7 @@
-var AJAX_FETCH = 'app/ajax_fetch.php';
-var AJAX_ACTION = 'app/ajax_action.php';
 
+//*******************************************
+// ** Utils Class
+//*******************************************
 Ext.fp = function(){
 
    var msgCt;
@@ -31,7 +32,9 @@ Ext.fp = function(){
 
 }();
 
-
+//*******************************************
+// ** Clock
+//*******************************************
 var gToggle = false;
 function tick_tock_clock(){
 	gToggle = !gToggle;
@@ -56,16 +59,18 @@ function tick_tock_clock(){
 function FP_MainWidget(){
 
 var self = this;
-
+this.plansGrid = new FP_PlansPane();
 this.pilotRequestsGrid = new FP_Grid();
 this.timelineGrid = new TL_Grid();
 
 this.tabWidget = new Ext.TabPanel({
 	activeTab: 0,
 	renderTo: 'grid_div',
+	deferedRender: false,
 	plain: true,
 	height: 600,
 	items:[
+		this.plansGrid.grid,
 		this.timelineGrid.grid
 		, this.pilotRequestsGrid.grid,
 		{contentEl:'help_text_div', title: 'Help', iconCls: 'icoHelp'}
@@ -75,11 +80,15 @@ this.tabWidget.on('tabChange', function(tabPanel, tab){
 	var tit = tabPanel.getActiveTab().title 
 	if(tit == 'Pilot Requests'){
 		self.pilotRequestsGrid.load();
-	}else{
+
+	}else if (tit == 'Time Line') {
 		self.timelineGrid.load();
+
+	}else if (tit == 'Flight Plans') {
+		self.plansGrid.load();
 	}
 });
-this.timelineGrid.load();
+self.plansGrid.load();
 
 }
 
@@ -100,7 +109,7 @@ function startInit(){
 //*******************************************
 function signOut(){
 	var m = Ext.MessageBox.confirm("Sign Out", "Clicking Yes will nuke the cookie", 
-		function(){
+		function(TODO){
 			location.href = '/do_logout/'
 		}
 

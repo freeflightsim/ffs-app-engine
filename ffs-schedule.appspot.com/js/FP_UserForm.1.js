@@ -16,7 +16,7 @@ this.frm = new Ext.FormPanel({
 	frame: false,
 	renderTo: 'profile_widget_div',
 	autoHeight: true,
-    url: '/rpc/crew/',
+    url: '/rpc/crew/fetch/',
 	baseParams: {},
     reader: new Ext.data.JsonReader({
 				root: 'crew',
@@ -57,7 +57,7 @@ this.frm = new Ext.FormPanel({
                     handler: function(){
                         if(self.frm.getForm().isValid()){
                             self.frm.getForm().submit({
-                                url: '/rpc/crew_edit/',
+                                url: '/rpc/crew/edit/',
                                 waitMsg: 'Saving...',
                                 success: function(frm, action){
 									var data = Ext.decode(action.response.responseText);
