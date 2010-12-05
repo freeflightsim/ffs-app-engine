@@ -21,24 +21,26 @@
 	<!--### Header ########################-->
 	<div id="header_box">
 		<h2>Almost Real Life Flying</h2>
-		<h1>Free Flight Sim with <span class="fg">FlightGear</a></h1>
+		<h1><span class="ffs">Free Flight Sim</span> with <span class="fg">FlightGear</a></h1>
 		
 	</div>
+
+	<!--### Navigation ########################-->
+	<div id="site_nav_box">
+		<ul id="navlist">
+			{% for n in site.nav %}
+			<li><a {% if path == n.path  %}class="selected"{% endif %} href="{{ n.path }}" >{{ n.text }}</a>
+			{% endfor %}
+		</ul>
+	</div>
+
 
 
 	<!--### Header ########################-->
 	<div id="launch_box">
-		<h3>This site is under development, so not take seriously yet.</h3>		
+		<h3>NOTAM: Please beware of FlightProSim</h3>		
 	</div>
 
-	<!--### Navigation ########################-->
-	<div id="site_nav_box">sss
-		<ul id="navlist">
-			{% for n in site.nav %}
-			<li><a {% if path == n.path  %}class="selected"{% endif %} href="{{ n.path }}" >{{ n.label }}#</a>
-			{% endfor %}
-		</ul>
-	</div>
 
 	<!--### Main Content ########################-->
 	<div id="content_box">

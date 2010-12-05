@@ -44,12 +44,15 @@ site = {
 	'CENTER_LAT':   '51.793826178175635',
 	'CENTER_LNG':   '-4.080600142478943',
 
-	## Site Navigation ##
-	# ( /url, endpoint, label, security
-	# Security: None = public always, 0 = when logged off, 1 when logged in, 2 = logged in as admin
+	'nani': 'FOO',
 	'nav': [
-		{'path': '/', 'text': 'Index'},
-		{'path': '/', 'text': 'Index'},
+		{'path': '/', 'text': 'Home'},
+		{'path': '/features', 'text': 'Features'},
+		{'path': '/screenshots', 'text': 'Screen Shots'},
+		{'path': '/faq', 'text': 'Faq'},
+		{'path': '/terrain', 'text': 'Terrain'},
+		{'path': '/aircraft', 'text': 'Aircraft'},
+		{'path': '/about', 'text': 'About'},
 	] 
 
 }

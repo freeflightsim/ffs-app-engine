@@ -18,7 +18,7 @@ class HelloWorldHandler(RequestHandler):
     def get(self):
         
         
-        return render_response('circle_loop.html', message='Hello, World!', site=site)
+        return render_response('circle/index.html', message='Hello, World!', site=site.site)
 
 
 class PrettyHelloWorldHandler(RequestHandler):
