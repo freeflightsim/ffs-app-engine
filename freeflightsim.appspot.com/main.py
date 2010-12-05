@@ -1,31 +1,34 @@
 # -*- coding: utf-8 -*-
-
 """
-This is the script that runs for most pages,
-it starts a wsgi application
+    main
+    ~~~~
+
+    Run Tipfy apps.
+
+    :copyright: 2009 by tipfy.org.
+    :license: BSD, see LICENSE for more details.
 """
+import os
+import sys
 
-sfrom google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
+if 'lib' not in sys.path:
+    # Add /lib as primary libraries directory, with fallback to /distlib
+    # and optionally to distlib loaded using zipimport.
+    sys.path[0:0] = ['lib', 'distlib', 'distlib.zip']
 
-## Load Configuation
-import conf
+import config
+import tipfy
 
-## Load main handler class
-import app.MainHandler
-import app.SlideShow
+# Is this the development server?
+debug = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
 
-## Map Url's to MainHandler class eg /foo/bar/, /foo/ or /
-## This is a cascading list with first match
-application = webapp.WSGIApplication([	('/slideshows/(.*)/', app.SlideShow.SlideShowHandler),
-										('/slideshows/', app.SlideShow.SlideShowHandler),
-										('/(.*)/(.*)/', app.MainHandler.MainHandler),
-										('/(.*)/', app.MainHandler.MainHandler),
-										('/', app.MainHandler.MainHandler),
-										
-									],
-									debug=conf.DEBUG)
+# Instantiate the application.
+app = tipfy.make_wsgi_app(config=config.config, debug=debug)
 
 
-if __name__ == "__main__":
-	run_wsgi_app(application)
+def main():
+    app.run()
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,70 @@
+<PropertyList>
+
+	<departure>
+		<airport>KSLC</airport>
+	</departure>
+
+	<destination>
+		<airport>leetz2</airport>
+	</destination>
+
+	<cruise>
+		<altitude-ft>50000</altitude-ft>
+	</cruise>
+
+	<route>
+		<wp>
+			<ident>PPIGG</ident>
+		</wp>
+		<wp>
+			<ident>ZEETA</ident>
+		</wp>
+		<wp>
+			<ident>HUCKK</ident>
+		</wp>
+		<wp>
+			<ident>LEETZ</ident>
+		</wp>
+		<wp>
+			<ident>DEWBO</ident>
+		</wp>
+		<wp>
+			<ident>MURFI</ident>
+		</wp>
+		<wp>
+			<ident>UPJAR</ident>
+		</wp>
+		<wp>
+			<ident>BORZI</ident>
+		</wp>
+		<wp>
+			<navid>EKR</navid>
+			<ident>EKR</ident>
+		</wp>
+		<wp>
+			<navid>FQF</navid>
+			<ident>FQF</ident>
+		</wp>
+		<wp>
+			<navid>MCK</navid>
+			<ident>MCK</ident>
+		</wp>
+		<wp>
+			<navid>PWE</navid>
+			<ident>PWE</ident>
+		</wp>
+		<wp>
+			<navid>RBA</navid>
+			<ident>RBA</ident>
+		</wp>
+		<wp>
+			<ident>JUDAA</ident>
+		</wp>
+		<wp>
+			<ident>PEGGY</ident>
+		</wp>
+		<wp>
+			<ident>HUGGY</ident>
+		</wp>
+	</route>
+</PropertyList>

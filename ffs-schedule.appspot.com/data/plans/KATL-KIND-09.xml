@@ -1,0 +1,55 @@
+<PropertyList>
+
+	<departure>
+		<airport>KATL</airport>
+	</departure>
+
+	<destination>
+		<airport>KIND</airport>
+	</destination>
+
+	<cruise>
+		<altitude-ft>50000</altitude-ft>
+	</cruise>
+
+	<route>
+		<wp>
+			<ident>LIDAS</ident>
+		</wp>
+		<wp>
+			<ident>ERWIN</ident>
+		</wp>
+		<wp>
+			<ident>ESSEY</ident>
+		</wp>
+		<wp>
+			<ident>CADIT</ident>
+		</wp>
+		<wp>
+			<ident>RESPE</ident>
+		</wp>
+		<wp>
+			<navid>IIU</navid>
+			<ident>IIU</ident>
+		</wp>
+		<wp>
+			<latitude-deg>38.588833</latitude-deg>
+			<longitude-deg>-85.636000</longitude-deg>
+			<ident>NABB</ident>
+		</wp>
+		<wp>
+			<ident>EASEL</ident>
+		</wp>
+		<wp>
+			<altitude-ft>14000</altitude-ft>
+			<ident>SCARF</ident>
+		</wp>
+		<wp>
+			<ident>DECEE</ident>
+		</wp>
+		<wp>
+			<navid>VHP</navid>
+			<ident>VHP</ident>
+		</wp>
+	</route>
+</PropertyList>

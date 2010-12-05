@@ -1,0 +1,38 @@
+{% extends "../launch_container.html" %}
+
+{% block content %}
+<h1>Sign Up</h1>
+
+
+<p><i>I suggest to develop a Flight­Center that combines many “areas of interest” (e.g. ATC, FGCOM, 
+Flightschool,  Flight­Clubs, Airlines, Exhibitions, etc.) at one location at fixed times. Thus many 
+“Providers” of different “areas of interest” can share the task of meeting, supporting, introducing, 
+helping, teaching, learning, talking, entertaining, advertising, etc. a growing amount of “Customers”.
+</i></p>
+
+<form method="post" action="/signup">
+
+<table>
+<tr>
+	<th>Email:</th>
+	<td><input size="50" type="text" name="email" value="{{ su.email }}"></td>
+</tr>
+<tr>
+	<th>Callsign:</th>
+	<td><input size="20" type="text" name="callsign" value="{{ su.email }}"></td>
+</tr>
+<tr>
+	<th>Website:</th>
+	<td><input size="50" type="text" name="www" value="{{ su.email }}"></td>
+</tr>
+
+<tr>
+	<th>&nbsp;</th>
+	<td><input type="button" value="Sign Up"></td>
+</tr>
+
+</table>
+
+</form>
+
+{% endblock content %}

@@ -1,0 +1,68 @@
+<PropertyList>
+
+	<departure>
+		<airport>KSLC</airport>
+	</departure>
+
+	<destination>
+		<airport>KAUS</airport>
+	</destination>
+
+	<cruise>
+		<altitude-ft>50000</altitude-ft>
+	</cruise>
+
+	<route>
+		<wp>
+			<ident>PPIGG</ident>
+		</wp>
+		<wp>
+			<ident>ZEETA</ident>
+		</wp>
+		<wp>
+			<ident>HUCKK</ident>
+		</wp>
+		<wp>
+			<ident>LEETZ</ident>
+		</wp>
+		<wp>
+			<ident>DEWBO</ident>
+		</wp>
+		<wp>
+			<ident>DOCKT</ident>
+		</wp>
+		<wp>
+			<ident>LOFOG</ident>
+		</wp>
+		<wp>
+			<ident>LEGBE</ident>
+		</wp>
+		<wp>
+			<navid>MTU</navid>
+			<ident>MTU</ident>
+		</wp>
+		<wp>
+			<navid>JNC</navid>
+			<ident>JNC</ident>
+		</wp>
+		<wp>
+			<navid>ABQ</navid>
+			<ident>ABQ</ident>
+		</wp>
+		<wp>
+			<navid>CNX</navid>
+			<ident>CNX</ident>
+		</wp>
+		<wp>
+			<ident>HONDS</ident>
+		</wp>
+		<wp>
+			<navid>CME</navid>
+			<ident>CME</ident>
+		</wp>
+		<wp>
+			<navid>LLO</navid>
+			<ident>LLO</ident>
+		</wp>
+	</route>
+</PropertyList>

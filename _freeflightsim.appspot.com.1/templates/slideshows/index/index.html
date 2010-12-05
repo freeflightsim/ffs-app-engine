@@ -1,0 +1,24 @@
+{% extends "../../slideshows_container.html" %}
+<div class="slide cover">
+    <div class="header">
+        <h1>{$show.title}</h1>
+    </div>
+
+   <div class="intro">
+        <div  id="fg_screen_logo"><img src="/images/ffs.png" alt="FlightGear"/></div>
+        <div style="float: left;">
+        <ul>
+            {% for slid in appo.slide_shows %}
+                {% ifequal k 'index' %}
+                <li><a href="?slide_show={$k}">{$v.title}</a>  <span style="font-size: 10pt; color: gray;"> - {$v.author}</span></li>
+                {% endifequal %}
+            {% endfor  %}
+        </ul>
+        <p><a  style="color: #B3C5F8; font-size: 10pt; padding-left: 50px;" href="../">Back to Website</a></p>
+        </div>
+
+       
+    </div>
+
+</div>
+

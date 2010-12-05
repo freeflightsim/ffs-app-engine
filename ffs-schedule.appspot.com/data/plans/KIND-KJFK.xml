@@ -1,0 +1,46 @@
+<PropertyList>
+
+	<departure>
+		<airport>KIND</airport>
+	</departure>
+
+	<destination>
+		<airport>KJFK</airport>
+	</destination>
+
+	<cruise>
+		<altitude-ft>50000</altitude-ft>
+	</cruise>
+
+	<route>
+		<wp>
+			<navid>ROD</navid>
+			<ident>ROD</ident>
+		</wp>
+		<wp>
+			<navid>JHW</navid>
+			<ident>JHW</ident>
+		</wp>
+		<wp>
+			<navid>LVZ</navid>
+			<ident>LVZ</ident>
+		</wp>
+		<wp>
+			<ident>JENNO</ident>
+		</wp>
+		<wp>
+			<ident>HARTY</ident>
+		</wp>
+		<wp>
+			<navid>STW</navid>
+			<ident>STW</ident>
+		</wp>
+		<wp>
+			<ident>LENDY</ident>
+		</wp>
+		<wp>
+			<navid>LGA</navid>
+			<ident>LGA</ident>
+		</wp>
+	</route>
+</PropertyList>

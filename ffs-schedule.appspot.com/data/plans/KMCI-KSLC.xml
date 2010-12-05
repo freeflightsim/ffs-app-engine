@@ -1,0 +1,64 @@
+<PropertyList>
+
+	<departure>
+		<airport>KMCI</airport>
+	</departure>
+
+	<destination>
+		<airport>KSLC</airport>
+	</destination>
+
+	<cruise>
+		<altitude-ft>50000</altitude-ft>
+	</cruise>
+
+	<route>
+		<wp>
+			<ident>CATTS</ident>
+		</wp>
+		<wp>
+			<ident>SLOWR</ident>
+		</wp>
+		<wp>
+			<navid>HLC</navid>
+			<ident>HLC</ident>
+		</wp>
+		<wp>
+			<navid>GLD</navid>
+			<ident>GLD</ident>
+		</wp>
+		<wp>
+			<navid>FQF</navid>
+			<ident>FQF</ident>
+		</wp>
+		<wp>
+			<navid>EKR</navid>
+			<ident>EKR</ident>
+		</wp>
+		<wp>
+			<ident>RACER</ident>
+		</wp>
+		<wp>
+			<navid>MTU</navid>
+			<ident>MTU</ident>
+		</wp>
+		<wp>
+			<ident>THISL</ident>
+		</wp>
+		<wp>
+			<ident>SPANE</ident>
+		</wp>
+		<wp>
+			<ident>LEEHY</ident>
+		</wp>
+		<wp>
+			<ident>BLUPE</ident>
+		</wp>
+		<wp>
+			<ident>KAMMP</ident>
+		</wp>
+		<wp>
+			<ident>PLAGE</ident>
+		</wp>
+	</route>
+</PropertyList>
