@@ -20,16 +20,19 @@
 
 	<!--### Header ########################-->
 	<div id="header_box">
-		<h2>Almost Real Life Flying</h2>
-		<h1><span class="ffs">Free Flight Sim</span> with <span class="fg">FlightGear</a></h1>
+		<div id="fg_logo"><img src="{{ site.CDN}}/images/fg2.png" alt="FlightGear"></div>
+		{# <h2>Almost Real Life Flying</h2> #}
+		<h1>Free Flight Simulation with FlightGear</h1>
 		
 	</div>
 
 	<!--### Navigation ########################-->
+	
+
 	<div id="site_nav_box">
 		<ul id="navlist">
 			{% for n in site.nav %}
-			<li><a {% if path == n.path  %}class="selected"{% endif %} href="{{ n.path }}" >{{ n.text }}</a>
+			<li><a {% if c.page == n.page  %}class="selected"{% endif %} href="{{ n.path }}" >{{ n.text }}</a>
 			{% endfor %}
 		</ul>
 	</div>

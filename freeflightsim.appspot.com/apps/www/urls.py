@@ -20,8 +20,8 @@ def get_rules(app):
         A list of class:`tipfy.Rule` instances.
     """
     rules = [
-        Rule('/', endpoint='hello-world', handler='apps.www.handlers.HelloWorldHandler'),
-        Rule('/pretty', endpoint='hello-world-pretty', handler='apps.www.handlers.PrettyHelloWorldHandler'),
+        Rule('/', endpoint='index', handler='apps.www.handlers.PageHandler'),
+        Rule('/<page>', endpoint='page', handler='apps.www.handlers.PageHandler'),
     ]
 
     return rules
