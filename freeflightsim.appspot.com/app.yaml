@@ -19,6 +19,7 @@ handlers:
 
 - url: /images
   static_dir: images
+  expiration: "1d"
 
 
 - url: /remote_api

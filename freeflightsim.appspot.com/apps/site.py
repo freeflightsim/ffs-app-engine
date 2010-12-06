@@ -50,7 +50,7 @@ site = {
 		
 		{'page': '/features', 'text': 'Features'},
 		{'page': '/screenshots', 'text': 'Screen Shots'},
-		#{'page': '/faq', 'text': 'Faq'},
+		{'page': '/videos', 'text': 'Videos'},
 		#{'page': '/faq', 'text': 'Support'},
 		{'page': '/scenery', 'text': 'Scenery'},
 		{'page': '/aircraft', 'text': 'Aircraft'},
