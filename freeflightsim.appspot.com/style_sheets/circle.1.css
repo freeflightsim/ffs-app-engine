@@ -124,23 +124,38 @@ body{
 	padding-right: 10px;
 	color: #999999;
 	background-color: #121212;
-	border: 2px solid transparent;
+	border: 2px solid #999999;
 
-	border-radius: 10px;
-	-moz-border-radius: 10px; 
-	-webkit-border-radius: 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
 }
 
 #navlist a.selected{
-	background-color: #376B91;
-	border-color: #999999;
-	color: #eeeeee;
+	background-color: black;
+	border-color: yellow;
+	color: yellow;
 }
 
 #navlist a:hover { 
-	border-color: #52B4F4;
-	color: white;
+	border-color: #cccccc;
+	color: #cccccc;
 }
+
+
+/********************************************************/
+/** flightSimPro                 **/
+/********************************************************/
+#flightsimpro{
+	background: #FFF8B0;
+	border: 1px solid red;
+}
+#flightsimpro h3{
+	padding: 10px;
+	text-align: center;
+}
+
+
 
 /********************************************************/
 /** Content Box                 **/
@@ -163,6 +178,7 @@ body{
 	font-size: 20pt;
 	padding: 5px 10px;
 	margin-bottom: 20px;
+	margin-left: 20px;
 	border-bottom: 1px dashed #eeeeee;
 }
 #content_box h3{
@@ -178,6 +194,20 @@ body{
 	border-top: 1px solid #dddddd;
 }
 
+#content_box h4{
+	font-family: sans-serif;
+	font-size: 12pt;
+	padding: 5px 10px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	sborder-bottom: 1px dashed #eeeeee;
+	color: #3F70B2;
+	margin: 30px 30px 10px 30px;
+	text-align: left;
+	border-top: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+}
+
 #content_box p{
 	margin-left: 40px;
 	margin-right: 40px;
@@ -187,8 +217,10 @@ body{
 }
 #content_box ul{
 	margin-left: 70px;
+	margin-right: 70px;
 	line-height: 140%;
-	font-size: 12pt;
+	font-size: 11pt;
+	font-family: sans-serif;
 }
 #content_box li{
 	list-style-type: circle;
@@ -275,22 +307,6 @@ table.screenshots td{
 
 
 
-
-
-/********************************************************/
-/** ATC                 **/
-/********************************************************/
-table.fp{
-	width: 100%;
-}
-
-table.fp th{
-	border: 1px solid #999999;
-	padding: 3px;
-	text-align: left;
-	font-weight: normal;
-	background-color: #dddddd;
-}
 
 /********************************************************/
 /** Footer Box                 **/

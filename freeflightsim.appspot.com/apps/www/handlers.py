@@ -21,7 +21,7 @@ class PageHandler(RequestHandler):
 		
 		c  = Context()
 		if page == None:
-			c.page = "/"
+			c.page = "/home"
 		else:
 			c.page = "/%s" % page
 			
