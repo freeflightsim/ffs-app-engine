@@ -228,7 +228,7 @@ body{
 /** Quote BOx                **/
 /********************************************************/
 .quote{
-	border: 1px solid #999999;
+	border: 1px solid #dddddd;
 	background-color: #EAE9F4;
 	margin: 10px 30px 10px 30px;
 }
@@ -251,6 +251,28 @@ body{
 	font-size: 8pt;
 	font-style: normal;
 }
+
+
+
+.tick{
+	background: url("/images/btick.jpg");
+	background-repeat: no-repeat;
+	margin: 20px 70px 10px 70px;
+	padding-left: 50px;
+	padding-top: 5px;
+	font-size: 10pt;
+	border-top: 1px solid #dddddd;
+	line-height: 140%;
+}
+
+
+
+
+
+
+
+
+
 /********************************************************/
 /** ATC                 **/
 /********************************************************/
