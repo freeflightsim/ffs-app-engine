@@ -6,10 +6,16 @@
 /** Main Containers           **/
 /********************************************************/
 
+.fg{
+	color: green;
+}
 
 body{
 	background-color: #3464A4;
 	background: url("/images/desktop.jpg");
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-position:center; 
 }
 
 
@@ -148,7 +154,8 @@ body{
 	-moz-border-radius: 5px; 
 	-webkit-border-radius: 5px;
 	padding: 10px;
-	background-color: #efefef;
+	background-color: white;
+	font-family: sans-serif;
 }
 
 #content_box h1{
@@ -157,13 +164,25 @@ body{
 	padding: 5px 10px;
 	margin-bottom: 20px;
 	border-bottom: 1px dashed #eeeeee;
-
 }
+#content_box h3{
+	font-family: sans-serif;
+	font-size: 14pt;
+	padding: 5px 10px;
+	margin-bottom: 30px;
+	margin-bottom: 20px;
+	sborder-bottom: 1px dashed #eeeeee;
+	color: #3F70B2;
+	margin: 20px 30px 20px 30px;
+	text-align: left;
+	border-top: 1px solid #dddddd;
+}
+
 #content_box p{
 	margin-left: 40px;
 	margin-right: 40px;
 	line-height: 150%;
-	font-size: 12pt;
+	font-size: 11pt;
 	margin-bottom: 10px;
 }
 #content_box ul{
@@ -174,17 +193,35 @@ body{
 #content_box li{
 	list-style-type: circle;
 }
-#content_box img{
-	ssmargin: 10px;
+
+#content_box table{
+	margin: 30px;
+	sstext-align: center;
 }
 
 
+/* the content for the little images*/
+
 #content_box .img_label_box{
-	background: #efefef;
-	float: left;
-	border: 1px solid #dddddd;
+	background: white;
+	dfloat: left;
+	border: 1px dotted #dddddd;
 	text-align: center;
 	font-size: 10pt;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	padding: 5px;
+}
+
+#content_box .img_label_box img{
+	ssborder: 3px solid green;	
+}
+#content_box .img_label_box p{
+	text-align: center;
+	font-size: 9pt;
+	font-family: sans-serif;
+	padding: 0px;
+	margin: 0px 0px 5px 0px;
 }
 
 /********************************************************/
@@ -193,6 +230,7 @@ body{
 .quote{
 	border: 1px solid #999999;
 	background-color: #EAE9F4;
+	margin: 10px 30px 10px 30px;
 }
 
 .quote .ileft{
@@ -202,7 +240,17 @@ body{
 	float: right;
 }
 
+.quote p{
+	padding: 20px;
+	font-style: italic;
+	font-family: serif;
+	text-align: center;
+}
 
+.quote small{
+	font-size: 8pt;
+	font-style: normal;
+}
 /********************************************************/
 /** ATC                 **/
 /********************************************************/
