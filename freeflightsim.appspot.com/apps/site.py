@@ -26,7 +26,7 @@ site = {
 	'name':         'FreeFlightSim.org',
 
 	# title at the top
-	'title':        "FreeFlightSim with FlightGear - Fly like a pro with open source",
+	'title':        "Free Flight Simulation with FlightGear - Fly like a pro with Open Source",
 
 
 	#'tm':         = "<span class='tm'>Crosshands</span>" #&#0174;
