@@ -1,0 +1,80 @@
+{% extends "circle_container.html" %}
+
+{% block content %}
+
+
+<h1><span class="fg">FlightGear</span> Scenery</h1>
+
+<p style="text-align: center;"><img src="http://wiki.flightgear.org/images/9/92/Worldscenery-text.jpg" width="600"></p>
+
+<p class="panel"><b>Visit the <a href="http://flightgear.org/Downloads/scenery.html">Scenery Downloads Page</a></b></p>
+<p class="panel"><b>Also visit <a href="http://wiki.flightgear.org/index.php/Terrasync">TerraSync</a> live scenery</b></p>
+
+
+<div style="margin: 0px 70px 20px 70px; background-color: #efefef;">
+<p><b>Want to fly over your home town, see the local land mark and maybe even where you house is?</b><br>
+The world scenery set contains 10 degree by 10 degree chunks of almost the entire world and includes all vmap0 lakes, rivers, roads, railroads, cities, towns, land cover, etc.</p>
+
+<p><b>How about taking off from your local airport?</b><br>
+The full scenery set contains over 20,000 real world airport, so you will never get bored.</p>
+</div>
+
+
+<h4>World Scenery</h4>
+<img src="/images/909780_59550139_resize.jpg" style="float: right; margin-left: 20px;">
+<ul>
+<li>The <a href="http://wiki.flightgear.org/index.php/Frequently_asked_questions#Where_can_I_fly_and_where_do_I_get_the_scenery.3F">base install package</a> contains scenery for a small area around <a href="http://wiki.flightgear.org/index.php/KSFO">San Francisco</a> and the Pacific scenery set. But, as the entire world is available at a high level of detail, you will almost certainly wish to install extra scenery at some point.</li>
+<li>
+Night lighting with ground lighting concentrated in urban areas (based on real maps) and headlights visible on major highways.</li>
+<li>
+Scenery includes all vmap0 lakes, rivers, roads, railroads, cities, towns, land cover, etc.</li>
+<li>
+The scenery set is available as a addon in the members area.</li>
+</ul>
+
+
+
+<h4>Airports</h4>
+<ul>
+<li>
+Over 20,000 real world airports included in the full scenery set.</li>
+<li>
+Correct runway markings and placement, correct runway and approach lighting.</li>
+<li>
+Taxiways available for many larger airports (even including the green center line lights when appropriate.)</li>
+<li>
+Sloping runways (runways change elevation like they usually do in real life.)</li>
+<li>
+Directional airport lighting that smoothly changes intensity as your relative view direction changes.</li>
+</ul>
+
+
+<h4>Synchronize time with real-world time</h4>
+<img src="/images/1032928_96046693_resize.jpg" style="float: right; margin-left: 20px;">
+<ul>
+<li>
+
+If it's dawn in Sydney right now, it's dawn in the sim right now when you locate yourself in virtual Sydney.</li>
+<li> 
+
+The correct time is read from the system clock, and is used to work out what is happening right now around the world.</li>
+<li>
+
+Correctly placed sun, moon, stars, and planets for the specified time and date. </li>
+<li>
+
+The sun, moon, stars, and planets all follow their correct courses through the sky. </li>
+<li>
+
+This modeling also correctly takes into account seasonal effects so you have 24 hour days north of the arctic circle in the summer, etc. </li>
+<li>
+
+We also illuminate the correctly placed moon with the correctly placed sun to get the correct phase of the moon for the current time/date, just like in real life.</li>
+</ul>
+
+
+
+<p>Alternatively you can use <a href="http://wiki.flightgear.org/index.php/Terrasync"><b>TerraSync</b></a>. It is a utility that automatically downloads the newest version of the needed FlightGear scenery while the simulator is running. <b>TerraSync</b> runs in the background in a separate process, monitors your position, and downloads (or updates) the latest greatest scenery from the master scenery server "just in time". The master repository for terrasync, i.e. the online resource from which TerraSync downloads its files, is synchronized with the FlightGear Scenery Database once a day.</p>
+
+
+{% endblock content %}

@@ -42,8 +42,8 @@ body{
 
 #main_container #header_box h1{
 	font-family: monospace;
-	font-size: 10pt;
-	color: #dddddd;
+	font-size: 12pt;
+	color: #eeeeee;
 	margin: 10px;
 }
 
@@ -69,11 +69,18 @@ body{
 /********************************************************/
 /** FG Logo               **/
 /********************************************************/
+#fg_logo_box{
+	sbackground-color: pink;
+	position: fixed;
+	right: 50px;
+	top: 30px;
+}	
+
 #fg_logo{
 	ssborder: 1px solid red;
 	ddtext-align: center;
 	ddmargin: 10px 0px 10px 0px;
-	float: right;
+	sfloat: right;
 }
 #fg_logo img{
 	background-color: white;
@@ -84,6 +91,34 @@ body{
 	-webkit-border-radius: 10px;
 }
 
+#fg_logo_box ul{
+	
+}
+#fg_logo_box li{
+	
+}
+
+#fg_logo_box a{
+	display: block;
+	sbackground-color: red;
+	text-align: center;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 12pt;
+	font-weight: bold;
+	color: #eeeeee;
+	padding: 5px;
+	ssborder: 1px solid transparent;
+	border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+}
+#fg_logo_box a:hover{
+	display: block;
+	background-color: black;
+	text-align: center;
+	ssborder: 1px solid #999999;
+}
 
 
 
@@ -149,6 +184,10 @@ body{
 #flightsimpro{
 	background: #FFF8B0;
 	border: 1px solid red;
+	border-radius: 5px;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	margin-right: 250px;
 }
 #flightsimpro h3{
 	padding: 10px;
@@ -156,6 +195,14 @@ body{
 }
 
 
+/********************************************************/
+/** Right Block                **/
+/********************************************************/
+#right_side_block{
+	float: right;
+	width: 220px;
+	background-color: pink;
+}
 
 /********************************************************/
 /** Content Box                 **/
@@ -256,6 +303,20 @@ body{
 	margin: 0px 0px 5px 0px;
 }
 
+
+#content_box p.panel{
+	background: #FFDFF6;
+	text-align: center;
+	font-size: 10pt;
+	margin-left: 90px;
+	margin-right: 90px;
+	margin-bottom: 20px;
+	padding: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+}
 /********************************************************/
 /** Quote BOx                **/
 /********************************************************/

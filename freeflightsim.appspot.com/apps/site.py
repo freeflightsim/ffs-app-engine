@@ -47,14 +47,15 @@ site = {
 	'nani': 'FOO',
 	'nav': [
 		{'page': '/home', 'text': 'Home'},
-		{'page': '/download', 'text': 'Download'},
+		
 		{'page': '/features', 'text': 'Features'},
 		{'page': '/screenshots', 'text': 'Screen Shots'},
-		{'page': '/faq', 'text': 'Faq'},
-		{'page': '/faq', 'text': 'Support'},
-		{'page': '/terrain', 'text': 'Terrain'},
+		#{'page': '/faq', 'text': 'Faq'},
+		#{'page': '/faq', 'text': 'Support'},
+		{'page': '/scenery', 'text': 'Scenery'},
 		{'page': '/aircraft', 'text': 'Aircraft'},
-		{'page': '/about', 'text': 'About'},
+		{'page': '/download', 'text': 'Download'},
+		#{'page': '/about', 'text': 'About'},
 	] 
 
 }
