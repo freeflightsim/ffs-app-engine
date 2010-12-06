@@ -1,5 +1,5 @@
-application: my-app
-version: 1
+application: freeflightsim
+version: 2
 runtime: python
 api_version: 1
 

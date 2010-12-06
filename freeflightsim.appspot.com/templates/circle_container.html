@@ -32,7 +32,7 @@
 	<div id="site_nav_box">
 		<ul id="navlist">
 			{% for n in site.nav %}
-			<li><a {% if c.page == n.page  %}class="selected"{% endif %} href="{{ n.path }}" >{{ n.text }}</a>
+			<li><a {% if c.page == n.page  %}class="selected"{% endif %} href="{{ n.page }}" >{{ n.text }}</a>
 			{% endfor %}
 		</ul>
 	</div>

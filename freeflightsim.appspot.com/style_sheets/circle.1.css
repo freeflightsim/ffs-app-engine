@@ -253,6 +253,10 @@ body{
 }
 
 
+table.screenshots td{
+	padding: 20px;
+}
+
 
 .tick{
 	background: url("/images/btick.jpg");
